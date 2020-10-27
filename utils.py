@@ -12,7 +12,10 @@ class Node:
     def to_file(self):
         return ("    <place displayName=\"true\" id=\"{}\" initialMarking=\"0\" invariant=\"&lt; inf\" name=\"{}\" nameOffsetX=\"-5.0\" nameOffsetY=\"35.0\" positionX=\"{}\" positionY=\"{}\"/>\n"
                 .format(self.notation, self.notation, self.x, self.y))
-
+    def shared_to_file(self):
+        return ("<shared-place initialMarking=\"0\" invariant=\"&lt; inf\" name=\"{}\"/>"
+                .format(self.notation))
+    
     def info(self):
         print("ID: {}, Notation: {}, Transition count: {}, X Coord: {}, Y Coord: {}"
               .format(self.id, self.notation, self.transition_count, self.x, self.y))
@@ -84,6 +87,8 @@ transitions = []
 waypoint_count = 2
 waypoints = []
 
+controller = Node(-1, "Controller")
+
 def parse_nodes():
     nodes_raw = list(G.nodes(data=True))
     for i in nodes_raw:
@@ -117,10 +122,11 @@ def initialize_network():
 #Works
 def write_basic_network():
     #Network Contents
+    controller.shared_to_file()
     for transition in transitions:
         f.write(transition.shared_to_file())
     f.write("  <net active=\"true\" id=\"{}\" type=\"P/T net\">\n".format(network))
-    f.write("    <labels border=\"true\" height=\"86\" positionX=\"160\" positionY=\"43\" width=\"179\">Network: {}\nNode Count: {}\nTransition Count: {}\n\nPress Shift+D followed by Enter</labels>\n"
+    f.write("    <labels border=\"true\" height=\"86\" positionX=\"0\" positionY=\"0\" width=\"179\">Network: {}\nNode Count: {}\nTransition Count: {}\n\nPress Shift+D followed by Enter</labels>\n"
             .format(network, len(nodes), len(transitions)))
     for node in nodes:
         f.write(node.to_file())
@@ -167,10 +173,17 @@ def write_waypoints(wp_count):
     
         f.write("  </net>\n")
 
-
+#In progress
 def write_controllers():
-    #todo
-    pass
+    for node in nodes:
+        f.write("  <net active=\"true\" id=\"{}_Controller\" type=\"P/T net\">\n"
+                .format(node.notation))
+        f.write("    <place displayName=\"true\" id=\"{}\" initialMarking=\"0\" invariant=\"&lt; inf\" name=\"{}\" nameOffsetX=\"-5.0\" nameOffsetY=\"35.0\" positionX=\"{}\" positionY=\"{}\"/>\n"
+                .format(controller.notation, controller.notation, 100, 100))
+
+    
+        f.write("  </net>\n")
+        
         
         
 def write_to_file():
