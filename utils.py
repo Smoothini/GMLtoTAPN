@@ -144,7 +144,7 @@ def write_basic_network():
 
 #Works
 def write_waypoints(wp_count):
-    waypoints = random.sample(nodes, wp_count)
+    waypoints = random.sample(nodes, wp_count).copy()
     for node in waypoints:
         node.notation += "_visited"
         
