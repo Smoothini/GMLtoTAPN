@@ -1,5 +1,6 @@
 import networkx as nx
 import random
+from copy import deepcopy
 
 class Node:
     def __init__(self, id, notation):
@@ -122,7 +123,7 @@ def initialize_network():
 #Works
 def write_basic_network():
     #Network Contents
-    controller.shared_to_file()
+    f.write(controller.shared_to_file())
     for transition in transitions:
         f.write(transition.shared_to_file())
     f.write("  <net active=\"true\" id=\"{}\" type=\"P/T net\">\n".format(network))
@@ -144,7 +145,7 @@ def write_basic_network():
 
 #Works
 def write_waypoints(wp_count):
-    waypoints = random.sample(nodes, wp_count).copy()
+    waypoints = deepcopy(random.sample(nodes, wp_count))
     for node in waypoints:
         node.notation += "_visited"
         
@@ -181,6 +182,7 @@ def write_controllers():
         f.write("    <place displayName=\"true\" id=\"{}\" initialMarking=\"0\" invariant=\"&lt; inf\" name=\"{}\" nameOffsetX=\"-5.0\" nameOffsetY=\"35.0\" positionX=\"{}\" positionY=\"{}\"/>\n"
                 .format(controller.notation, controller.notation, 100, 100))
 
+        
     
         f.write("  </net>\n")
         
