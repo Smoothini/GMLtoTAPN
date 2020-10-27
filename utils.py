@@ -14,7 +14,7 @@ class Node:
         return ("    <place displayName=\"true\" id=\"{}\" initialMarking=\"0\" invariant=\"&lt; inf\" name=\"{}\" nameOffsetX=\"-5.0\" nameOffsetY=\"35.0\" positionX=\"{}\" positionY=\"{}\"/>\n"
                 .format(self.notation, self.notation, self.x, self.y))
     def shared_to_file(self):
-        return ("<shared-place initialMarking=\"0\" invariant=\"&lt; inf\" name=\"{}\"/>"
+        return ("    <shared-place initialMarking=\"0\" invariant=\"&lt; inf\" name=\"{}\"/>"
                 .format(self.notation))
     
     def info(self):
@@ -175,6 +175,8 @@ def write_waypoints(wp_count):
         f.write("  </net>\n")
 
 #In progress
+#Missing only the arcs between the main controller and the partial component controller thingie each place has
+#Guess that can be made after we define our Json format
 def write_controllers():
     for node in nodes:
         f.write("  <net active=\"true\" id=\"{}_Controller\" type=\"P/T net\">\n"
@@ -182,7 +184,50 @@ def write_controllers():
         f.write("    <place displayName=\"true\" id=\"{}\" initialMarking=\"0\" invariant=\"&lt; inf\" name=\"{}\" nameOffsetX=\"-5.0\" nameOffsetY=\"35.0\" positionX=\"{}\" positionY=\"{}\"/>\n"
                 .format(controller.notation, controller.notation, 100, 100))
 
+        update_transition = Transition("Update_{}".format(node.notation), controller, None, "Update_{}".format(node.notation))
+        update_transition.x = 200
+        update_transition.y = 100
+
+
+        update_nodes = []
+        update_transitions = []
+
+        x = 300
+        y = 100
         
+        for t in transitions:
+            if t.source == node.id:
+                n = Node("P{}_{}_active".format(t.source, t.target), "P{}_{}_active".format(t.source, t.target))
+                n.x = x
+                n.y = y
+                update_nodes.append(n)
+
+                t.x = x+100
+                t.y = y
+
+                y+=100
+                update_transitions.append(t)
+
+        for n in update_nodes:
+            f.write(n.to_file())
+        f.write(update_transition.to_file())
+        for t in update_transitions:
+            f.write(t.to_file())
+
+        
+        in_arc = Inbound_Arc(controller, update_transition)
+        out_arc = Outbound_Arc(update_transition, controller)
+        f.write(in_arc.to_file())
+        f.write(out_arc.to_file())
+        
+        for i in range (len(update_nodes)):
+            in_arc = Inbound_Arc(update_nodes[i], update_transitions[i])
+            out_arc = Outbound_Arc(update_transitions[i], update_nodes[i])
+
+            ##Another Inbound or Outbound arc could be generated here based on the JSON for the pathing
+            
+            f.write(in_arc.to_file())
+            f.write(out_arc.to_file())
     
         f.write("  </net>\n")
         
