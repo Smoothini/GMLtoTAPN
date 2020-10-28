@@ -20,12 +20,13 @@ waypoints = []
 controller = Node(-1, "Controller")
 
 
-def parse_nodes():
-    nodes_raw = list(G.nodes(data=True)
+def parse_nodes(routing):
+    nodes_raw = list(G.nodes(data=True))
 
     for i in nodes_raw:
-        n = Node(i[0], "P{}".format(i[0]))
-        nodes.append(n)
+        if i[0] in routing:
+            n = Node(i[0], "P{}".format(i[0]))
+            nodes.append(n)
 
 
 def info_nodes(nodes_list):
@@ -38,12 +39,24 @@ def get_node(node_id):
     return next((x for x in nodes if x.id == node_id), None)
 
 
-def parse_transitions():
-    edges_raw = list(G.edges)
-    for i in edges_raw:
-        t = Transition(edges_raw.index(i), i[0], i[1], "T{}_{}".format(i[0], i[1]))
+def parse_transitions(routing):
+    #edges_raw = list(G.edges)
+
+    #routing = lambda route: [route for route in (set(tuple(i) for i in routing))]
+    routing = removeDuplicates(routing)
+
+    for i in routing:
+        route_id = len(transitions) + 1
+        source = i[0]
+        target = i[1]
+        label = "T{}_{}".format(source, target)
+
+        t = Transition(route_id, source, target, label)
         transitions.append(t)
 
+
+def removeDuplicates(lst):
+    return [t for t in (set(tuple(i) for i in lst))]
 
 def info_transitions(transitions_list):
     for i in transitions_list:
@@ -51,8 +64,16 @@ def info_transitions(transitions_list):
 
 
 def initialize_network():
-    parse_nodes()
-    parse_transitions()
+    nodes_from_routing = set.union(
+        jsonParser.get_nodes_from_routing(jsonParser.init_route),
+        jsonParser.get_nodes_from_routing(jsonParser.final_route)
+    )
+
+    routing = jsonParser.get_routings(jsonParser.final_route)
+    routing.extend(jsonParser.get_routings(jsonParser.init_route))
+
+    parse_nodes(nodes_from_routing)
+    parse_transitions(routing)
     # Info methods can be used for verifications and such
     # but I tested on few networks and had no issues so far
     # info_nodes(nodes)
