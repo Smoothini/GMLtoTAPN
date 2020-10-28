@@ -153,8 +153,8 @@ def write_switches(nodes: list, transitions: list):
                 t.y = y
                 y += 100
                 update_transitions.append(t)
-        # ensuring obsolete controller components won't be written to file
 
+        # ensuring obsolete controller components won't be written to file
         if len(update_nodes) > 1:
             xml_str += f"  <net active=\"true\" id=\"{node.notation}_Controller\" type=\"P/T net\">\n"
 
@@ -200,12 +200,7 @@ def write_switches(nodes: list, transitions: list):
 def write_loopfreedom(nodes: list, transitions: list):
     xml_str = ""
     for node in nodes:
-        node.notation += "_loopFreedom"
-        xml_str += f"  <net active=\"true\" id=\"{node.notation}\" type=\"P/T net\">\n"
 
-        xml_str += f"    <place displayName=\"true\" id=\"{node.notation}\" initialMarking=\"0\" invariant=\"&lt; " \
-                   f"inf\" name=\"{node.notation}\" nameOffsetX=\"-5.0\" nameOffsetY=\"35.0\" positionX=\"{100}\" " \
-                   f"positionY=\"{100}\"/>\n "
         x = 200
         y = 50
         inbound_t = []
@@ -215,8 +210,7 @@ def write_loopfreedom(nodes: list, transitions: list):
                 t.y = y
                 inbound_t.append(t)
                 y += 100
-        for t in inbound_t:
-            xml_str += t.to_file()
+
         outbound_t = []
         for t in transitions:
             if node.id == t.source:
@@ -224,23 +218,37 @@ def write_loopfreedom(nodes: list, transitions: list):
                 t.y = y
                 outbound_t.append(t)
                 y += 100
-        for t in outbound_t:
-            xml_str += t.to_file()
+        # Ensuring obsolete loop freedom components won't be written to file
+        if(len(inbound_t) & len(outbound_t) > 0):
+            for t in inbound_t:
+                xml_str += t.to_file()
+            for t in outbound_t:
+                xml_str += t.to_file()
         # This for loop maps arcs from place to transitions
-        inbound_arcs = []
-        for t in inbound_t:
-            a = Outbound_Arc(t, node)
-            inbound_arcs.append(a)
-        for arc in inbound_arcs:
-            xml_str += arc.to_file()
-        # this for loop maps arcs from transition to places.
-        outbound_arcs = []
-        for t in outbound_t:
-            a = Inbound_Arc(node, t, "tapnInhibitor", "2")
-            outbound_arcs.append(a)
-        for arc in outbound_arcs:
-            xml_str += arc.to_file()
-        xml_str += "  </net>\n"
+            inbound_arcs = []
+            for t in inbound_t:
+                a = Outbound_Arc(t, node)
+                inbound_arcs.append(a)
+            for arc in inbound_arcs:
+                xml_str += arc.to_file()
+            # this for loop maps arcs from transition to places.
+            outbound_arcs = []
+            for t in outbound_t:
+                a = Inbound_Arc(node, t, "tapnInhibitor", "2")
+                outbound_arcs.append(a)
+            for arc in outbound_arcs:
+                xml_str += arc.to_file()
+
+
+            node.notation += "_loopFreedom"
+
+            xml_str += f"  <net active=\"true\" id=\"{node.notation}\" type=\"P/T net\">\n"
+
+            xml_str += f"    <place displayName=\"true\" id=\"{node.notation}\" initialMarking=\"0\" invariant=\"&lt; " \
+                       f"inf\" name=\"{node.notation}\" nameOffsetX=\"-5.0\" nameOffsetY=\"35.0\" positionX=\"{100}\" " \
+                       f"positionY=\"{100}\"/>\n "
+
+            xml_str += "  </net>\n"
     return xml_str
 
 
