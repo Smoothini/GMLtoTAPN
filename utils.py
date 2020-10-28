@@ -131,11 +131,8 @@ def write_waypoints(nodes, transitions: list, waypointlist: list):
 def write_switches(nodes: list, transitions: list):
     controller = Node(-1, "Controller")
     xml_str = ""
+
     for node in nodes:
-        xml_str += f"  <net active=\"true\" id=\"{node.notation}_Controller\" type=\"P/T net\">\n"
-
-        xml_str += f"<place displayName=\"true\" id=\"{controller.notation}\" initialMarking=\"0\" invariant=\"&lt; inf\" name=\"{controller.notation}\" nameOffsetX=\"-5.0\" nameOffsetY=\"35.0\" positionX=\"{100}\" positionY=\"{100}\"/>\n "
-
         update_transition = Transition("Update_{}".format(node.notation), controller, None,
                                        "Update_{}".format(node.notation))
         update_transition.x = 200
@@ -156,40 +153,47 @@ def write_switches(nodes: list, transitions: list):
                 t.y = y
                 y += 100
                 update_transitions.append(t)
+        # ensuring obsolete controller components won't be written to file
 
-        for n in update_nodes:
-            xml_str += n.to_file()
-        xml_str += update_transition.to_file()
-        for t in update_transitions:
-            xml_str += t.to_file()
+        if len(update_nodes) > 1:
+            xml_str += f"  <net active=\"true\" id=\"{node.notation}_Controller\" type=\"P/T net\">\n"
 
-        in_arc = Inbound_Arc(controller, update_transition, "timed", "1")
-        out_arc = Outbound_Arc(update_transition, controller)
-        xml_str += in_arc.to_file()
-        xml_str += out_arc.to_file()
+            xml_str += f"<place displayName=\"true\" id=\"{controller.notation}\" initialMarking=\"0\" invariant=\"&lt; inf\" name=\"{controller.notation}\" nameOffsetX=\"-5.0\" nameOffsetY=\"35.0\" positionX=\"{100}\" positionY=\"{100}\"/>\n "
 
-        for i in range(len(update_nodes)):
-            in_arc = Inbound_Arc(update_nodes[i], update_transitions[i], "timed", "1")
-            out_arc = Outbound_Arc(update_transitions[i], update_nodes[i])
 
-            ##Another Inbound or Outbound arc could be generated here based on the JSON for the pathing
+            for n in update_nodes:
+                xml_str += n.to_file()
+            xml_str += update_transition.to_file()
+            for t in update_transitions:
+                xml_str += t.to_file()
 
+            in_arc = Inbound_Arc(controller, update_transition, "timed", "1")
+            out_arc = Outbound_Arc(update_transition, controller)
             xml_str += in_arc.to_file()
             xml_str += out_arc.to_file()
-            #f.write(controller_route.to_file())
-        ir = jsonParser.init_route
-        for i in range(len(ir)):
-            if ir[i][0] == node.id:
-                init_route = Inbound_Arc(n, update_transition, "timed", "1")
-                xml_str += (init_route.to_file())
 
-        fr = jsonParser.final_route
-        for i in range(len(fr)):
-            if fr[i][0] == node.id:
-                final_route = Outbound_Arc(update_transition, update_nodes[0])
-                xml_str += final_route.to_file()
+            for i in range(len(update_nodes)):
+                in_arc = Inbound_Arc(update_nodes[i], update_transitions[i], "timed", "1")
+                out_arc = Outbound_Arc(update_transitions[i], update_nodes[i])
 
-        xml_str += "  </net>\n"
+                ##Another Inbound or Outbound arc could be generated here based on the JSON for the pathing
+
+                xml_str += in_arc.to_file()
+                xml_str += out_arc.to_file()
+                #f.write(controller_route.to_file())
+            ir = jsonParser.init_route
+            for i in range(len(ir)):
+                if ir[i][0] == node.id:
+                    init_route = Inbound_Arc(n, update_transition, "timed", "1")
+                    xml_str += (init_route.to_file())
+
+            fr = jsonParser.final_route
+            for i in range(len(fr)):
+                if fr[i][0] == node.id:
+                    final_route = Outbound_Arc(update_transition, update_nodes[0])
+                    xml_str += final_route.to_file()
+
+            xml_str += "  </net>\n"
     return xml_str
 
 
@@ -248,6 +252,7 @@ def write_to_file(network, properties):
     f.write("<pnml xmlns=\"http://www.informatik.hu-berlin.de/top/pnml/ptNetb\">\n")
     nodes, transitions = initialize_network(g, "Initial_routing.json", "Final_routing.json")
     # Initial state of the network
+    f.write(write_switches(nodes, transitions))
     f.write(write_basic_network(network, nodes, transitions))
     print(write_basic_network(network, nodes, transitions))
     # Other components
@@ -255,7 +260,7 @@ def write_to_file(network, properties):
         f.write(write_waypoints(nodes, transitions, properties["waypointNodeIds"]))
     if properties["LoopFreedom"]:
         f.write(write_loopfreedom(nodes, transitions))
-    f.write(write_switches(nodes, transitions))
+
     # End of File
     f.write("  <k-bound bound=\"3\"/>\n")
     f.write("</pnml>")
