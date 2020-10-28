@@ -11,9 +11,9 @@ import json
 
 
 
-def parse_nodes(G, routing):
+def parse_nodes(g, routing):
     nodes = []
-    nodes_raw = list(G.nodes(data=True))
+    nodes_raw = list(g.nodes(data=True))
     for i in nodes_raw:
         if i[0] in routing:
             n = Node(i[0], "P{}".format(i[0]))
@@ -54,7 +54,7 @@ def info_transitions(transitions_list):
         i.info()
 
 
-def initialize_network(G, initial_routing: str, final_routing: str):
+def initialize_network(g, initial_routing: str, final_routing: str):
     nodes_from_routing = set.union(
         jsonParser.get_nodes_from_routing(jsonParser.get_initial_routing(initial_routing)),
         jsonParser.get_nodes_from_routing(jsonParser.get_final_routing(final_routing))
@@ -63,12 +63,8 @@ def initialize_network(G, initial_routing: str, final_routing: str):
     routing = jsonParser.get_routings(jsonParser.final_route)
     routing.extend(jsonParser.get_routings(jsonParser.init_route))
 
-    nodes2 = parse_nodes(G, nodes_from_routing)
+    nodes2 = parse_nodes(g, nodes_from_routing)
     transitions2 = parse_transitions(routing)
-    # Info methods can be used for verifications and such
-    # but I tested on few networks and had no issues so far
-    # info_nodes(nodes)
-    # info_transitions(transitions)
     return nodes2, transitions2
 
 
@@ -156,10 +152,8 @@ def write_switches(nodes: list, transitions: list):
                 n.x = x
                 n.y = y
                 update_nodes.append(n)
-
                 t.x = x + 100
                 t.y = y
-
                 y += 100
                 update_transitions.append(t)
 
@@ -180,31 +174,26 @@ def write_switches(nodes: list, transitions: list):
 
             ##Another Inbound or Outbound arc could be generated here based on the JSON for the pathing
 
-            f.write(in_arc.to_file())
-            f.write(out_arc.to_file())
+            xml_str += in_arc.to_file()
+            xml_str += out_arc.to_file()
             #f.write(controller_route.to_file())
         ir = jsonParser.init_route
         for i in range(len(ir)):
             if ir[i][0] == node.id:
                 init_route = Inbound_Arc(n, update_transition, "timed", "1")
-                f.write(init_route.to_file())
-                print("init" + init_route.to_file())
+                xml_str += (init_route.to_file())
 
         fr = jsonParser.final_route
         for i in range(len(fr)):
             if fr[i][0] == node.id:
                 final_route = Outbound_Arc(update_transition, update_nodes[0])
-                f.write(final_route.to_file())
-                print("final" + final_route.to_file())
-            # controller_route = Inbound_Arc(n, update_transition, "timed", "1")
-            xml_str += in_arc.to_file()
-            xml_str += out_arc.to_file()
+                xml_str += final_route.to_file()
 
         xml_str += "  </net>\n"
     return xml_str
 
 
-def write_LoopFreedom(nodes: list, transitions: list):
+def write_loopfreedom(nodes: list, transitions: list):
     xml_str = ""
     for node in nodes:
         node.notation += "_loopFreedom"
@@ -253,20 +242,20 @@ def write_LoopFreedom(nodes: list, transitions: list):
 
 def write_to_file(network, properties):
     # Start of File
-    G = nx.read_gml("archive/" + network + '.gml', label='id')
+    g = nx.read_gml("archive/" + network + '.gml', label='id')
     f = open(network + "_v5.tapn", "w")
     f.write("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n")
     f.write("<pnml xmlns=\"http://www.informatik.hu-berlin.de/top/pnml/ptNetb\">\n")
-    nodes2, transitions2 = initialize_network(G, "Initial_routing.json", "Final_routing.json")
+    nodes, transitions = initialize_network(g, "Initial_routing.json", "Final_routing.json")
     # Initial state of the network
-    f.write(write_basic_network(network, nodes2, transitions2))
-    print(write_basic_network(network, nodes2, transitions2))
+    f.write(write_basic_network(network, nodes, transitions))
+    print(write_basic_network(network, nodes, transitions))
     # Other components
     if len(properties["waypointNodeIds"]) > 0:
-        f.write(write_waypoints(nodes2, transitions2, properties["waypointNodeIds"]))
+        f.write(write_waypoints(nodes, transitions, properties["waypointNodeIds"]))
     if properties["LoopFreedom"]:
-        f.write(write_LoopFreedom(nodes2, transitions2))
-    f.write(write_switches(nodes2, transitions2))
+        f.write(write_loopfreedom(nodes, transitions))
+    f.write(write_switches(nodes, transitions))
     # End of File
     f.write("  <k-bound bound=\"3\"/>\n")
     f.write("</pnml>")
