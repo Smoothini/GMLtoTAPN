@@ -200,7 +200,6 @@ def write_switches(nodes: list, transitions: list):
 def write_loopfreedom(nodes: list, transitions: list):
     xml_str = ""
     for node in nodes:
-
         x = 200
         y = 50
         inbound_t = []
@@ -210,7 +209,6 @@ def write_loopfreedom(nodes: list, transitions: list):
                 t.y = y
                 inbound_t.append(t)
                 y += 100
-
         outbound_t = []
         for t in transitions:
             if node.id == t.source:
@@ -218,13 +216,19 @@ def write_loopfreedom(nodes: list, transitions: list):
                 t.y = y
                 outbound_t.append(t)
                 y += 100
-        # Ensuring obsolete loop freedom components won't be written to file
-        if(len(inbound_t) & len(outbound_t) > 0):
+
+        if (len(inbound_t) & len(outbound_t) > 0):
+            node.notation += "_loopFreedom"
+            xml_str += f"  <net active=\"true\" id=\"{node.notation}\" type=\"P/T net\">\n"
+
+            xml_str += f"    <place displayName=\"true\" id=\"{node.notation}\" initialMarking=\"0\" invariant=\"&lt; " \
+                       f"inf\" name=\"{node.notation}\" nameOffsetX=\"-5.0\" nameOffsetY=\"35.0\" positionX=\"{100}\" " \
+                       f"positionY=\"{100}\"/>\n "
             for t in inbound_t:
                 xml_str += t.to_file()
             for t in outbound_t:
                 xml_str += t.to_file()
-        # This for loop maps arcs from place to transitions
+            # This for loop maps arcs from place to transitions
             inbound_arcs = []
             for t in inbound_t:
                 a = Outbound_Arc(t, node)
@@ -238,16 +242,6 @@ def write_loopfreedom(nodes: list, transitions: list):
                 outbound_arcs.append(a)
             for arc in outbound_arcs:
                 xml_str += arc.to_file()
-
-
-            node.notation += "_loopFreedom"
-
-            xml_str += f"  <net active=\"true\" id=\"{node.notation}\" type=\"P/T net\">\n"
-
-            xml_str += f"    <place displayName=\"true\" id=\"{node.notation}\" initialMarking=\"0\" invariant=\"&lt; " \
-                       f"inf\" name=\"{node.notation}\" nameOffsetX=\"-5.0\" nameOffsetY=\"35.0\" positionX=\"{100}\" " \
-                       f"positionY=\"{100}\"/>\n "
-
             xml_str += "  </net>\n"
     return xml_str
 
