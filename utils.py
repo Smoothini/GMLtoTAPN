@@ -6,6 +6,7 @@ from entities.Node import Node
 from entities.Transition import Transition
 from entities.Arcs import Full_Arc, Outbound_Arc, Inbound_Arc
 import JsonParser as jsonParser
+import json
 
 # Settings
 network = "Arpanet19723"
@@ -183,13 +184,28 @@ def write_switches():
         f.write(out_arc.to_file())
 
         for i in range(len(update_nodes)):
-            in_arc = Inbound_Arc(update_nodes[i], update_transitions[i],"timed", "1")
+            in_arc = Inbound_Arc(update_nodes[i], update_transitions[i], "timed", "1")
             out_arc = Outbound_Arc(update_transitions[i], update_nodes[i])
 
-            ##Another Inbound or Outbound arc could be generated here based on the JSON for the pathing
+            ## Another Inbound or Outbound arc could be generated here based on the JSON for the pathing
 
             f.write(in_arc.to_file())
             f.write(out_arc.to_file())
+            #f.write(controller_route.to_file())
+        ir = jsonParser.init_route
+        for i in range(len(ir)):
+            if ir[i][0] == node.id:
+                init_route = Inbound_Arc(n, update_transition, "timed", "1")
+                f.write(init_route.to_file())
+                print("init" + init_route.to_file())
+
+        fr = jsonParser.final_route
+        for i in range(len(fr)):
+            if fr[i][0] == node.id:
+                final_route = Outbound_Arc(update_transition, update_nodes[0])
+                f.write(final_route.to_file())
+                print("final" + final_route.to_file())
+            # controller_route = Inbound_Arc(n, update_transition, "timed", "1")
 
         f.write("  </net>\n")
 
@@ -238,7 +254,7 @@ def write_LoopFreedom():
         f.write("  </net>\n")
 def parse_query():
     with open('query.json') as json_file:
-        query = jsonParser.load(json_file)
+        query = json.load(json_file)
 
     query_string = "{} (!({}.{} {} {}) {} {}.{} {} {})".format(query["query"]['query type'], query["query"]['network_1'], query["query"]['place_1'], query["query"]['predicate_1'], query["query"]['tokens_1'], query["query"]['logic'], query["query"]['network_2'], query["query"]['place_2'], query["query"]['predicate_2'], query["query"]['tokens_2'])
     return query_string
@@ -264,7 +280,7 @@ def write_to_file():
     write_waypoints(waypoint_count)
     write_switches()
     write_LoopFreedom()
-    write_query()
+    #write_query()
     # End of File
     f.write("  <k-bound bound=\"3\"/>\n")
     f.write("</pnml>")
