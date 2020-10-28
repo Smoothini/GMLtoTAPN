@@ -236,6 +236,12 @@ def write_LoopFreedom():
         for arc in outbound_arcs:
             f.write(arc.to_file())
         f.write("  </net>\n")
+def parse_query():
+    with open('query.json') as json_file:
+        query = jsonParser.load(json_file)
+
+    query_string = "{} (!({}.{} {} {}) {} {}.{} {} {})".format(query["query"]['query type'], query["query"]['network_1'], query["query"]['place_1'], query["query"]['predicate_1'], query["query"]['tokens_1'], query["query"]['logic'], query["query"]['network_2'], query["query"]['place_2'], query["query"]['predicate_2'], query["query"]['tokens_2'])
+    return query_string
 
 def write_query():
     #load json file
@@ -258,6 +264,7 @@ def write_to_file():
     write_waypoints(waypoint_count)
     write_switches()
     write_LoopFreedom()
+    write_query()
     # End of File
     f.write("  <k-bound bound=\"3\"/>\n")
     f.write("</pnml>")
