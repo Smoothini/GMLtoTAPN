@@ -4,6 +4,9 @@ import JsonParser as jsonParser
 from entities.Arcs import Full_Arc, Outbound_Arc, Inbound_Arc
 from entities.Node import Node
 from entities.Transition import Transition
+from entities.Arcs import Full_Arc, Outbound_Arc, Inbound_Arc
+import JsonParser as jsonParser
+import json
 
 
 
@@ -177,6 +180,23 @@ def write_switches(nodes: list, transitions: list):
 
             ##Another Inbound or Outbound arc could be generated here based on the JSON for the pathing
 
+            f.write(in_arc.to_file())
+            f.write(out_arc.to_file())
+            #f.write(controller_route.to_file())
+        ir = jsonParser.init_route
+        for i in range(len(ir)):
+            if ir[i][0] == node.id:
+                init_route = Inbound_Arc(n, update_transition, "timed", "1")
+                f.write(init_route.to_file())
+                print("init" + init_route.to_file())
+
+        fr = jsonParser.final_route
+        for i in range(len(fr)):
+            if fr[i][0] == node.id:
+                final_route = Outbound_Arc(update_transition, update_nodes[0])
+                f.write(final_route.to_file())
+                print("final" + final_route.to_file())
+            # controller_route = Inbound_Arc(n, update_transition, "timed", "1")
             xml_str += in_arc.to_file()
             xml_str += out_arc.to_file()
 
