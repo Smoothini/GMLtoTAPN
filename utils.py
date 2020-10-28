@@ -308,17 +308,21 @@ def write_controllers():
 
         in_arc = Inbound_Arc(controller, update_transition, "timed", "1")
         out_arc = Outbound_Arc(update_transition, controller)
+
         f.write(in_arc.to_file())
         f.write(out_arc.to_file())
+
 
         for i in range(len(update_nodes)):
             in_arc = Inbound_Arc(update_nodes[i], update_transitions[i], "timed", "1")
             out_arc = Outbound_Arc(update_transitions[i], update_nodes[i])
+            controller_route = Inbound_Arc(n, update_transition, "timed", "1")
 
             ## Another Inbound or Outbound arc could be generated here based on the JSON for the pathing
 
             f.write(in_arc.to_file())
             f.write(out_arc.to_file())
+            f.write(controller_route.to_file())
 
         f.write("  </net>\n")
 
@@ -334,10 +338,10 @@ def write_query():
     #load json file
     query_input = parse_query()
     print(query_input)
-    f.write("<query active=\"true\" approximationDenominator=\"2\" capacity=\"4\" discreteInclusion=\"false\" enableOverApproximation=\"false\" enableUnderApproximation=\"false\" "
+    f.write("  <query active=\"true\" approximationDenominator=\"2\" capacity=\"4\" discreteInclusion=\"false\" enableOverApproximation=\"false\" enableUnderApproximation=\"false\" "
            "extrapolationOption=\"AUTOMATIC\" gcd=\"false\" hashTableSize=\"MB_16\" inclusionPlaces=\"*NONE*\" name=\"Properties\" overApproximation=\"true\" pTrie=\"true\" "
-          "query=\"{}\" "
-         "reduction=\"true\" reductionOption=\"VerifyTAPNdiscreteVerification\" searchOption=\"DFS\" symmetry=\"true\" timeDarts=\"false\" traceOption=\"NONE\" useStubbornReduction=\"true\"/>\n".format(query_input))
+          "query=\"{}\"" "reduction=\"true\" reductionOption=\"VerifyTAPNdiscreteVerification\" searchOption=\"DFS\" symmetry=\"true\" timeDarts=\"false\" traceOption=\"NONE\" "
+            "useStubbornReduction=\"true\"/>\n".format(query_input))
 
 
 def write_to_file():
@@ -352,7 +356,7 @@ def write_to_file():
     write_waypoints(waypoint_count)
     write_controllers()
     write_LoopFreedom()
-    write_query()
+    #write_query()
 
     # End of File
     f.write("  <k-bound bound=\"3\"/>\n")
