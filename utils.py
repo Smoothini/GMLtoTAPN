@@ -1,6 +1,6 @@
 import networkx as nx
 import random
-import json
+
 from copy import deepcopy
 from entities.Node import Node
 from entities.Transition import Transition
@@ -22,7 +22,6 @@ controller = Node(-1, "Controller")
 
 def parse_nodes(routing):
     nodes_raw = list(G.nodes(data=True))
-
     for i in nodes_raw:
         if i[0] in routing:
             n = Node(i[0], "P{}".format(i[0]))
@@ -178,13 +177,13 @@ def write_switches():
         for t in update_transitions:
             f.write(t.to_file())
 
-        in_arc = Inbound_Arc(controller, update_transition)
+        in_arc = Inbound_Arc(controller, update_transition,"timed", "1")
         out_arc = Outbound_Arc(update_transition, controller)
         f.write(in_arc.to_file())
         f.write(out_arc.to_file())
 
         for i in range(len(update_nodes)):
-            in_arc = Inbound_Arc(update_nodes[i], update_transitions[i])
+            in_arc = Inbound_Arc(update_nodes[i], update_transitions[i],"timed", "1")
             out_arc = Outbound_Arc(update_transitions[i], update_nodes[i])
 
             ##Another Inbound or Outbound arc could be generated here based on the JSON for the pathing
@@ -192,6 +191,50 @@ def write_switches():
             f.write(in_arc.to_file())
             f.write(out_arc.to_file())
 
+        f.write("  </net>\n")
+
+def write_LoopFreedom():
+    for node in nodes:
+        node.notation += "_loopFreedom"
+        f.write("  <net active=\"true\" id=\"{}\" type=\"P/T net\">\n"
+                .format(node.notation))
+        f.write(
+            "    <place displayName=\"true\" id=\"{}\" initialMarking=\"0\" invariant=\"&lt; inf\" name=\"{}\" nameOffsetX=\"-5.0\" nameOffsetY=\"35.0\" positionX=\"{}\" positionY=\"{}\"/>\n"
+                .format(node.notation, node.notation, 100, 100))
+        x = 200
+        y = 50
+        inbound_t = []
+        for t in transitions:
+            if t.target == node.id:
+                t.x = x
+                t.y = y
+                inbound_t.append(t)
+                y += 100
+        for t in inbound_t:
+            f.write(t.to_file())
+        outbound_t = []
+        for t in transitions:
+            if node.id == t.source:
+                t.x = x
+                t.y = y
+                outbound_t.append(t)
+                y += 100
+        for t in outbound_t:
+            f.write(t.to_file())
+        # This for loop maps arcs from place to transitions
+        inbound_arcs = []
+        for t in inbound_t:
+            a = Outbound_Arc(t, node)
+            inbound_arcs.append(a)
+        for arc in inbound_arcs:
+            f.write(arc.to_file())
+        # this for loop maps arcs from transition to places.
+        outbound_arcs = []
+        for t in outbound_t:
+            a = Inbound_Arc(node, t, "tapnInhibitor", "2")
+            outbound_arcs.append(a)
+        for arc in outbound_arcs:
+            f.write(arc.to_file())
         f.write("  </net>\n")
 
 
@@ -206,7 +249,7 @@ def write_to_file():
     # Other components
     write_waypoints(waypoint_count)
     write_switches()
-
+    write_LoopFreedom()
     # End of File
     f.write("  <k-bound bound=\"3\"/>\n")
     f.write("</pnml>")

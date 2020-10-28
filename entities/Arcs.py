@@ -1,14 +1,16 @@
 # All arc objects take node and transitions as objects
 class Inbound_Arc:
-    def __init__(self, source, transition):
+    def __init__(self, source, transition,arctype,weight):
         self.source = source
         self.transition = transition
+        self.arctype = arctype
+        self.weight = weight
 
     def to_file(self):
         return (
-                    "    <arc id=\"{} to {}\" inscription=\"[0,inf)\" nameOffsetX=\"0.0\" nameOffsetY=\"0.0\" source=\"{}\" target=\"{}\" type=\"timed\" weight=\"1\">\n"
+                    "    <arc id=\"{} to {}\" inscription=\"[0,inf)\" nameOffsetX=\"0.0\" nameOffsetY=\"0.0\" source=\"{}\" target=\"{}\" type=\"{}\" weight=\"{}\">\n"
                     .format(self.source.notation, self.transition.notation, self.source.notation,
-                            self.transition.notation)
+                            self.transition.notation, self.arctype, self.weight)
                     + "    </arc>\n")
 
 
