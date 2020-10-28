@@ -237,6 +237,14 @@ def write_LoopFreedom():
             f.write(arc.to_file())
         f.write("  </net>\n")
 
+def write_query():
+    #load json file
+    query_input = parse_query()
+    print(query_input)
+    f.write("  <query active=\"true\" approximationDenominator=\"2\" capacity=\"4\" discreteInclusion=\"false\" enableOverApproximation=\"false\" enableUnderApproximation=\"false\" "
+           "extrapolationOption=\"AUTOMATIC\" gcd=\"false\" hashTableSize=\"MB_16\" inclusionPlaces=\"*NONE*\" name=\"Properties\" overApproximation=\"true\" pTrie=\"true\" "
+          "query=\"{}\"" "reduction=\"true\" reductionOption=\"VerifyTAPNdiscreteVerification\" searchOption=\"DFS\" symmetry=\"true\" timeDarts=\"false\" traceOption=\"NONE\" "
+            "useStubbornReduction=\"true\"/>\n".format(query_input))
 
 def write_to_file():
     # Start of File
