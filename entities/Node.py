@@ -1,5 +1,5 @@
 class Node:
-    def __init__(self, id, notation, marking):
+    def __init__(self, id, notation, marking="0"):
         self.id = id
         self.notation = notation
         self.marking = marking
@@ -14,8 +14,8 @@ class Node:
             .format(self.notation, self.marking, self.notation, self.x, self.y))
 
     def shared_to_file(self):
-        return ("    <shared-place initialMarking=\"0\" invariant=\"&lt; inf\" name=\"{}\"/>"
-                .format(self.notation))
+        return ("    <shared-place initialMarking=\"{}\" invariant=\"&lt; inf\" name=\"{}\"/>"
+                .format(self.marking, self.notation))
 
     def info(self):
         print("ID: {}, Notation: {}, Transition count: {}, X Coord: {}, Y Coord: {}"

@@ -9,11 +9,11 @@ import JsonParser as jsonParser
 import json
 
 
-
-
 def parse_nodes(g, routing, marking):
     nodes = []
     nodes_raw = list(g.nodes(data=True))
+    controller_node = Node(-1, "Controller", "1")
+    nodes.append(controller_node)
     for i in nodes_raw:
         if i[0] in routing:
             n = Node(i[0], "P{}".format(i[0]), marking)
@@ -71,13 +71,15 @@ def initialize_network(g, initial_routing: str, final_routing: str):
 # Works
 def write_basic_network(network, nodes: list, transitions: list):
     # Network Contents
-    controller = Node(-1, "Controller", "0")
+    controller = Node(-1, "Controller", "1")
     xml_str = ""
+
     xml_str += controller.shared_to_file()
     for transition in transitions:
         xml_str += transition.shared_to_file()
     xml_str += "  <net active=\"true\" id=\"{}\" type=\"P/T net\">\n".format(network)
     xml_str += f"    <labels border=\"true\" height=\"86\" positionX=\"0\" positionY=\"0\" width=\"179\">Network: {network}\nNode Count: {len(nodes)}\nTransition Count: {len(transitions)}\n\nPress Shift+D followed by Enter</labels>\n"
+
     for node in nodes:
         xml_str += node.to_file()
     for transition in transitions:
@@ -87,8 +89,17 @@ def write_basic_network(network, nodes: list, transitions: list):
     for t in transitions:
         a = Full_Arc(get_node(t.source, nodes), get_node(t.target, nodes), t)
         arcs.append(a)
+
+    # controller and inject packet
+    inject = Transition(-2, nodes[0].id, nodes[1].id, "injectpacket", "1")
+    xml_str += inject.to_file()
+    aa = Full_Arc(get_node(inject.source, nodes), get_node(inject.target, nodes), inject)
+    arcs.append(aa)
+    # END
+
     for arc in arcs:
         xml_str += arc.to_file()
+
     xml_str += "  </net>\n"
     return xml_str
 
@@ -101,7 +112,7 @@ def write_waypoints(nodes, transitions: list, waypointlist: list):
         if get_node(waypoint, nodes):
             waypoints.append(get_node(waypoint, nodes))
     for node in waypoints:
-        #node.notation += "_visited"
+        # node.notation += "_visited"
 
         xml_str += f"  <net active=\"true\" id=\"{node.notation}_waypoint\" type=\"P/T net\">\n"
         node.notation += "_visited"
@@ -130,7 +141,7 @@ def write_waypoints(nodes, transitions: list, waypointlist: list):
 
 
 def write_switches(nodes: list, transitions: list):
-    controller = Node(-1, "Controller", "0")
+    controller = Node(-1, "Controller", "1")
     xml_str = ""
     i = 0
 
@@ -148,9 +159,11 @@ def write_switches(nodes: list, transitions: list):
         for t in transitions:
             if t.source == node.id:
                 if jsonParser.init_route[i][1] == t.target:
-                    n = Node("P{}_{}_active".format(t.source, t.target), "P{}_{}_active".format(t.source, t.target), "1")
+                    n = Node("P{}_{}_active".format(t.source, t.target), "P{}_{}_active".format(t.source, t.target),
+                             "1")
                 elif jsonParser.init_route[i][1] != t.target:
-                    n = Node("P{}_{}_active".format(t.source, t.target), "P{}_{}_active".format(t.source, t.target), "0")
+                    n = Node("P{}_{}_active".format(t.source, t.target), "P{}_{}_active".format(t.source, t.target),
+                             "0")
                 n.x = x
                 n.y = y
                 update_nodes.append(n)
@@ -164,7 +177,7 @@ def write_switches(nodes: list, transitions: list):
 
             xml_str += f"  <net active=\"true\" id=\"{node.notation}_Switch\" type=\"P/T net\">\n"
 
-            xml_str += f"<place displayName=\"true\" id=\"{controller.notation}\" initialMarking=\"0\" invariant=\"&lt; inf\" name=\"{controller.notation}\" nameOffsetX=\"-5.0\" nameOffsetY=\"35.0\" positionX=\"{100}\" positionY=\"{100}\"/>\n "
+            xml_str += f"<place displayName=\"true\" id=\"{controller.notation}\" initialMarking=\"1\" invariant=\"&lt; inf\" name=\"{controller.notation}\" nameOffsetX=\"-5.0\" nameOffsetY=\"35.0\" positionX=\"{100}\" positionY=\"{100}\"/>\n "
 
             for n in update_nodes:
                 xml_str += n.to_file()
@@ -185,7 +198,7 @@ def write_switches(nodes: list, transitions: list):
 
                 xml_str += in_arc.to_file()
                 xml_str += out_arc.to_file()
-                #f.write(controller_route.to_file())
+                # f.write(controller_route.to_file())
             ir = jsonParser.init_route
             for i in range(len(ir)):
                 if ir[i][0] == node.id:
@@ -270,6 +283,7 @@ def write_to_file(network, properties):
 
     # End of File
     f.write("  <k-bound bound=\"3\"/>\n")
+    f.write("  <feature isGame=\"true\" isTimed=\"true\"/>")
     f.write("</pnml>")
     f.close()
     print("Success")
