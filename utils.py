@@ -158,11 +158,7 @@ def write_switches(nodes: list, transitions: list):
 
         for t in transitions:
             if t.source == node.id:
-                if jsonParser.init_route[i][1] == t.target:
-                    n = Node("P{}_{}_active".format(t.source, t.target), "P{}_{}_active".format(t.source, t.target),
-                             "1")
-                elif jsonParser.init_route[i][1] != t.target:
-                    n = Node("P{}_{}_active".format(t.source, t.target), "P{}_{}_active".format(t.source, t.target),
+                n = Node("P{}_{}_active".format(t.source, t.target), "P{}_{}_active".format(t.source, t.target),
                              "0")
                 n.x = x
                 n.y = y
