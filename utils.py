@@ -1,10 +1,10 @@
 import networkx as nx
+import time
 
-import JsonParser as jsonParser
 from entities.Arcs import Full_Arc, Outbound_Arc, Inbound_Arc
 from entities.Node import Node
 from entities.Transition import Transition
-from entities.Arcs import Full_Arc, Outbound_Arc, Inbound_Arc
+
 import JsonParser as jsonParser
 import json
 
@@ -270,7 +270,7 @@ def write_to_file(network, properties):
     # Initial state of the network
     f.write(write_switches(nodes, transitions))
     f.write(write_basic_network(network, nodes, transitions))
-    print(write_basic_network(network, nodes, transitions))
+    #print(write_basic_network(network, nodes, transitions))
     # Other components
     if len(properties["waypointNodeIds"]) > 0:
         f.write(write_waypoints(nodes, transitions, properties["waypointNodeIds"]))
@@ -284,5 +284,6 @@ def write_to_file(network, properties):
     f.close()
     print("Success")
 
-
+start = time.time()
 write_to_file("Arpanet19723", jsonParser.get_properties("properties.json"))
+print("Execution time: {} seconds".format((str(time.time()-start))[:5]))
