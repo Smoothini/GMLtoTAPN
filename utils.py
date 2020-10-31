@@ -112,7 +112,6 @@ def write_waypoints(nodes, transitions: list, waypointlist: list):
         if get_node(waypoint, nodes):
             waypoints.append(get_node(waypoint, nodes))
     for node in waypoints:
-        # node.notation += "_visited"
 
         xml_str += f"  <net active=\"true\" id=\"{node.notation}_waypoint\" type=\"P/T net\">\n"
         node.notation += "_visited"
@@ -282,8 +281,8 @@ def write_to_file(network, properties):
     f.write("  <feature isGame=\"true\" isTimed=\"true\"/>")
     f.write("</pnml>")
     f.close()
-    print("Success")
 
 start = time.time()
-write_to_file("Arpanet19723", jsonParser.get_properties("properties.json"))
-print("Execution time: {} seconds".format((str(time.time()-start))[:5]))
+network = "Arpanet19723"
+write_to_file(network, jsonParser.get_properties("properties.json"))
+print("Success! {} converted! Execution time: {} seconds".format(network, (str(time.time()-start))[:5]))
