@@ -55,13 +55,10 @@ def info_transitions(transitions_list):
 
 
 def initialize_network(g, initial_routing: str, final_routing: str):
-    nodes_from_routing = set.union(
-        jsonParser.get_nodes_from_routing(jsonParser.get_initial_routing(initial_routing)),
-        jsonParser.get_nodes_from_routing(jsonParser.get_final_routing(final_routing))
-    )
+    nodes_from_routing = jsonParser.unique_ids
 
-    routing = jsonParser.get_routings(jsonParser.final_route)
-    routing.extend(jsonParser.get_routings(jsonParser.init_route))
+    routing = jsonParser.final_route
+    routing.extend(jsonParser.init_route)
 
     nodes2 = parse_nodes(g, nodes_from_routing, "0")
     transitions2 = parse_transitions(routing)
@@ -265,9 +262,9 @@ def write_to_file(network, properties):
     f = open(network + "_v5.tapn", "w")
     f.write("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n")
     f.write("<pnml xmlns=\"http://www.informatik.hu-berlin.de/top/pnml/ptNetb\">\n")
-    nodes, transitions = initialize_network(g, "Initial_routing.json", "Final_routing.json")
+    nodes, transitions = initialize_network(g, jsonParser.init_route, jsonParser.final_route)
     # Initial state of the network
-    f.write(write_switches(nodes, transitions))
+    #f.write(write_switches(nodes, transitions))
     f.write(write_basic_network(network, nodes, transitions))
     #print(write_basic_network(network, nodes, transitions))
     # Other components
@@ -284,5 +281,5 @@ def write_to_file(network, properties):
 
 start = time.time()
 network = "Arpanet19723"
-write_to_file(network, jsonParser.get_properties("properties.json"))
+write_to_file(network, jsonParser.properties)
 print("Success! {} converted! Execution time: {} seconds".format(network, (str(time.time()-start))[:5]))
