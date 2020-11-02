@@ -34,7 +34,7 @@ def routing_configuration(network, nodes: list, transitions: list):
     for transition in transitions:
         xml_str += transition.shared_to_file()
     
-    xml_str += "  <net active=\"true\" id=\"{}\" type=\"P/T net\">\n".format(network)
+    xml_str += "  <net active=\"true\" id=\"{}\" type=\"P/T net\">\n".format("Routings")
     xml_str += f"    <labels border=\"true\" height=\"86\" positionX=\"0\" positionY=\"0\" width=\"179\">Network: {network}\nNode Count: {len(nodes)}\nTransition Count: {len(transitions)}\n\nPress Shift+D followed by Enter</labels>\n"
 
     for node in nodes:
@@ -127,7 +127,8 @@ def waypoints(nodes, transitions: list, waypointlist: list):
             waypoints.append(get_node(waypoint, nodes))
 
     for node in waypoints:
-        xml_str += f"  <net active=\"true\" id=\"{node.notation}_waypoint\" type=\"P/T net\">\n"
+        net = f"{node.notation}_waypoint"
+        xml_str += f"  <net active=\"true\" id=\"{net}\" type=\"P/T net\">\n"
         node.notation = f"P{node.id}_visited"
         xml_str += f"    <place displayName=\"true\" id=\"{node.notation}\" initialMarking=\"0\" invariant=\"&lt; inf\" name=\"{node.notation}\" nameOffsetX=\"-5.0\" nameOffsetY=\"35.0\" positionX=\"{100}\" positionY=\"{100}\"/>\n"
         x = 200
@@ -144,8 +145,14 @@ def waypoints(nodes, transitions: list, waypointlist: list):
 
         for t in wp_transitions:
             xml_str += Outbound_Arc(t, node).to_file()
-        node.notation = f"P{node.id}"
         xml_str += "  </net>\n"
+        q = "AG ({}.{} &gt;= 1 or Routings.P{} = 0)".format(net, node.notation, node.id)
+
+        query = "<query active=\"true\" approximationDenominator=\"2\" capacity=\"5\" discreteInclusion=\"false\" enableOverApproximation=\"false\" enableUnderApproximation=\"false\" extrapolationOption=\"null\" gcd=\"false\" hashTableSize=\"null\" inclusionPlaces=\"*NONE*\" name=\"{}\" overApproximation=\"true\" pTrie=\"true\" query=\"{}\" reduction=\"true\" reductionOption=\"VerifyTAPNdiscreteVerification\" searchOption=\"DFS\" symmetry=\"true\" timeDarts=\"false\" traceOption=\"NONE\" useStubbornReduction=\"true\"/>\n".format(node.notation, q)
+    
+        xml_str += query
+        
+        node.notation = f"P{node.id}"
     return xml_str
 
 # Loopfreedom component
