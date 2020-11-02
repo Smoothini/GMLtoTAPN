@@ -1,12 +1,9 @@
 import networkx as nx
-
 import JsonParser as jsonParser
-from entities.Arcs import Full_Arc, Outbound_Arc, Inbound_Arc
+
 from entities.Node import Node
 from entities.Transition import Transition
 from entities.Arcs import Full_Arc, Outbound_Arc, Inbound_Arc
-import JsonParser as jsonParser
-import json
 
 
 def parse_nodes(g, routing, marking):
@@ -32,7 +29,7 @@ def get_node(node_id, nodes):
 
 def parse_transitions(routing):
     transitions = []
-    routing = removeDuplicates(routing)
+    routing = remove_duplicates(routing)
 
     for i in routing:
         route_id = len(transitions) + 1
@@ -45,7 +42,7 @@ def parse_transitions(routing):
     return transitions
 
 
-def removeDuplicates(lst):
+def remove_duplicates(lst):
     return [t for t in (set(tuple(i) for i in lst))]
 
 
@@ -231,7 +228,7 @@ def write_loopfreedom(nodes: list, transitions: list):
                 outbound_t.append(t)
                 y += 100
 
-        if (len(inbound_t) > 0 and len(outbound_t) > 0):
+        if len(inbound_t) > 0 and len(outbound_t) > 0:
 
             xml_str += f"  <net active=\"true\" id=\"{node.notation}_loopFreedom\" type=\"P/T net\">\n"
 
