@@ -79,6 +79,8 @@ def switches(nodes: list, transitions: list):
                     n = Node(f"P{t.source}_{t.target}_active", f"P{t.source}_{t.target}_active", "0")
                     n.x = ut.x + 200
                     n.y = y
+                    if([t.source, t.target] in jsonParser.init_route):
+                        n.marking = "1"
                     u_nodes.append(n)
                     t.x = n.x + 200
                     t.y = y
@@ -210,8 +212,8 @@ def write_to_file(network, properties):
     f.write(switches(nodes, transitions))
 
     # Other components
-    if len(properties["waypointNodeIds"]) > 0:
-        f.write(waypoints(nodes, transitions, properties["waypointNodeIds"]))
+    if properties["Waypointing"]:
+        f.write(waypoints(nodes, transitions, properties["WaypointNodeIds"]))
     if properties["LoopFreedom"]:
         f.write(loopfreedom(nodes, transitions))
 
