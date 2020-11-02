@@ -10,10 +10,8 @@ from entities.Transition import Transition
 
 def initialize_network(g, initial_routing: str, final_routing: str):
     nodes_from_routing = jsonParser.unique_ids
-
-    routing = jsonParser.final_route
-    routing.extend(jsonParser.init_route)
-
+    
+    routing = jsonParser.full_route
     nodes = GML.parse_nodes(g, nodes_from_routing, "0")
     transitions = GML.parse_transitions(routing)
     
@@ -100,18 +98,17 @@ def switches(nodes: list, transitions: list):
                 xml_str += Inbound_Arc(u_nodes[i], u_trans[i], "timed", "1").to_file()
                 xml_str += Outbound_Arc(u_trans[i], u_nodes[i]).to_file()
             
-            ir = jsonParser.init_route
-            for i in range(len(ir)):
-                if ir[i][0] == node.id:
-                    init_route = Outbound_Arc(ut, n)
-            xml_str += init_route.to_file()
+            for t in jsonParser.init_route:
+                if t[0] == node.id:
+                    for n in u_nodes:
+                        if n.notation == f"P{t[0]}_{t[1]}_active":
+                            xml_str += Inbound_Arc(n, ut, "timed", "1").to_file()
 
-
-            fr = jsonParser.final_route
-            for i in range(len(fr)):
-                if fr[i][0] == node.id:
-                    final_route = Inbound_Arc(u_nodes[0], ut, "timed", "1")
-            xml_str += final_route.to_file()
+            for t in jsonParser.final_route:
+                if t[0] == node.id:
+                    for n in u_nodes:
+                        if n.notation == f"P{t[0]}_{t[1]}_active":
+                            xml_str += Outbound_Arc(ut, n).to_file()
 
             xml_str += "  </net>\n"
     return xml_str

@@ -23,6 +23,8 @@ data = read_json()
 
 init_route = data["Initial_routing"]
 final_route = data["Final_routing"]
+full_route = data["Initial_routing"].copy()
+full_route.extend(data["Final_routing"].copy())
 properties = data["Properties"]
 
 routings = get_routings(data["Final_routing"])

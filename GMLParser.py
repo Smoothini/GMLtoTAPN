@@ -1,4 +1,3 @@
-import JsonParser
 from entities.Node import Node
 from entities.Transition import Transition
 
