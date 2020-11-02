@@ -28,6 +28,5 @@ properties = data["Properties"]
 routings = get_routings(data["Final_routing"])
 unique_ids = list(set.union(get_nodes_from_routing(data["Initial_routing"]), get_nodes_from_routing(data["Final_routing"])))
 
-print("init: {}\n final: {}\n props: {}\n routing: {}\n uniqueId: {}".format(init_route, final_route, properties, routings, unique_ids))
+#print(" init: {}\n final: {}\n props: {}\n routing: {}\n uniqueId: {}".format(init_route, final_route, properties, routings, unique_ids))
 
-#print("init: {}\n final: {}\n props: {}\n routing: {}\n uniqueId: {}".format(data["Initial_routing"], data["Final_routing"], data["Properties"], routings, unique_ids))

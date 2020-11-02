@@ -3,7 +3,7 @@ class Node:
         self.id = id
         self.notation = notation
         self.marking = marking
-        self.transition_count = None
+        self.transition_count = 0
         self.x = 100
         self.y = 100
         self.type = None
@@ -14,7 +14,7 @@ class Node:
             .format(self.notation, self.marking, self.notation, self.x, self.y))
 
     def shared_to_file(self):
-        return ("    <shared-place initialMarking=\"{}\" invariant=\"&lt; inf\" name=\"{}\"/>"
+        return ("    <shared-place initialMarking=\"{}\" invariant=\"&lt; inf\" name=\"{}\"/>\n"
                 .format(self.marking, self.notation))
 
     def info(self):

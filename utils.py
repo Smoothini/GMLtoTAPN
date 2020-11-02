@@ -135,7 +135,7 @@ def write_waypoints(nodes, transitions: list, waypointlist: list):
         xml_str += "  </net>\n"
     return xml_str
 
-
+#no bueno
 def write_switches(nodes: list, transitions: list):
     controller = Node(-1, "Controller", "1")
     xml_str = ""
@@ -206,7 +206,7 @@ def write_switches(nodes: list, transitions: list):
             xml_str += "  </net>\n"
     return xml_str
 
-
+#todo
 def write_loopfreedom(nodes: list, transitions: list):
     xml_str = ""
     for node in nodes:
@@ -229,7 +229,7 @@ def write_loopfreedom(nodes: list, transitions: list):
 
         if (len(inbound_t) > 0 and len(outbound_t) > 0):
 
-            xml_str += f"  <net active=\"true\" id=\"{node.notation}_loopFreedom\" type=\"P/T net\">\n"
+            xml_str += f"  <net active=\"true\" id=\"{node.notation}_loopFree\" type=\"P/T net\">\n"
 
             xml_str += f"    <place displayName=\"true\" id=\"{node.notation}\" initialMarking=\"0\" invariant=\"&lt; " \
                        f"inf\" name=\"{node.notation}\" nameOffsetX=\"-5.0\" nameOffsetY=\"35.0\" positionX=\"{100}\" " \
@@ -255,11 +255,11 @@ def write_loopfreedom(nodes: list, transitions: list):
             xml_str += "  </net>\n"
     return xml_str
 
-
+#todo
 def write_to_file(network, properties):
     # Start of File
     g = nx.read_gml("archive/" + network + '.gml', label='id')
-    f = open(network + "_v5.tapn", "w")
+    f = open(network + "_v6.tapn", "w")
     f.write("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n")
     f.write("<pnml xmlns=\"http://www.informatik.hu-berlin.de/top/pnml/ptNetb\">\n")
     nodes, transitions = initialize_network(g, jsonParser.init_route, jsonParser.final_route)
