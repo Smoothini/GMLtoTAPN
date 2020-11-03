@@ -1,34 +1,33 @@
 import json
 from entities.Node import Node
+class JsonParser:
+    def __init__(self, network):
+        self.network = network
+        self.data = self.read_json(network)
 
-def read_json():
-    with open("settings.json") as f:
-        data = json.load(f)
-        return data
+        self.init_route = self.data["Initial_routing"]
+        self.final_route = self.data["Final_routing"]
+        self.full_route = self.data["Initial_routing"].copy()
+        self.full_route.extend(self.data["Final_routing"].copy())
+        self.properties = self.data["Properties"]
 
-def get_routings(routing):
-    tuples = []
-    for i in routing:
-        tuples.append(tuple(i))
-    return tuples
+        self.routings = self.get_routings(self.data["Final_routing"])
+        self.unique_ids = list(set.union(self.get_nodes_from_routing(self.data["Initial_routing"]), self.get_nodes_from_routing(self.data["Final_routing"])))
 
-def get_nodes_from_routing(routing):
-    result = set()
-    for i in routing:
-        for j in i:
-            result.add(j)
-    return result        
+    def read_json(self, network):
+        with open(f"net_settings/{network}.json") as f:
+            data = json.load(f)
+            return data
 
-data = read_json()
+    def get_routings(self, routing):
+        tuples = []
+        for i in routing:
+            tuples.append(tuple(i))
+        return tuples
 
-init_route = data["Initial_routing"]
-final_route = data["Final_routing"]
-full_route = data["Initial_routing"].copy()
-full_route.extend(data["Final_routing"].copy())
-properties = data["Properties"]
-
-routings = get_routings(data["Final_routing"])
-unique_ids = list(set.union(get_nodes_from_routing(data["Initial_routing"]), get_nodes_from_routing(data["Final_routing"])))
-
-#print(" init: {}\n final: {}\n props: {}\n routing: {}\n uniqueId: {}".format(init_route, final_route, properties, routings, unique_ids))
-
+    def get_nodes_from_routing(self, routing):
+        result = set()
+        for i in routing:
+            for j in i:
+                result.add(j)
+        return result
