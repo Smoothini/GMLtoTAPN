@@ -24,6 +24,38 @@ def initialize_network(g, initial_routing: str, final_routing: str):
 def get_node(node_id, nodes):
     return next((x for x in nodes if x.id == node_id), None)
 
+def make_label(x, y, message):
+    return "<labels border=\"true\" height=\"90\" positionX=\"{}\" positionY=\"{}\" width=\"180\">{}</labels>".format(x, y, message)
+
+# Complete network configuration component
+def full_network(g, network):
+    nodes_raw = list(g.nodes(data=True))
+    edges_raw = list(g.edges)
+    nodes = []
+    transitions = []
+    xml_str = ""
+    for i in nodes_raw:
+        n = Node(i[0], "P{}".format(i[0]))
+        nodes.append(n)
+    for i in edges_raw:
+        t = Transition(edges_raw.index(i), i[0], i[1], "T{}_{}".format(i[0], i[1]))
+        transitions.append(t)
+    xml_str += ("  <net active=\"true\" id=\"{}\" type=\"P/T net\">\n".format(network))
+    xml_str += make_label(0, 0, f"Network: {network}\nNode Count: {len(nodes)}\nTransition Count: {len(transitions)}\n\nPress Shift+D followed by Enter")
+    for node in nodes:
+        xml_str += (node.to_file())
+    for transition in transitions:
+        xml_str += (transition.to_file())
+        
+    arcs = []
+    for t in transitions:
+        a = Full_Arc(get_node(t.source, nodes), get_node(t.target, nodes), t)
+        arcs.append(a)
+    for arc in arcs:
+        xml_str += arc.to_file()
+    xml_str += ("  </net>\n")
+    return xml_str
+
 
 # Initial and final network routing
 def routing_configuration(network, nodes: list, transitions: list):
@@ -35,8 +67,8 @@ def routing_configuration(network, nodes: list, transitions: list):
         xml_str += transition.shared_to_file()
     
     xml_str += "  <net active=\"true\" id=\"{}\" type=\"P/T net\">\n".format("Routings")
-    xml_str += f"    <labels border=\"true\" height=\"86\" positionX=\"0\" positionY=\"0\" width=\"179\">Network: {network}\nNode Count: {len(nodes)}\nTransition Count: {len(transitions)}\n\nPress Shift+D followed by Enter</labels>\n"
-
+    xml_str += make_label(0, 0, f"Extract from {network}.\nNode Count: {len(nodes)}\nTransition Count: {len(transitions)}\n\nPress Shift+D followed by Enter")
+    xml_str += make_label(200, 0, f"Initial routing: {str(jsonParser.init_route)}\n\nFinal routing: {str(jsonParser.final_route)}")
     for node in nodes:
         xml_str += node.to_file()
     for transition in transitions:
@@ -214,6 +246,8 @@ def write_to_file(network, properties):
     f.write("<pnml xmlns=\"http://www.informatik.hu-berlin.de/top/pnml/ptNetb\">\n")
 
     nodes, transitions = initialize_network(g, jsonParser.init_route, jsonParser.final_route)
+
+    f.write(full_network(g, network))
 
     # Initial state of the network
     f.write(routing_configuration(network, nodes, transitions))
