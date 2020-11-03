@@ -1,6 +1,7 @@
 from entities.Node import Node
 from entities.Transition import Transition
 
+
 def parse_nodes(g, routing, marking):
     nodes = []
     nodes_raw = list(g.nodes(data=True))
@@ -26,7 +27,6 @@ def parse_transitions(routing):
         t = Transition(route_id, source, target, label)
         transitions.append(t)
     return transitions
-
 
 def removeDuplicates(lst):
     return [t for t in (set(tuple(i) for i in lst))]

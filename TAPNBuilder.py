@@ -208,6 +208,7 @@ def loopfreedom(nodes: list, transitions: list):
 
 def write_to_file(network, properties):
     g = nx.read_gml("archive/" + network + '.gml', label='id')
+
     f = open(network + "_v7.tapn", "w")
     f.write("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n")
     f.write("<pnml xmlns=\"http://www.informatik.hu-berlin.de/top/pnml/ptNetb\">\n")
