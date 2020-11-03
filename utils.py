@@ -263,9 +263,10 @@ def write_loopfreedom(nodes: list, transitions: list):
 
 def write_to_file(network, properties):
     # Start of File
-    o = nx.read_gml("archive/" + network + '.gml', label='id')
-    # Reads gml as a Graph - escaping the MultiGraph problem.
-    g = nx.Graph(o)
+    g = nx.read_gml("archive/" + network + '.gml', label='id')
+    # Check if the GML file is a MultiGraph and converts it to Graph if so.
+    if type(g) == nx.classes.multigraph.MultiGraph:
+        g = nx.Graph(g)
     f = open(network + "_v5.tapn", "w")
     f.write("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n")
     f.write("<pnml xmlns=\"http://www.informatik.hu-berlin.de/top/pnml/ptNetb\">\n")
