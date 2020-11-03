@@ -240,7 +240,8 @@ def loopfreedom(nodes: list, transitions: list):
 
 def write_to_file(network, properties):
     g = nx.read_gml("archive/" + network + '.gml', label='id')
-
+    if type(g) == nx.classes.multigraph.MultiGraph:
+        g = nx.Graph(g)
     f = open(network + "_v7.tapn", "w")
     f.write("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n")
     f.write("<pnml xmlns=\"http://www.informatik.hu-berlin.de/top/pnml/ptNetb\">\n")
@@ -260,12 +261,12 @@ def write_to_file(network, properties):
         f.write(loopfreedom(nodes, transitions))
 
     f.write("  <k-bound bound=\"3\"/>\n")
-    f.write("  <feature isGame=\"true\" isTimed=\"true\"/>")
+    f.write("  <feature isGame=\"true\" isTimed=\"true\"/>\n")
     f.write("</pnml>")
     f.close()
 
 
-network = "Arpanet19723"
+network = "UniC"
 
 start = time.time()
 write_to_file(network, jsonParser.properties)
