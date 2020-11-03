@@ -1,15 +1,13 @@
 import networkx as nx
 import JsonParser as jsonParser
-
 import time
+import json
 
 from entities.Arcs import Full_Arc, Outbound_Arc, Inbound_Arc
 from entities.Node import Node
 from entities.Transition import Transition
 from entities.Arcs import Full_Arc, Outbound_Arc, Inbound_Arc
 
-import JsonParser as jsonParser
-import json
 
 
 def parse_nodes(g, routing, marking):
@@ -193,7 +191,7 @@ def write_switches(nodes: list, transitions: list):
                 in_arc = Inbound_Arc(update_nodes[i], update_transitions[i], "timed", "1")
                 out_arc = Outbound_Arc(update_transitions[i], update_nodes[i])
 
-                ##Another Inbound or Outbound arc could be generated here based on the JSON for the pathing
+                # Another Inbound or Outbound arc could be generated here based on the JSON for the pathing
 
                 xml_str += in_arc.to_file()
                 xml_str += out_arc.to_file()
@@ -265,7 +263,9 @@ def write_loopfreedom(nodes: list, transitions: list):
 
 def write_to_file(network, properties):
     # Start of File
-    g = nx.read_gml("archive/" + network + '.gml', label='id')
+    o = nx.read_gml("archive/" + network + '.gml', label='id')
+    # Reads gml as a Graph - escaping the MultiGraph problem.
+    g = nx.Graph(o)
     f = open(network + "_v5.tapn", "w")
     f.write("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n")
     f.write("<pnml xmlns=\"http://www.informatik.hu-berlin.de/top/pnml/ptNetb\">\n")
@@ -288,5 +288,5 @@ def write_to_file(network, properties):
     print("Success")
 
 start = time.time()
-write_to_file("Arpanet19723", jsonParser.get_properties("properties.json"))
+write_to_file("GtsCe", jsonParser.get_properties("properties.json"))
 print("Execution time: {} seconds".format((str(time.time()-start))[:5]))
