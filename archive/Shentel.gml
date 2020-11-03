@@ -1,5 +1,6 @@
 graph [
   DateObtained "15/11/10"
+  multigraph 1
   GeoLocation "Maryland, West Virginia, Virginia, USA"
   GeoExtent "Region"
   Network "Shentel "

@@ -1,5 +1,6 @@
 graph [
   DateObtained "11/07/11"
+  multigraph 1
   GeoLocation "Switzerland"
   GeoExtent "Country"
   Network "SWITCH"

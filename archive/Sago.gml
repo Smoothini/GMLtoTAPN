@@ -1,5 +1,6 @@
 graph [
   DateObtained "24/10/10"
+  multigraph 1
   GeoLocation "Florida and Georgia, USA"
   GeoExtent "Region"
   Network "Sago"

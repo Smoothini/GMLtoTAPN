@@ -1,5 +1,6 @@
 graph [
   DateObtained "19/03/11"
+  multigraph 1
   GeoLocation "Portugal"
   GeoExtent "Country"
   Network "FCCN"

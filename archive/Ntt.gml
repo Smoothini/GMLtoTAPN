@@ -1,5 +1,6 @@
 graph [
   DateObtained "31/03/11"
+  multigraph 1
   GeoLocation "Global"
   GeoExtent "Global"
   Network "NTT"

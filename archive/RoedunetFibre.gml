@@ -1,5 +1,6 @@
 graph [
   DateObtained "6/07/11"
+  multigraph 1
   GeoLocation "Romania"
   GeoExtent "Country"
   Network "RoEduNet"

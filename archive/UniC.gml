@@ -1,5 +1,6 @@
 graph [
   DateObtained "21/10/10"
+  multigraph 1
   GeoLocation "Denmark"
   GeoExtent "Country"
   Network "Uni-C"
@@ -28,7 +29,6 @@ graph [
   DateYear "2010"
   LastProcessed "2011_09_01"
   Testbed 0
-  multigraph 1
   node [
     id 0
     label "Odense"

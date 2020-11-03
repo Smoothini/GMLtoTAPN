@@ -1,5 +1,6 @@
 graph [
   DateObtained "21/01/11"
+  multigraph 1
   GeoLocation "Bulgaria"
   GeoExtent "Country"
   Network "EvoLink"

@@ -1,5 +1,6 @@
 graph [
   DateObtained "16/11/10"
+  multigraph 1
   GeoLocation "Asia-Pacific"
   GeoExtent "Continent"
   Network "BT Asia-Pacific"

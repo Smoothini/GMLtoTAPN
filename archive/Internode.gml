@@ -1,5 +1,6 @@
 graph [
   DateObtained "12/11/10"
+  multigraph 1
   GeoLocation "Global"
   GeoExtent "Global"
   Network "Internode"

@@ -1,5 +1,6 @@
 graph [
   DateObtained "20/03/11"
+  multigraph 1
   GeoLocation "Europe"
   GeoExtent "Continent"
   Network "GEANT"

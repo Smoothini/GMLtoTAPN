@@ -1,5 +1,6 @@
 graph [
   DateObtained "26/10/10"
+  multigraph 1
   GeoLocation "Tennessee, USA"
   GeoExtent "Region"
   Network "IRIS Networks "

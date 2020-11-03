@@ -1,5 +1,6 @@
 graph [
   DateObtained "12/03/11"
+  multigraph 1
   GeoLocation "Norway"
   GeoExtent "Country"
   Network "Uninett"

@@ -1,5 +1,6 @@
 graph [
   DateObtained "2/12/10"
+  multigraph 1
   GeoLocation "Australia"
   GeoExtent "Country"
   Network "IINET "

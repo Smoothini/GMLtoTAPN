@@ -1,5 +1,6 @@
 graph [
   DateObtained "30/10/10"
+  multigraph 1
   GeoLocation "Mexico"
   GeoExtent "Country"
   Network "Bestel "

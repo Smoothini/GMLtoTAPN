@@ -1,5 +1,6 @@
 graph [
   GeoLocation "Fife and Tayside, UK"
+  multigraph 1
   GeoExtent "Region"
   Network "FatMan"
   Provenance "Primary"

@@ -1,5 +1,6 @@
 graph [
   DateObtained "14/01/11"
+  multigraph 1
   GeoLocation "Canada"
   GeoExtent "Country"
   Network "iSTAR"

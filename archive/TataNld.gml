@@ -1,5 +1,6 @@
 graph [
   DateObtained "27/10/10"
+  multigraph 1
   GeoLocation "India"
   GeoExtent "Country"
   Network "TATA"

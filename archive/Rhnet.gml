@@ -1,5 +1,6 @@
 graph [
   DateObtained "22/03/11"
+  multigraph 1
   GeoLocation "Iceland"
   GeoExtent "Country"
   Network "RHnet"

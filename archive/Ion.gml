@@ -1,5 +1,6 @@
 graph [
   DateObtained "24/10/10"
+  multigraph 1
   GeoLocation "New York, USA"
   GeoExtent "Region"
   Network "ION"

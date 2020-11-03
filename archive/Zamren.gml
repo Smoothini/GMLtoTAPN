@@ -1,5 +1,6 @@
 graph [
   DateObtained "14/07/11"
+  multigraph 1
   GeoLocation "Zambia"
   GeoExtent "Country"
   Network "Zamren"

@@ -1,5 +1,6 @@
 graph [
   DateObtained "5/07/11"
+  multigraph 1
   GeoLocation "Serbia"
   GeoExtent "Country"
   Network "AMRES"

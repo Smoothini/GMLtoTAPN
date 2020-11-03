@@ -1,5 +1,6 @@
 graph [
   DateObtained "18/10/10"
+  multigraph 1
   GeoLocation "Taiwan"
   GeoExtent "Country"
   Network "TWAREN"

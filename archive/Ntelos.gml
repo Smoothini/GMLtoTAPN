@@ -1,5 +1,6 @@
 graph [
   DateObtained "19/10/10"
+  multigraph 1
   GeoLocation "West Virginia, Virginia, USA"
   GeoExtent "Region"
   Network "NTELOS "

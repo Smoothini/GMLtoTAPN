@@ -1,5 +1,6 @@
 graph [
   DateObtained "20/10/10"
+  multigraph 1
   GeoLocation "Armenia"
   GeoExtent "Country"
   Network "ASNET-AM"

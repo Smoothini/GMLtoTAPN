@@ -1,5 +1,6 @@
 graph [
   DateObtained "21/10/10"
+  multigraph 1
   GeoLocation "USA"
   GeoExtent "Country"
   Network "Bell South "

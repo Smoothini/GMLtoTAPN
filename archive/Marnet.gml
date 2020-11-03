@@ -1,5 +1,6 @@
 graph [
   DateObtained "20/07/11"
+  multigraph 1
   GeoLocation "Macedonia"
   GeoExtent "Country"
   Network "MARNET"

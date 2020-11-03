@@ -1,5 +1,6 @@
 graph [
   DateObtained "21/10/10"
+  multigraph 1
   GeoLocation "Asia-Pacific"
   GeoExtent "Continent"
   Network "UniNet"

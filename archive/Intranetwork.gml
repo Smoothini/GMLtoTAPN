@@ -1,5 +1,6 @@
 graph [
   DateObtained "15/11/10"
+  multigraph 1
   GeoLocation "Virginia, Tennessee, West Virginia, Maryland, USA"
   GeoExtent "Region"
   Network "ValleyNet"

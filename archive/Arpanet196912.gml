@@ -1,5 +1,6 @@
 graph [
   DateObtained "25/01/11"
+  multigraph 1
   GeoLocation "United States"
   GeoExtent "Country"
   Network "ARPANET"

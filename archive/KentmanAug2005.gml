@@ -1,5 +1,6 @@
 graph [
   DateObtained "31/01/11"
+  multigraph 1
   GeoLocation "Kent, UK"
   GeoExtent "Region"
   Network "KentMan"

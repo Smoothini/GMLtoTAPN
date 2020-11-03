@@ -1,5 +1,6 @@
 graph [
   DateObtained "20/07/11"
+  multigraph 1
   GeoLocation "Belarus"
   GeoExtent "Country"
   Network "BASNET"

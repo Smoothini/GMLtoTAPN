@@ -1,5 +1,6 @@
 graph [
   DateObtained "11/10/10"
+  multigraph 1
   GeoLocation "India"
   GeoExtent "Country"
   Network "ERNET"

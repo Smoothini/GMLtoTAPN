@@ -1,5 +1,6 @@
 graph [
   DateObtained "2/01/11"
+  multigraph 1
   GeoLocation "Serbia, Montenegro"
   GeoExtent "Country+"
   Network "TelecomSerbia"

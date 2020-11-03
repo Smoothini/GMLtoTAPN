@@ -1,5 +1,6 @@
 graph [
   DateObtained "16/11/10"
+  multigraph 1
   GeoLocation "Latin America"
   GeoExtent "Continent"
   Network "BT Latin America"

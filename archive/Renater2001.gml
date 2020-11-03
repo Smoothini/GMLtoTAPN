@@ -1,5 +1,6 @@
 graph [
   DateObtained "1/02/11"
+  multigraph 1
   GeoLocation "France"
   GeoExtent "Country"
   Network "Renater"

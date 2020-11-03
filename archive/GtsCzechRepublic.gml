@@ -1,5 +1,6 @@
 graph [
   DateObtained "22/10/10"
+  multigraph 1
   GeoLocation "Czech Republic"
   GeoExtent "Country"
   Network "GTS Czech Republic"

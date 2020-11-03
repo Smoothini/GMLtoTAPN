@@ -1,5 +1,6 @@
 graph [
   GeoLocation "Australia"
+  multigraph 1
   GeoExtent "Country"
   Network "Nextgen "
   Provenance "Primary"

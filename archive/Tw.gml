@@ -1,5 +1,6 @@
 graph [
   DateObtained "15/11/10"
+  multigraph 1
   GeoLocation "USA"
   GeoExtent "Country"
   Network "TW Telecom"

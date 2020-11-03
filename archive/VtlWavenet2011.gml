@@ -1,5 +1,6 @@
 graph [
   DateObtained "3/02/11"
+  multigraph 1
   GeoLocation "Europe"
   GeoExtent "Continent"
   Network "Viatel"
