@@ -8,13 +8,15 @@ Working:
 - waypointing components and queries builder
 - loop freedom components builder
 - multigraph support thru conversion
+- json file generator
 
 In progress:
-- efficient json file generator
+- more efficient json file generator
 - ???¿¿¿
 
 To do:
 - loop freedom queries
 - other queries
 - maybe some more refactoring
+- ??¿¿¿?
 - maybe a better readme
