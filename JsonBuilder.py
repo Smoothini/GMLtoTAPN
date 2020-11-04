@@ -119,5 +119,5 @@ def build_all():
     f.close()
     print("Operation done in: {} seconds".format((str(time.time()-start))[:5]))
 
-
-build_all()
+#focus on not yet supported
+#build_all()

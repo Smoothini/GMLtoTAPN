@@ -270,10 +270,10 @@ def write_to_file(network):
 def write_all_to_file():
     start = time.time()
     for f in os.listdir("data/gml/"):
-        write_to_file(f[:-4])
+        try:
+            write_to_file(f[:-4])
+        except:
+            print(f"Failure! {f[:-4]} not converted..")
     print("Operation done in: {} seconds".format((str(time.time()-start))[:5]))
-
-#network = "UniC"
-#write_to_file(network)
 
 write_all_to_file()
