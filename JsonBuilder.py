@@ -11,11 +11,13 @@ def jsonbuilder(network):
     # yes no loopfree
     # reachability
     start = time.time()
-    g = nx.read_gml("data/gml/" + network + '.gml', label='id')
+    g = nx.read_gml("data/gml/" + network + ".gml", label='id')
     g = nx.Graph(g)
 
     nodes_raw = list(g.nodes(data=True))
     n = len(nodes_raw)
+    if n > 25:
+        g = None
     lmax = 0
     s, t = -1, -1
     init_path = []
@@ -94,10 +96,28 @@ def jsonbuilder(network):
 
 
     myjsondic = json.dumps(mydic, indent = 4)
-    f = open(f"net_settings/{network}.json", "w")
+    f = open(f"data/json/{network}.json", "w")
     f.write(myjsondic)
     f.close()
-    print("Success! Json settings generated! Execution time: {} seconds".format((str(time.time()-start))[:5]))
+    print("Success! Json settings for {} generated! Execution time: {} seconds".format(network, (str(time.time()-start))[:5]))
     #print("{} iterations, {} actual cycles".format(it, itt))
     #print(str(mydic))
     #print(str(myjsondic))
+
+def build_all():
+    not_converted = ["Not yet converted for ?? reasons:\n\n"]
+    start = time.time()
+    for f in os.listdir("data/gml/"):
+        try:
+            jsonbuilder(f[:-4])
+        except:
+            not_converted += f"{f}\n"
+            print(f"Failure! {f} not converted..")
+            continue
+    f = open("not yet supported.txt", "w")
+    f.writelines(not_converted)
+    f.close()
+    print("Operation done in: {} seconds".format((str(time.time()-start))[:5]))
+
+
+build_all()

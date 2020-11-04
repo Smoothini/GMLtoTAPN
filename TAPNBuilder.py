@@ -1,14 +1,14 @@
-import JsonParser as jsonParser
+from JsonParser import JsonParser
 import GMLParser as GML
 
 import networkx as nx
-import time
+import time, os
 
 from entities.Arcs import Full_Arc, Outbound_Arc, Inbound_Arc
 from entities.Node import Node
 from entities.Transition import Transition
 
-def initialize_network(g, initial_routing: str, final_routing: str):
+def initialize_network(g, jsonParser):
     nodes_from_routing = jsonParser.unique_ids
     
     routing = jsonParser.full_route
@@ -58,7 +58,7 @@ def full_network(g, network):
 
 
 # Initial and final network routing
-def routing_configuration(network, nodes: list, transitions: list):
+def routing_configuration(network, jsonParser, nodes: list, transitions: list):
     xml_str = ""
     controller = Node(-1, "Controller", "1")
     xml_str += controller.shared_to_file()
@@ -92,7 +92,7 @@ def routing_configuration(network, nodes: list, transitions: list):
     return xml_str
 
 #Switches
-def switches(nodes: list, transitions: list):
+def switches(jsonParser, nodes: list, transitions: list):
     controller = Node(-1, "Controller", "1")
     controller.x = 100
     controller.y = 100
@@ -150,7 +150,6 @@ def switches(nodes: list, transitions: list):
             
 
 # Waypoint component
-# Needs query
 def waypoints(nodes, transitions: list, waypointlist: list):
     xml_str = ""
     waypoints = []
@@ -188,7 +187,6 @@ def waypoints(nodes, transitions: list, waypointlist: list):
     return xml_str
 
 # Loopfreedom component
-# is 2 ok? maybe str(len(inbound_arcs))?
 def loopfreedom(nodes: list, transitions: list):
     xml_str = ""
     for node in nodes:
@@ -238,36 +236,44 @@ def loopfreedom(nodes: list, transitions: list):
     return xml_str
 
 
-def write_to_file(network, properties):
-    g = nx.read_gml("archive/" + network + '.gml', label='id')
+def write_to_file(network):
+    start = time.time()
+    g = nx.read_gml("data/gml/" + network + '.gml', label='id')
+    jsonParser = JsonParser(network)
     if type(g) == nx.classes.multigraph.MultiGraph:
         g = nx.Graph(g)
-    f = open(network + "_v7.tapn", "w")
+    f = open(f"data/tapn/{network}.tapn", "w")
     f.write("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n")
     f.write("<pnml xmlns=\"http://www.informatik.hu-berlin.de/top/pnml/ptNetb\">\n")
 
-    nodes, transitions = initialize_network(g, jsonParser.init_route, jsonParser.final_route)
+    nodes, transitions = initialize_network(g, jsonParser)
 
     f.write(full_network(g, network))
 
     # Initial state of the network
-    f.write(routing_configuration(network, nodes, transitions))
-    f.write(switches(nodes, transitions))
+    f.write(routing_configuration(network, jsonParser, nodes, transitions))
+    f.write(switches(jsonParser, nodes, transitions))
 
     # Other components
-    if properties["Waypointing"]:
-        f.write(waypoints(nodes, transitions, properties["WaypointNodeIds"]))
-    if properties["LoopFreedom"]:
+    if jsonParser.properties["Waypointing"]:
+        f.write(waypoints(nodes, transitions, jsonParser.properties["WaypointNodeIds"]))
+    if jsonParser.properties["LoopFreedom"]:
         f.write(loopfreedom(nodes, transitions))
 
     f.write("  <k-bound bound=\"3\"/>\n")
     f.write("  <feature isGame=\"true\" isTimed=\"true\"/>\n")
     f.write("</pnml>")
     f.close()
+    
+    print("Success! {} converted! Execution time: {} seconds".format(network, (str(time.time()-start))[:5]))
 
+def write_all_to_file():
+    start = time.time()
+    for f in os.listdir("data/gml/"):
+        write_to_file(f[:-4])
+    print("Operation done in: {} seconds".format((str(time.time()-start))[:5]))
 
-network = "UniC"
+#network = "UniC"
+#write_to_file(network)
 
-start = time.time()
-write_to_file(network, jsonParser.properties)
-print("Success! {} converted! Execution time: {} seconds".format(network, (str(time.time()-start))[:5]))
+write_all_to_file()
