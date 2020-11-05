@@ -971,6 +971,7 @@ Final routing: [[1, 3], [3, 0], [0, 65], [65, 64], [64, 62], [62, 61], [61, 59],
     <arc id="Inject_packet to P1" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="Inject_packet" target="P1" type="normal" weight="1">
     </arc>
   </net>
+<query active="true" approximationDenominator="2" capacity="5" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="Reach_P35" overApproximation="true" pTrie="true" query="AG (!(deadlock) or Routings.P35>=1)" reduction="true" reductionOption="VerifyTAPNdiscreteVerification" searchOption="DFS" symmetry="true" timeDarts="false" traceOption="NONE" useStubbornReduction="true"/>
   <net active="true" id="P10_Switch" type="P/T net">
     <place displayName="true" id="Controller" initialMarking="1" invariant="&lt; inf" name="Controller" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="100"/>
     <place displayName="true" id="P10_39_active" initialMarking="1" invariant="&lt; inf" name="P10_39_active" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="500" positionY="100"/>
@@ -1121,35 +1122,35 @@ Final routing: [[1, 3], [3, 0], [0, 65], [65, 64], [64, 62], [62, 61], [61, 59],
     <arc id="T3_0 to P0_visited" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="T3_0" target="P0_visited" type="normal" weight="1">
     </arc>
   </net>
-<query active="true" approximationDenominator="2" capacity="5" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="P0_visited" overApproximation="true" pTrie="true" query="AG (P0_waypoint.P0_visited &gt;= 1 or Routings.P35 = 0)" reduction="true" reductionOption="VerifyTAPNdiscreteVerification" searchOption="DFS" symmetry="true" timeDarts="false" traceOption="NONE" useStubbornReduction="true"/>
+<query active="true" approximationDenominator="2" capacity="5" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="Waypoint_P0" overApproximation="true" pTrie="true" query="AG (P0_waypoint.P0_visited &gt;= 1 or Routings.P35 = 0)" reduction="true" reductionOption="VerifyTAPNdiscreteVerification" searchOption="DFS" symmetry="true" timeDarts="false" traceOption="NONE" useStubbornReduction="true"/>
   <net active="true" id="P65_waypoint" type="P/T net">
     <place displayName="true" id="P65_visited" initialMarking="0" invariant="&lt; inf" name="P65_visited" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="100"/>
     <transition angle="0" displayName="true" id="T0_65" infiniteServer="false" name="T0_65" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="200" positionY="50" priority="0" urgent="false"/>
     <arc id="T0_65 to P65_visited" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="T0_65" target="P65_visited" type="normal" weight="1">
     </arc>
   </net>
-<query active="true" approximationDenominator="2" capacity="5" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="P65_visited" overApproximation="true" pTrie="true" query="AG (P65_waypoint.P65_visited &gt;= 1 or Routings.P35 = 0)" reduction="true" reductionOption="VerifyTAPNdiscreteVerification" searchOption="DFS" symmetry="true" timeDarts="false" traceOption="NONE" useStubbornReduction="true"/>
+<query active="true" approximationDenominator="2" capacity="5" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="Waypoint_P65" overApproximation="true" pTrie="true" query="AG (P65_waypoint.P65_visited &gt;= 1 or Routings.P35 = 0)" reduction="true" reductionOption="VerifyTAPNdiscreteVerification" searchOption="DFS" symmetry="true" timeDarts="false" traceOption="NONE" useStubbornReduction="true"/>
   <net active="true" id="P64_waypoint" type="P/T net">
     <place displayName="true" id="P64_visited" initialMarking="0" invariant="&lt; inf" name="P64_visited" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="100"/>
     <transition angle="0" displayName="true" id="T65_64" infiniteServer="false" name="T65_64" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="200" positionY="50" priority="0" urgent="false"/>
     <arc id="T65_64 to P64_visited" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="T65_64" target="P64_visited" type="normal" weight="1">
     </arc>
   </net>
-<query active="true" approximationDenominator="2" capacity="5" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="P64_visited" overApproximation="true" pTrie="true" query="AG (P64_waypoint.P64_visited &gt;= 1 or Routings.P35 = 0)" reduction="true" reductionOption="VerifyTAPNdiscreteVerification" searchOption="DFS" symmetry="true" timeDarts="false" traceOption="NONE" useStubbornReduction="true"/>
+<query active="true" approximationDenominator="2" capacity="5" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="Waypoint_P64" overApproximation="true" pTrie="true" query="AG (P64_waypoint.P64_visited &gt;= 1 or Routings.P35 = 0)" reduction="true" reductionOption="VerifyTAPNdiscreteVerification" searchOption="DFS" symmetry="true" timeDarts="false" traceOption="NONE" useStubbornReduction="true"/>
   <net active="true" id="P3_waypoint" type="P/T net">
     <place displayName="true" id="P3_visited" initialMarking="0" invariant="&lt; inf" name="P3_visited" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="100"/>
     <transition angle="0" displayName="true" id="T1_3" infiniteServer="false" name="T1_3" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="200" positionY="50" priority="0" urgent="false"/>
     <arc id="T1_3 to P3_visited" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="T1_3" target="P3_visited" type="normal" weight="1">
     </arc>
   </net>
-<query active="true" approximationDenominator="2" capacity="5" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="P3_visited" overApproximation="true" pTrie="true" query="AG (P3_waypoint.P3_visited &gt;= 1 or Routings.P35 = 0)" reduction="true" reductionOption="VerifyTAPNdiscreteVerification" searchOption="DFS" symmetry="true" timeDarts="false" traceOption="NONE" useStubbornReduction="true"/>
+<query active="true" approximationDenominator="2" capacity="5" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="Waypoint_P3" overApproximation="true" pTrie="true" query="AG (P3_waypoint.P3_visited &gt;= 1 or Routings.P35 = 0)" reduction="true" reductionOption="VerifyTAPNdiscreteVerification" searchOption="DFS" symmetry="true" timeDarts="false" traceOption="NONE" useStubbornReduction="true"/>
   <net active="true" id="P36_waypoint" type="P/T net">
     <place displayName="true" id="P36_visited" initialMarking="0" invariant="&lt; inf" name="P36_visited" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="100"/>
     <transition angle="0" displayName="true" id="T25_36" infiniteServer="false" name="T25_36" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="200" positionY="50" priority="0" urgent="false"/>
     <arc id="T25_36 to P36_visited" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="T25_36" target="P36_visited" type="normal" weight="1">
     </arc>
   </net>
-<query active="true" approximationDenominator="2" capacity="5" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="P36_visited" overApproximation="true" pTrie="true" query="AG (P36_waypoint.P36_visited &gt;= 1 or Routings.P35 = 0)" reduction="true" reductionOption="VerifyTAPNdiscreteVerification" searchOption="DFS" symmetry="true" timeDarts="false" traceOption="NONE" useStubbornReduction="true"/>
+<query active="true" approximationDenominator="2" capacity="5" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="Waypoint_P36" overApproximation="true" pTrie="true" query="AG (P36_waypoint.P36_visited &gt;= 1 or Routings.P35 = 0)" reduction="true" reductionOption="VerifyTAPNdiscreteVerification" searchOption="DFS" symmetry="true" timeDarts="false" traceOption="NONE" useStubbornReduction="true"/>
   <net active="true" id="P38_waypoint" type="P/T net">
     <place displayName="true" id="P38_visited" initialMarking="0" invariant="&lt; inf" name="P38_visited" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="100"/>
     <transition angle="0" displayName="true" id="T46_38" infiniteServer="false" name="T46_38" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="200" positionY="50" priority="0" urgent="false"/>
@@ -1159,7 +1160,7 @@ Final routing: [[1, 3], [3, 0], [0, 65], [65, 64], [64, 62], [62, 61], [61, 59],
     <arc id="T17_38 to P38_visited" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="T17_38" target="P38_visited" type="normal" weight="1">
     </arc>
   </net>
-<query active="true" approximationDenominator="2" capacity="5" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="P38_visited" overApproximation="true" pTrie="true" query="AG (P38_waypoint.P38_visited &gt;= 1 or Routings.P35 = 0)" reduction="true" reductionOption="VerifyTAPNdiscreteVerification" searchOption="DFS" symmetry="true" timeDarts="false" traceOption="NONE" useStubbornReduction="true"/>
+<query active="true" approximationDenominator="2" capacity="5" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="Waypoint_P38" overApproximation="true" pTrie="true" query="AG (P38_waypoint.P38_visited &gt;= 1 or Routings.P35 = 0)" reduction="true" reductionOption="VerifyTAPNdiscreteVerification" searchOption="DFS" symmetry="true" timeDarts="false" traceOption="NONE" useStubbornReduction="true"/>
   <net active="true" id="P39_waypoint" type="P/T net">
     <place displayName="true" id="P39_visited" initialMarking="0" invariant="&lt; inf" name="P39_visited" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="100"/>
     <transition angle="0" displayName="true" id="T10_39" infiniteServer="false" name="T10_39" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="200" positionY="50" priority="0" urgent="false"/>
@@ -1169,7 +1170,7 @@ Final routing: [[1, 3], [3, 0], [0, 65], [65, 64], [64, 62], [62, 61], [61, 59],
     <arc id="T56_39 to P39_visited" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="T56_39" target="P39_visited" type="normal" weight="1">
     </arc>
   </net>
-<query active="true" approximationDenominator="2" capacity="5" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="P39_visited" overApproximation="true" pTrie="true" query="AG (P39_waypoint.P39_visited &gt;= 1 or Routings.P35 = 0)" reduction="true" reductionOption="VerifyTAPNdiscreteVerification" searchOption="DFS" symmetry="true" timeDarts="false" traceOption="NONE" useStubbornReduction="true"/>
+<query active="true" approximationDenominator="2" capacity="5" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="Waypoint_P39" overApproximation="true" pTrie="true" query="AG (P39_waypoint.P39_visited &gt;= 1 or Routings.P35 = 0)" reduction="true" reductionOption="VerifyTAPNdiscreteVerification" searchOption="DFS" symmetry="true" timeDarts="false" traceOption="NONE" useStubbornReduction="true"/>
   <net active="true" id="P10_waypoint" type="P/T net">
     <place displayName="true" id="P10_visited" initialMarking="0" invariant="&lt; inf" name="P10_visited" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="100"/>
     <transition angle="0" displayName="true" id="T64_10" infiniteServer="false" name="T64_10" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="200" positionY="50" priority="0" urgent="false"/>
@@ -1179,7 +1180,7 @@ Final routing: [[1, 3], [3, 0], [0, 65], [65, 64], [64, 62], [62, 61], [61, 59],
     <arc id="T59_10 to P10_visited" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="T59_10" target="P10_visited" type="normal" weight="1">
     </arc>
   </net>
-<query active="true" approximationDenominator="2" capacity="5" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="P10_visited" overApproximation="true" pTrie="true" query="AG (P10_waypoint.P10_visited &gt;= 1 or Routings.P35 = 0)" reduction="true" reductionOption="VerifyTAPNdiscreteVerification" searchOption="DFS" symmetry="true" timeDarts="false" traceOption="NONE" useStubbornReduction="true"/>
+<query active="true" approximationDenominator="2" capacity="5" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="Waypoint_P10" overApproximation="true" pTrie="true" query="AG (P10_waypoint.P10_visited &gt;= 1 or Routings.P35 = 0)" reduction="true" reductionOption="VerifyTAPNdiscreteVerification" searchOption="DFS" symmetry="true" timeDarts="false" traceOption="NONE" useStubbornReduction="true"/>
   <net active="true" id="P46_waypoint" type="P/T net">
     <place displayName="true" id="P46_visited" initialMarking="0" invariant="&lt; inf" name="P46_visited" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="100"/>
     <transition angle="0" displayName="true" id="T42_46" infiniteServer="false" name="T42_46" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="200" positionY="50" priority="0" urgent="false"/>
@@ -1189,7 +1190,7 @@ Final routing: [[1, 3], [3, 0], [0, 65], [65, 64], [64, 62], [62, 61], [61, 59],
     <arc id="T39_46 to P46_visited" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="T39_46" target="P46_visited" type="normal" weight="1">
     </arc>
   </net>
-<query active="true" approximationDenominator="2" capacity="5" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="P46_visited" overApproximation="true" pTrie="true" query="AG (P46_waypoint.P46_visited &gt;= 1 or Routings.P35 = 0)" reduction="true" reductionOption="VerifyTAPNdiscreteVerification" searchOption="DFS" symmetry="true" timeDarts="false" traceOption="NONE" useStubbornReduction="true"/>
+<query active="true" approximationDenominator="2" capacity="5" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="Waypoint_P46" overApproximation="true" pTrie="true" query="AG (P46_waypoint.P46_visited &gt;= 1 or Routings.P35 = 0)" reduction="true" reductionOption="VerifyTAPNdiscreteVerification" searchOption="DFS" symmetry="true" timeDarts="false" traceOption="NONE" useStubbornReduction="true"/>
   <net active="true" id="P16_waypoint" type="P/T net">
     <place displayName="true" id="P16_visited" initialMarking="0" invariant="&lt; inf" name="P16_visited" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="100"/>
     <transition angle="0" displayName="true" id="T14_16" infiniteServer="false" name="T14_16" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="200" positionY="50" priority="0" urgent="false"/>
@@ -1199,7 +1200,7 @@ Final routing: [[1, 3], [3, 0], [0, 65], [65, 64], [64, 62], [62, 61], [61, 59],
     <arc id="T17_16 to P16_visited" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="T17_16" target="P16_visited" type="normal" weight="1">
     </arc>
   </net>
-<query active="true" approximationDenominator="2" capacity="5" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="P16_visited" overApproximation="true" pTrie="true" query="AG (P16_waypoint.P16_visited &gt;= 1 or Routings.P35 = 0)" reduction="true" reductionOption="VerifyTAPNdiscreteVerification" searchOption="DFS" symmetry="true" timeDarts="false" traceOption="NONE" useStubbornReduction="true"/>
+<query active="true" approximationDenominator="2" capacity="5" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="Waypoint_P16" overApproximation="true" pTrie="true" query="AG (P16_waypoint.P16_visited &gt;= 1 or Routings.P35 = 0)" reduction="true" reductionOption="VerifyTAPNdiscreteVerification" searchOption="DFS" symmetry="true" timeDarts="false" traceOption="NONE" useStubbornReduction="true"/>
   <net active="true" id="P17_waypoint" type="P/T net">
     <place displayName="true" id="P17_visited" initialMarking="0" invariant="&lt; inf" name="P17_visited" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="100"/>
     <transition angle="0" displayName="true" id="T38_17" infiniteServer="false" name="T38_17" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="200" positionY="50" priority="0" urgent="false"/>
@@ -1209,28 +1210,28 @@ Final routing: [[1, 3], [3, 0], [0, 65], [65, 64], [64, 62], [62, 61], [61, 59],
     <arc id="T34_17 to P17_visited" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="T34_17" target="P17_visited" type="normal" weight="1">
     </arc>
   </net>
-<query active="true" approximationDenominator="2" capacity="5" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="P17_visited" overApproximation="true" pTrie="true" query="AG (P17_waypoint.P17_visited &gt;= 1 or Routings.P35 = 0)" reduction="true" reductionOption="VerifyTAPNdiscreteVerification" searchOption="DFS" symmetry="true" timeDarts="false" traceOption="NONE" useStubbornReduction="true"/>
+<query active="true" approximationDenominator="2" capacity="5" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="Waypoint_P17" overApproximation="true" pTrie="true" query="AG (P17_waypoint.P17_visited &gt;= 1 or Routings.P35 = 0)" reduction="true" reductionOption="VerifyTAPNdiscreteVerification" searchOption="DFS" symmetry="true" timeDarts="false" traceOption="NONE" useStubbornReduction="true"/>
   <net active="true" id="P23_waypoint" type="P/T net">
     <place displayName="true" id="P23_visited" initialMarking="0" invariant="&lt; inf" name="P23_visited" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="100"/>
     <transition angle="0" displayName="true" id="T16_23" infiniteServer="false" name="T16_23" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="200" positionY="50" priority="0" urgent="false"/>
     <arc id="T16_23 to P23_visited" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="T16_23" target="P23_visited" type="normal" weight="1">
     </arc>
   </net>
-<query active="true" approximationDenominator="2" capacity="5" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="P23_visited" overApproximation="true" pTrie="true" query="AG (P23_waypoint.P23_visited &gt;= 1 or Routings.P35 = 0)" reduction="true" reductionOption="VerifyTAPNdiscreteVerification" searchOption="DFS" symmetry="true" timeDarts="false" traceOption="NONE" useStubbornReduction="true"/>
+<query active="true" approximationDenominator="2" capacity="5" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="Waypoint_P23" overApproximation="true" pTrie="true" query="AG (P23_waypoint.P23_visited &gt;= 1 or Routings.P35 = 0)" reduction="true" reductionOption="VerifyTAPNdiscreteVerification" searchOption="DFS" symmetry="true" timeDarts="false" traceOption="NONE" useStubbornReduction="true"/>
   <net active="true" id="P24_waypoint" type="P/T net">
     <place displayName="true" id="P24_visited" initialMarking="0" invariant="&lt; inf" name="P24_visited" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="100"/>
     <transition angle="0" displayName="true" id="T23_24" infiniteServer="false" name="T23_24" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="200" positionY="50" priority="0" urgent="false"/>
     <arc id="T23_24 to P24_visited" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="T23_24" target="P24_visited" type="normal" weight="1">
     </arc>
   </net>
-<query active="true" approximationDenominator="2" capacity="5" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="P24_visited" overApproximation="true" pTrie="true" query="AG (P24_waypoint.P24_visited &gt;= 1 or Routings.P35 = 0)" reduction="true" reductionOption="VerifyTAPNdiscreteVerification" searchOption="DFS" symmetry="true" timeDarts="false" traceOption="NONE" useStubbornReduction="true"/>
+<query active="true" approximationDenominator="2" capacity="5" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="Waypoint_P24" overApproximation="true" pTrie="true" query="AG (P24_waypoint.P24_visited &gt;= 1 or Routings.P35 = 0)" reduction="true" reductionOption="VerifyTAPNdiscreteVerification" searchOption="DFS" symmetry="true" timeDarts="false" traceOption="NONE" useStubbornReduction="true"/>
   <net active="true" id="P25_waypoint" type="P/T net">
     <place displayName="true" id="P25_visited" initialMarking="0" invariant="&lt; inf" name="P25_visited" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="100"/>
     <transition angle="0" displayName="true" id="T24_25" infiniteServer="false" name="T24_25" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="200" positionY="50" priority="0" urgent="false"/>
     <arc id="T24_25 to P25_visited" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="T24_25" target="P25_visited" type="normal" weight="1">
     </arc>
   </net>
-<query active="true" approximationDenominator="2" capacity="5" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="P25_visited" overApproximation="true" pTrie="true" query="AG (P25_waypoint.P25_visited &gt;= 1 or Routings.P35 = 0)" reduction="true" reductionOption="VerifyTAPNdiscreteVerification" searchOption="DFS" symmetry="true" timeDarts="false" traceOption="NONE" useStubbornReduction="true"/>
+<query active="true" approximationDenominator="2" capacity="5" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="Waypoint_P25" overApproximation="true" pTrie="true" query="AG (P25_waypoint.P25_visited &gt;= 1 or Routings.P35 = 0)" reduction="true" reductionOption="VerifyTAPNdiscreteVerification" searchOption="DFS" symmetry="true" timeDarts="false" traceOption="NONE" useStubbornReduction="true"/>
   <net active="true" id="P0_loopFree" type="P/T net">
     <place displayName="true" id="P0_loopFree" initialMarking="0" invariant="&lt; inf" name="P0_loopFree" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="100"/>
     <transition angle="0" displayName="true" id="T3_0" infiniteServer="false" name="T3_0" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="200" positionY="50" priority="0" urgent="false"/>

@@ -555,6 +555,7 @@ Final routing: [[0, 75], [75, 74], [74, 76], [76, 49], [49, 37]]</labels>    <pl
     <arc id="Inject_packet to P0" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="Inject_packet" target="P0" type="normal" weight="1">
     </arc>
   </net>
+<query active="true" approximationDenominator="2" capacity="5" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="Reach_P37" overApproximation="true" pTrie="true" query="AG (!(deadlock) or Routings.P37>=1)" reduction="true" reductionOption="VerifyTAPNdiscreteVerification" searchOption="DFS" symmetry="true" timeDarts="false" traceOption="NONE" useStubbornReduction="true"/>
   <net active="true" id="P75_Switch" type="P/T net">
     <place displayName="true" id="Controller" initialMarking="1" invariant="&lt; inf" name="Controller" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="100"/>
     <place displayName="true" id="P75_74_active" initialMarking="0" invariant="&lt; inf" name="P75_74_active" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="500" positionY="100"/>
@@ -585,14 +586,14 @@ Final routing: [[0, 75], [75, 74], [74, 76], [76, 49], [49, 37]]</labels>    <pl
     <arc id="T76_49 to P49_visited" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="T76_49" target="P49_visited" type="normal" weight="1">
     </arc>
   </net>
-<query active="true" approximationDenominator="2" capacity="5" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="P49_visited" overApproximation="true" pTrie="true" query="AG (P49_waypoint.P49_visited &gt;= 1 or Routings.P37 = 0)" reduction="true" reductionOption="VerifyTAPNdiscreteVerification" searchOption="DFS" symmetry="true" timeDarts="false" traceOption="NONE" useStubbornReduction="true"/>
+<query active="true" approximationDenominator="2" capacity="5" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="Waypoint_P49" overApproximation="true" pTrie="true" query="AG (P49_waypoint.P49_visited &gt;= 1 or Routings.P37 = 0)" reduction="true" reductionOption="VerifyTAPNdiscreteVerification" searchOption="DFS" symmetry="true" timeDarts="false" traceOption="NONE" useStubbornReduction="true"/>
   <net active="true" id="P75_waypoint" type="P/T net">
     <place displayName="true" id="P75_visited" initialMarking="0" invariant="&lt; inf" name="P75_visited" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="100"/>
     <transition angle="0" displayName="true" id="T0_75" infiniteServer="false" name="T0_75" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="200" positionY="50" priority="0" urgent="false"/>
     <arc id="T0_75 to P75_visited" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="T0_75" target="P75_visited" type="normal" weight="1">
     </arc>
   </net>
-<query active="true" approximationDenominator="2" capacity="5" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="P75_visited" overApproximation="true" pTrie="true" query="AG (P75_waypoint.P75_visited &gt;= 1 or Routings.P37 = 0)" reduction="true" reductionOption="VerifyTAPNdiscreteVerification" searchOption="DFS" symmetry="true" timeDarts="false" traceOption="NONE" useStubbornReduction="true"/>
+<query active="true" approximationDenominator="2" capacity="5" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="Waypoint_P75" overApproximation="true" pTrie="true" query="AG (P75_waypoint.P75_visited &gt;= 1 or Routings.P37 = 0)" reduction="true" reductionOption="VerifyTAPNdiscreteVerification" searchOption="DFS" symmetry="true" timeDarts="false" traceOption="NONE" useStubbornReduction="true"/>
   <net active="true" id="P76_waypoint" type="P/T net">
     <place displayName="true" id="P76_visited" initialMarking="0" invariant="&lt; inf" name="P76_visited" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="100"/>
     <transition angle="0" displayName="true" id="T75_76" infiniteServer="false" name="T75_76" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="200" positionY="50" priority="0" urgent="false"/>
@@ -602,7 +603,7 @@ Final routing: [[0, 75], [75, 74], [74, 76], [76, 49], [49, 37]]</labels>    <pl
     <arc id="T74_76 to P76_visited" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="T74_76" target="P76_visited" type="normal" weight="1">
     </arc>
   </net>
-<query active="true" approximationDenominator="2" capacity="5" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="P76_visited" overApproximation="true" pTrie="true" query="AG (P76_waypoint.P76_visited &gt;= 1 or Routings.P37 = 0)" reduction="true" reductionOption="VerifyTAPNdiscreteVerification" searchOption="DFS" symmetry="true" timeDarts="false" traceOption="NONE" useStubbornReduction="true"/>
+<query active="true" approximationDenominator="2" capacity="5" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="Waypoint_P76" overApproximation="true" pTrie="true" query="AG (P76_waypoint.P76_visited &gt;= 1 or Routings.P37 = 0)" reduction="true" reductionOption="VerifyTAPNdiscreteVerification" searchOption="DFS" symmetry="true" timeDarts="false" traceOption="NONE" useStubbornReduction="true"/>
   <net active="true" id="P49_loopFree" type="P/T net">
     <place displayName="true" id="P49_loopFree" initialMarking="0" invariant="&lt; inf" name="P49_loopFree" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="100"/>
     <transition angle="0" displayName="true" id="T76_49" infiniteServer="false" name="T76_49" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="200" positionY="50" priority="0" urgent="false"/>

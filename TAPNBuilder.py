@@ -89,6 +89,13 @@ def routing_configuration(network, jsonParser, nodes: list, transitions: list):
         xml_str += arc.to_file()
 
     xml_str += "  </net>\n"
+
+    #AG(!(deadlock)∨Pv′≥1)
+    
+    #q = "AG ({}.{} &gt;= 1 or Routings.P{} = 0)".format(net, node.notation, final_id)
+    q = "AG (!(deadlock) or Routings.P{}>=1)".format(jsonParser.properties["Reachability"])
+    query = "<query active=\"true\" approximationDenominator=\"2\" capacity=\"5\" discreteInclusion=\"false\" enableOverApproximation=\"false\" enableUnderApproximation=\"false\" extrapolationOption=\"null\" gcd=\"false\" hashTableSize=\"null\" inclusionPlaces=\"*NONE*\" name=\"{}\" overApproximation=\"true\" pTrie=\"true\" query=\"{}\" reduction=\"true\" reductionOption=\"VerifyTAPNdiscreteVerification\" searchOption=\"DFS\" symmetry=\"true\" timeDarts=\"false\" traceOption=\"NONE\" useStubbornReduction=\"true\"/>\n".format("Reach_P{}".format(jsonParser.properties["Reachability"]), q)
+    xml_str += query
     return xml_str
 
 #Switches
@@ -178,12 +185,11 @@ def waypoints(nodes, transitions: list, waypointlist: list, final_id):
             xml_str += Outbound_Arc(t, node).to_file()
         xml_str += "  </net>\n"
         q = "AG ({}.{} &gt;= 1 or Routings.P{} = 0)".format(net, node.notation, final_id)
-
-        query = "<query active=\"true\" approximationDenominator=\"2\" capacity=\"5\" discreteInclusion=\"false\" enableOverApproximation=\"false\" enableUnderApproximation=\"false\" extrapolationOption=\"null\" gcd=\"false\" hashTableSize=\"null\" inclusionPlaces=\"*NONE*\" name=\"{}\" overApproximation=\"true\" pTrie=\"true\" query=\"{}\" reduction=\"true\" reductionOption=\"VerifyTAPNdiscreteVerification\" searchOption=\"DFS\" symmetry=\"true\" timeDarts=\"false\" traceOption=\"NONE\" useStubbornReduction=\"true\"/>\n".format(node.notation, q)
+        node.notation = f"P{node.id}"
+        query = "<query active=\"true\" approximationDenominator=\"2\" capacity=\"5\" discreteInclusion=\"false\" enableOverApproximation=\"false\" enableUnderApproximation=\"false\" extrapolationOption=\"null\" gcd=\"false\" hashTableSize=\"null\" inclusionPlaces=\"*NONE*\" name=\"Waypoint_{}\" overApproximation=\"true\" pTrie=\"true\" query=\"{}\" reduction=\"true\" reductionOption=\"VerifyTAPNdiscreteVerification\" searchOption=\"DFS\" symmetry=\"true\" timeDarts=\"false\" traceOption=\"NONE\" useStubbornReduction=\"true\"/>\n".format(node.notation, q)
     
         xml_str += query
         
-        node.notation = f"P{node.id}"
     return xml_str
 
 # Loopfreedom component
