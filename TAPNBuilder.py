@@ -80,7 +80,7 @@ def routing_configuration(network, jsonParser, nodes: list, transitions: list):
         arcs.append(a)
 
     # inject packet
-    inject = Transition(-2, nodes[0].id, nodes[1].id, "Inject_packet", "1")
+    inject = Transition(-2, nodes[0].id, jsonParser.init_route[0][0], "Inject_packet", "1")
     xml_str += inject.to_file()
     aa = Full_Arc(get_node(inject.source, nodes), get_node(inject.target, nodes), inject)
     arcs.append(aa)
