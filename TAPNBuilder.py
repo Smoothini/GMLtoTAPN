@@ -150,7 +150,7 @@ def switches(jsonParser, nodes: list, transitions: list):
             
 
 # Waypoint component
-def waypoints(nodes, transitions: list, waypointlist: list):
+def waypoints(nodes, transitions: list, waypointlist: list, final_id):
     xml_str = ""
     waypoints = []
     for waypoint in waypointlist:
@@ -177,7 +177,7 @@ def waypoints(nodes, transitions: list, waypointlist: list):
         for t in wp_transitions:
             xml_str += Outbound_Arc(t, node).to_file()
         xml_str += "  </net>\n"
-        q = "AG ({}.{} &gt;= 1 or Routings.P{} = 0)".format(net, node.notation, node.id)
+        q = "AG ({}.{} &gt;= 1 or Routings.P{} = 0)".format(net, node.notation, final_id)
 
         query = "<query active=\"true\" approximationDenominator=\"2\" capacity=\"5\" discreteInclusion=\"false\" enableOverApproximation=\"false\" enableUnderApproximation=\"false\" extrapolationOption=\"null\" gcd=\"false\" hashTableSize=\"null\" inclusionPlaces=\"*NONE*\" name=\"{}\" overApproximation=\"true\" pTrie=\"true\" query=\"{}\" reduction=\"true\" reductionOption=\"VerifyTAPNdiscreteVerification\" searchOption=\"DFS\" symmetry=\"true\" timeDarts=\"false\" traceOption=\"NONE\" useStubbornReduction=\"true\"/>\n".format(node.notation, q)
     
@@ -256,7 +256,7 @@ def write_to_file(network):
 
     # Other components
     if jsonParser.properties["Waypointing"]:
-        f.write(waypoints(nodes, transitions, jsonParser.properties["WaypointNodeIds"]))
+        f.write(waypoints(nodes, transitions, jsonParser.properties["WaypointNodeIds"], jsonParser.init_route[-1][1]))
     if jsonParser.properties["LoopFreedom"]:
         f.write(loopfreedom(nodes, transitions))
 
