@@ -16,8 +16,7 @@ def jsonbuilder(network):
 
     nodes_raw = list(g.nodes(data=True))
     n = len(nodes_raw)
-    if n > 25:
-        g = None
+    #
     lmax = 0
     s, t = -1, -1
     init_path = []
@@ -105,7 +104,7 @@ def jsonbuilder(network):
     #print(str(myjsondic))
 
 def build_all():
-    not_converted = ["Not yet converted for ?? reasons:\n\n"]
+    not_converted = []
     start = time.time()
     for f in os.listdir("data/gml/"):
         try:
@@ -119,5 +118,46 @@ def build_all():
     f.close()
     print("Operation done in: {} seconds".format((str(time.time()-start))[:5]))
 
+t = 0
+def build_not_supported():
+    start = time.time()
+    f = open("not yet supported.txt", "r")
+    not_converted = []
+    unsupported = f.readlines()
+    cnt = 0
+    for net in unsupported:
+        try:
+            jsonbuilder(net.strip()[:-4])
+        except:
+            not_converted += f"{net.strip()}\n"
+            cnt += 1
+            print(f"Failure! {net.strip()} not converted..")
+            continue
+    f = open("not yet supported.txt", "w")
+    f.writelines(not_converted)
+    f.close()
+    print("Operation done in: {} seconds".format((str(time.time()-start))[:5]))
+    print(f"Not build: {cnt}")
+
+
+def cleanup():
+    not_converted = []
+    ns = open("not yet supported.txt", "w")
+
+    cnt = 0
+    for f in os.listdir("data/gml/"):
+        found = False
+        for g in os.listdir("data/json/"):
+            if(f[:-4] == g[:-5]):
+                found = True
+        if not found:
+            ns.write(f"{f}\n")
+            cnt+=1
+    ns.close()
+    print(cnt)
+
+
 #focus on not yet supported
 #build_all()
+build_not_supported()
+#cleanup()
