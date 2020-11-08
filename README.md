@@ -2,11 +2,11 @@
 GML to TAPAAL file conversion tool
 
 
-Working:
+Done
 - tapn network builder based on gml and json
 - controller components
 - waypointing components and queries builder
-- loop freedom components builder
+- loop freedom components and query(?) builder
 - multigraph support thru conversion
 - json file generator
 
@@ -15,8 +15,7 @@ In progress:
 - ???¿¿¿
 
 To do:
-- loop freedom queries
-- other queries
+- combined queries
 - maybe some more refactoring
 - ??¿¿¿?
 - maybe a better readme
