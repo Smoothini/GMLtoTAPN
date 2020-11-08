@@ -2,15 +2,10 @@ import networkx as nx
 import json, time
 import random
 import os
-import graph_tool
+import graph_tool.all as gt
 
 def jsonbuilder(network):
-    mydic = {} #haha yes ;^)
-    # Init
-    # Final
-    # yes no waypoint
-    # yes no loopfree
-    # reachability
+    mydic = {}
     start = time.time()
     g = nx.read_gml("data/gml/" + network + ".gml", label='id')
     g = nx.Graph(g)
@@ -104,6 +99,30 @@ def jsonbuilder(network):
     #print(str(mydic))
     #print(str(myjsondic))
 
+def jsonGtBuilder(network):
+    start = time.time()
+    g = gt.load_graph(f"data/gml/{network}.gml")
+    n = g.num_vertices()
+
+    lmax = 0
+    s = -1
+    t = -1
+    init_path = []
+
+    for source in range(n):
+        for target in range(n-1):
+            v, e = gt.shortest_path(g, source, target)
+            if len(v) > lmax:
+                lmax = len(v)
+                s = source
+                t = target
+                init_path = e
+
+    print(f" source: {s}\n target: {t}\n path: {lmax}")
+
+    print(f"{str(time.time() - start)[:-4]} seconds")
+
+
 def build_all():
     not_converted = []
     start = time.time()
@@ -142,9 +161,7 @@ def build_not_supported():
 
 
 def cleanup():
-    not_converted = []
     ns = open("not yet supported.txt", "w")
-
     cnt = 0
     for f in os.listdir("data/gml/"):
         found = False
@@ -160,5 +177,7 @@ def cleanup():
 
 #focus on not yet supported
 #build_all()
-build_not_supported()
+#build_not_supported()
+jsonGtBuilder("Colt")
+
 #cleanup()
