@@ -59,46 +59,13 @@ def jsonbuilder(network):
     mydic["Properties"]["Reachability"] = init_path[-1]
 
 
-    #it = 0
-    #itt = 0
-    #for source in range(n-1):
-    #    for target in range(n):
-    #        path = list(nx.all_simple_paths(g, source = source, target = target))
-    #        it += 1
-    #        itt += len(path)
-    #for filee in os.listdir("archive"):
-    #    f = open(f"archive/{filee}", "r")
-    #    contents = f.readlines()
-    #    f.close()
-
-    #    contents.insert(2, "  multigraph 1\n")
-
-    #    f = open(f"archive/{filee}", "w")
-    #    contents = "".join(contents)
-    #    f.write(contents)
-    #    f.close()
-    #for f in os.listdir("archive"):
-        #print(f)
-     #   g = nx.read_gml("archive/" + f, label='id')
-      #  g = nx.DiGraph(g)
-       # if nx.is_directed_acyclic_graph(g):
-        #    print(f)
-    
-
-
-    #print(nx.is_directed(g))
-    #print(nx.is_directed_acyclic_graph(g))
-
-
     myjsondic = json.dumps(mydic, indent = 4)
     f = open(f"data/json/{network}.json", "w")
     f.write(myjsondic)
     f.close()
     print("Success! Json settings for {} generated! Execution time: {} seconds".format(network, (str(time.time()-start))[:5]))
-    #print("{} iterations, {} actual cycles".format(it, itt))
-    #print(str(mydic))
-    #print(str(myjsondic))
 
+##in progress, doesn't look very gang gang so far..
 def jsonGtBuilder(network):
     start = time.time()
     g = gt.load_graph(f"data/gml/{network}.gml")
