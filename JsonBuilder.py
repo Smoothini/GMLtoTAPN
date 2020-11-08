@@ -2,6 +2,7 @@ import networkx as nx
 import json, time
 import random
 import os
+import graph_tool
 
 def jsonbuilder(network):
     mydic = {} #haha yes ;^)
