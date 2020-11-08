@@ -42,6 +42,7 @@ def waypoints(nodes, transitions: list, waypointlist: list, final_id):
 # Loopfreedom component
 def loopfreedom(nodes: list, transitions: list):
     xml_str = ""
+    loop_free_nodes = []
     for node in nodes:
         node.notation = f"P{node.id}_loopFree"
         x = 200
@@ -84,6 +85,18 @@ def loopfreedom(nodes: list, transitions: list):
                 outbound_arcs.append(a)
             for arc in outbound_arcs:
                 xml_str += arc.to_file()
+            loop_free_nodes.append((node.notation, node.notation))
             xml_str += "  </net>\n"
+        
         node.notation = f"P{node.id}"
+
+    query_raw = "AG("
+    for net, node in loop_free_nodes[:-1]:
+        q = f"{net}.{node} > 2 and "
+        query_raw += q
+    lnet, lnode = loop_free_nodes[-1]
+    query_raw += f"{lnet}.{lnode} > 2)\n"
+    query = "<query active=\"true\" approximationDenominator=\"2\" capacity=\"5\" discreteInclusion=\"false\" enableOverApproximation=\"false\" enableUnderApproximation=\"false\" extrapolationOption=\"null\" gcd=\"false\" hashTableSize=\"null\" inclusionPlaces=\"*NONE*\" name=\"LoopFree\" overApproximation=\"true\" pTrie=\"true\" query=\"{}\" reduction=\"true\" reductionOption=\"VerifyTAPNdiscreteVerification\" searchOption=\"DFS\" symmetry=\"true\" timeDarts=\"false\" traceOption=\"NONE\" useStubbornReduction=\"true\"/>\n".format(query_raw)
+    xml_str += query
+        
     return xml_str

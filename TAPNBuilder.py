@@ -52,3 +52,5 @@ def write_all_to_file():
     print("Operation done in: {} seconds".format((str(time.time()-start))[:5]))
 
 write_all_to_file()
+
+#write_to_file("Quest")
