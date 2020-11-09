@@ -23,17 +23,20 @@ def write_to_file(network):
 
     nodes, transitions = BNC.initialize_network(g, jsonParser)
 
-    f.write(BNC.full_network(g, network))
+    #f.write(BNC.full_network(g, network))
 
     # Initial state of the network
     f.write(BNC.routing_configuration(network, jsonParser, nodes, transitions))
     f.write(BNC.switches(jsonParser, nodes, transitions))
 
     # Other components
+    f.write(ANC.visited(nodes, transitions))
     if jsonParser.properties["Waypointing"]:
         f.write(ANC.waypoints(nodes, transitions, jsonParser.properties["WaypointNodeIds"], jsonParser.init_route[-1][1]))
     if jsonParser.properties["LoopFreedom"]:
         f.write(ANC.loopfreedom(nodes, transitions))
+    
+    
     
 
     f.write("  <k-bound bound=\"3\"/>\n")

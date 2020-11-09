@@ -13,38 +13,19 @@ def waypoints(nodes, transitions: list, waypointlist: list, final_id):
         if get_node(waypoint, nodes):
             waypoints.append(get_node(waypoint, nodes))
     for node in waypoints:
-        net = f"{node.notation}_waypoint"
-        xml_str += f"  <net active=\"true\" id=\"{net}\" type=\"P/T net\">\n"
         node.notation = f"P{node.id}_visited"
-        xml_str += f"    <place displayName=\"true\" id=\"{node.notation}\" initialMarking=\"0\" invariant=\"&lt; inf\" name=\"{node.notation}\" nameOffsetX=\"-5.0\" nameOffsetY=\"35.0\" positionX=\"{100}\" positionY=\"{100}\"/>\n"
-        x = 200
-        y = 50
-        wp_transitions = []
-        for t in transitions:
-            if t.target == node.id:
-                t.x = x
-                t.y = y
-                wp_transitions.append(t)
-                y += 100
-        for t in wp_transitions:
-            xml_str += t.to_file()
-
-        for t in wp_transitions:
-            xml_str += Outbound_Arc(t, node).to_file()
-        xml_str += "  </net>\n"
-        q = "AG ({}.{} &gt;= 1 or Routings.P{} = 0)".format(net, node.notation, final_id)
+        
+        q = "AG ({}.{} &gt;= 1 or Routings.P{} = 0)".format(node.notation, node.notation, final_id)
         node.notation = f"P{node.id}"
         query = "<query active=\"true\" approximationDenominator=\"2\" capacity=\"5\" discreteInclusion=\"false\" enableOverApproximation=\"false\" enableUnderApproximation=\"false\" extrapolationOption=\"null\" gcd=\"false\" hashTableSize=\"null\" inclusionPlaces=\"*NONE*\" name=\"Waypoint_{}\" overApproximation=\"true\" pTrie=\"true\" query=\"{}\" reduction=\"true\" reductionOption=\"VerifyTAPNdiscreteVerification\" searchOption=\"DFS\" symmetry=\"true\" timeDarts=\"false\" traceOption=\"NONE\" useStubbornReduction=\"true\"/>\n".format(node.notation, q)
         xml_str += query
         
     return xml_str
 
-# Loopfreedom component
-def loopfreedom(nodes: list, transitions: list):
+def visited(nodes, transitions):
     xml_str = ""
-    loop_free_nodes = []
-    for node in nodes:
-        node.notation = f"P{node.id}_loopFree"
+    for node in nodes[1:]:
+        node.notation = f"P{node.id}_visited"
         x = 200
         y = 50
         inbound_t = []
@@ -62,41 +43,48 @@ def loopfreedom(nodes: list, transitions: list):
                 outbound_t.append(t)
                 y += 100
 
-        if (len(inbound_t) > 0 and len(outbound_t) > 0):
-            xml_str += f"  <net active=\"true\" id=\"{node.notation}\" type=\"P/T net\">\n"
-            xml_str += f"    <place displayName=\"true\" id=\"{node.notation}\" initialMarking=\"0\" invariant=\"&lt; " \
-                       f"inf\" name=\"{node.notation}\" nameOffsetX=\"-5.0\" nameOffsetY=\"35.0\" positionX=\"{100}\" " \
-                       f"positionY=\"{100}\"/>\n"
-            for t in inbound_t:
-                xml_str += t.to_file()
-            for t in outbound_t:
-                xml_str += t.to_file()
-            # This for loop maps arcs from place to transitions
-            inbound_arcs = []
-            for t in inbound_t:
-                a = Outbound_Arc(t, node)
-                inbound_arcs.append(a)
-            for arc in inbound_arcs:
-                xml_str += arc.to_file()
-            # this for loop maps arcs from transition to places.
-            outbound_arcs = []
-            for t in outbound_t:
-                a = Inbound_Arc(node, t, "tapnInhibitor", "2")
-                outbound_arcs.append(a)
-            for arc in outbound_arcs:
-                xml_str += arc.to_file()
-            loop_free_nodes.append((node.notation, node.notation))
-            xml_str += "  </net>\n"
-        
+    
+        xml_str += f"  <net active=\"true\" id=\"{node.notation}\" type=\"P/T net\">\n"
+        xml_str += f"    <place displayName=\"true\" id=\"{node.notation}\" initialMarking=\"0\" invariant=\"&lt; " \
+                    f"inf\" name=\"{node.notation}\" nameOffsetX=\"-5.0\" nameOffsetY=\"35.0\" positionX=\"{100}\" " \
+                    f"positionY=\"{100}\"/>\n"
+        for t in inbound_t:
+            xml_str += t.to_file()
+        for t in outbound_t:
+            xml_str += t.to_file()
+        # This for loop maps arcs from place to transitions
+        inbound_arcs = []
+        for t in inbound_t:
+            a = Outbound_Arc(t, node)
+            inbound_arcs.append(a)
+        for arc in inbound_arcs:
+            xml_str += arc.to_file()
+        # this for loop maps arcs from transition to places.
+        outbound_arcs = []
+        for t in outbound_t:
+            a = Inbound_Arc(node, t, "tapnInhibitor", "2")
+            outbound_arcs.append(a)
+        for arc in outbound_arcs:
+            xml_str += arc.to_file()
+        xml_str += "  </net>\n"
         node.notation = f"P{node.id}"
+    return xml_str
 
+
+# Loopfreedom query
+def loopfreedom(nodes: list, transitions: list):
+    xml_str = ""
+    
     query_raw = "AG("
-    for net, node in loop_free_nodes[:-1]:
-        q = f"{net}.{node} > 2 and "
+    for node in nodes[1:-1]:
+        q = f"{node.notation}_visited.{node.notation}_visited > 2 and "
         query_raw += q
-    lnet, lnode = loop_free_nodes[-1]
-    query_raw += f"{lnet}.{lnode} > 2)\n"
+    lnode = nodes[-1]
+    query_raw += f"{lnode.notation}_visited.{lnode.notation}_visited > 2)\n"
     query = "<query active=\"true\" approximationDenominator=\"2\" capacity=\"5\" discreteInclusion=\"false\" enableOverApproximation=\"false\" enableUnderApproximation=\"false\" extrapolationOption=\"null\" gcd=\"false\" hashTableSize=\"null\" inclusionPlaces=\"*NONE*\" name=\"LoopFree\" overApproximation=\"true\" pTrie=\"true\" query=\"{}\" reduction=\"true\" reductionOption=\"VerifyTAPNdiscreteVerification\" searchOption=\"DFS\" symmetry=\"true\" timeDarts=\"false\" traceOption=\"NONE\" useStubbornReduction=\"true\"/>\n".format(query_raw)
     xml_str += query
         
     return xml_str
+
+
+#def all_props_query()
