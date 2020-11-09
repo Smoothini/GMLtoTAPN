@@ -118,6 +118,12 @@ def switches(jsonParser, nodes: list, transitions: list):
                     n.y = y
                     if([t.source, t.target] in jsonParser.init_route):
                         n.marking = "1"
+                        n.id = f"P{t.source}_initial"
+                        n.notation = f"P{t.source}_initial"
+                    else:
+                        n.id = f"P{t.source}_final"
+                        n.notation = f"P{t.source}_final"
+
                     u_nodes.append(n)
                     t.x = n.x + 200
                     t.y = y
@@ -140,13 +146,13 @@ def switches(jsonParser, nodes: list, transitions: list):
             for t in jsonParser.init_route:
                 if t[0] == node.id:
                     for n in u_nodes:
-                        if n.notation == f"P{t[0]}_{t[1]}_active":
+                        if n.notation == f"P{t[0]}_initial":
                             xml_str += Inbound_Arc(n, ut, "timed", "1").to_file()
 
             for t in jsonParser.final_route:
                 if t[0] == node.id:
                     for n in u_nodes:
-                        if n.notation == f"P{t[0]}_{t[1]}_active":
+                        if n.notation == f"P{t[0]}_final":
                             xml_str += Outbound_Arc(ut, n).to_file()
 
             xml_str += "  </net>\n"

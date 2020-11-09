@@ -276,8 +276,8 @@ Final routing: [[14, 15], [15, 16], [16, 20], [20, 21], [21, 3], [3, 2], [2, 27]
 <query active="true" approximationDenominator="2" capacity="5" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="Reach_P19" overApproximation="true" pTrie="true" query="AG (!(deadlock) or Routings.P19>=1)" reduction="true" reductionOption="VerifyTAPNdiscreteVerification" searchOption="DFS" symmetry="true" timeDarts="false" traceOption="NONE" useStubbornReduction="true"/>
   <net active="true" id="P21_Switch" type="P/T net">
     <place displayName="true" id="Controller" initialMarking="1" invariant="&lt; inf" name="Controller" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="100"/>
-    <place displayName="true" id="P21_3_active" initialMarking="0" invariant="&lt; inf" name="P21_3_active" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="500" positionY="100"/>
-    <place displayName="true" id="P21_25_active" initialMarking="1" invariant="&lt; inf" name="P21_25_active" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="500" positionY="250"/>
+    <place displayName="true" id="P21_final" initialMarking="0" invariant="&lt; inf" name="P21_final" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="500" positionY="100"/>
+    <place displayName="true" id="P21_initial" initialMarking="1" invariant="&lt; inf" name="P21_initial" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="500" positionY="250"/>
     <transition angle="0" displayName="true" id="Update_P21" infiniteServer="false" name="Update_P21" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="300" positionY="100" priority="0" urgent="false"/>
     <transition angle="0" displayName="true" id="T21_3" infiniteServer="false" name="T21_3" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="700" positionY="100" priority="0" urgent="false"/>
     <transition angle="0" displayName="true" id="T21_25" infiniteServer="false" name="T21_25" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="700" positionY="250" priority="0" urgent="false"/>
@@ -285,17 +285,17 @@ Final routing: [[14, 15], [15, 16], [16, 20], [20, 21], [21, 3], [3, 2], [2, 27]
     </arc>
     <arc id="Update_P21 to Controller" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="Update_P21" target="Controller" type="normal" weight="1">
     </arc>
-    <arc id="P21_3_active to T21_3" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P21_3_active" target="T21_3" type="timed" weight="1">
+    <arc id="P21_final to T21_3" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P21_final" target="T21_3" type="timed" weight="1">
     </arc>
-    <arc id="T21_3 to P21_3_active" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="T21_3" target="P21_3_active" type="normal" weight="1">
+    <arc id="T21_3 to P21_final" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="T21_3" target="P21_final" type="normal" weight="1">
     </arc>
-    <arc id="P21_25_active to T21_25" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P21_25_active" target="T21_25" type="timed" weight="1">
+    <arc id="P21_initial to T21_25" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P21_initial" target="T21_25" type="timed" weight="1">
     </arc>
-    <arc id="T21_25 to P21_25_active" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="T21_25" target="P21_25_active" type="normal" weight="1">
+    <arc id="T21_25 to P21_initial" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="T21_25" target="P21_initial" type="normal" weight="1">
     </arc>
-    <arc id="P21_25_active to Update_P21" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P21_25_active" target="Update_P21" type="timed" weight="1">
+    <arc id="P21_initial to Update_P21" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P21_initial" target="Update_P21" type="timed" weight="1">
     </arc>
-    <arc id="Update_P21 to P21_3_active" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="Update_P21" target="P21_3_active" type="normal" weight="1">
+    <arc id="Update_P21 to P21_final" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="Update_P21" target="P21_final" type="normal" weight="1">
     </arc>
   </net>
   <net active="true" id="P15_waypoint" type="P/T net">

@@ -356,8 +356,8 @@ Final routing: [[8, 5], [5, 4], [4, 32], [32, 0], [0, 7], [7, 19], [19, 18], [18
 <query active="true" approximationDenominator="2" capacity="5" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="Reach_P14" overApproximation="true" pTrie="true" query="AG (!(deadlock) or Routings.P14>=1)" reduction="true" reductionOption="VerifyTAPNdiscreteVerification" searchOption="DFS" symmetry="true" timeDarts="false" traceOption="NONE" useStubbornReduction="true"/>
   <net active="true" id="P32_Switch" type="P/T net">
     <place displayName="true" id="Controller" initialMarking="1" invariant="&lt; inf" name="Controller" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="100"/>
-    <place displayName="true" id="P32_23_active" initialMarking="1" invariant="&lt; inf" name="P32_23_active" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="500" positionY="100"/>
-    <place displayName="true" id="P32_0_active" initialMarking="0" invariant="&lt; inf" name="P32_0_active" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="500" positionY="250"/>
+    <place displayName="true" id="P32_initial" initialMarking="1" invariant="&lt; inf" name="P32_initial" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="500" positionY="100"/>
+    <place displayName="true" id="P32_final" initialMarking="0" invariant="&lt; inf" name="P32_final" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="500" positionY="250"/>
     <transition angle="0" displayName="true" id="Update_P32" infiniteServer="false" name="Update_P32" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="300" positionY="100" priority="0" urgent="false"/>
     <transition angle="0" displayName="true" id="T32_23" infiniteServer="false" name="T32_23" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="700" positionY="100" priority="0" urgent="false"/>
     <transition angle="0" displayName="true" id="T32_0" infiniteServer="false" name="T32_0" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="700" positionY="250" priority="0" urgent="false"/>
@@ -365,17 +365,17 @@ Final routing: [[8, 5], [5, 4], [4, 32], [32, 0], [0, 7], [7, 19], [19, 18], [18
     </arc>
     <arc id="Update_P32 to Controller" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="Update_P32" target="Controller" type="normal" weight="1">
     </arc>
-    <arc id="P32_23_active to T32_23" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P32_23_active" target="T32_23" type="timed" weight="1">
+    <arc id="P32_initial to T32_23" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P32_initial" target="T32_23" type="timed" weight="1">
     </arc>
-    <arc id="T32_23 to P32_23_active" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="T32_23" target="P32_23_active" type="normal" weight="1">
+    <arc id="T32_23 to P32_initial" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="T32_23" target="P32_initial" type="normal" weight="1">
     </arc>
-    <arc id="P32_0_active to T32_0" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P32_0_active" target="T32_0" type="timed" weight="1">
+    <arc id="P32_final to T32_0" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P32_final" target="T32_0" type="timed" weight="1">
     </arc>
-    <arc id="T32_0 to P32_0_active" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="T32_0" target="P32_0_active" type="normal" weight="1">
+    <arc id="T32_0 to P32_final" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="T32_0" target="P32_final" type="normal" weight="1">
     </arc>
-    <arc id="P32_23_active to Update_P32" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P32_23_active" target="Update_P32" type="timed" weight="1">
+    <arc id="P32_initial to Update_P32" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P32_initial" target="Update_P32" type="timed" weight="1">
     </arc>
-    <arc id="Update_P32 to P32_0_active" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="Update_P32" target="P32_0_active" type="normal" weight="1">
+    <arc id="Update_P32 to P32_final" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="Update_P32" target="P32_final" type="normal" weight="1">
     </arc>
   </net>
   <net active="true" id="P32_waypoint" type="P/T net">
