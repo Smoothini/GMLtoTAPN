@@ -6,7 +6,7 @@ class Transition:
         self.notation = notation
         self.angle = 0
         self.x = 100
-        self.y = 100
+        self.y = 200
         self.type = None
         self.player = player
 

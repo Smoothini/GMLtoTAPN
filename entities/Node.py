@@ -5,7 +5,7 @@ class Node:
         self.marking = marking
         self.transition_count = 0
         self.x = 100
-        self.y = 100
+        self.y = 200
         self.type = None
 
     def to_file(self):

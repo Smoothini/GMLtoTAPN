@@ -65,7 +65,7 @@ def routing_configuration(network, jsonParser, nodes: list, transitions: list):
         xml_str += transition.shared_to_file()
     
     xml_str += "  <net active=\"true\" id=\"{}\" type=\"P/T net\">\n".format("Routings")
-    xml_str += make_label(0, 0, f"Extract from {network}.\nNode Count: {len(nodes) - 1}\nTransition Count: {len(transitions)}\n\nPress Shift+D followed by Enter")
+    xml_str += make_label(0, 0, f"Extract from {network}.\n-Node Count: {len(nodes) - 1}\n-Transition Count: {len(transitions)}\n\n-Initial routing length: {len(jsonParser.init_route)}\n-Final routing length: {len(jsonParser.final_route)}\n\n\nPress Shift+D followed by Enter")
     xml_str += make_label(200, 0, f"Initial routing: {str(jsonParser.init_route)}\n\nFinal routing: {str(jsonParser.final_route)}")
     for node in nodes:
         xml_str += node.to_file()

@@ -87,7 +87,7 @@ def jsonGtBuilder(network):
 
     print(f" source: {s}\n target: {t}\n path: {lmax}")
 
-    print(f"{str(time.time() - start)[:-4]} seconds")
+    print(f"grph_tool time: {str(time.time() - start)[:-4]} seconds")
 
 
 def build_all():
@@ -146,5 +146,6 @@ def cleanup():
 #build_all()
 #build_not_supported()
 jsonGtBuilder("Colt")
+#jsonbuilder("Colt")
 
 #cleanup()

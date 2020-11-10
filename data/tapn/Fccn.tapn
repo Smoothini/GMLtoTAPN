@@ -12,8 +12,12 @@
     <shared-transition name="T20_21" urgent="false"/>
   <net active="true" id="Routings" type="P/T net">
     <labels border="true" height="90" positionX="0" positionY="0" width="180">Extract from Fccn.
-Node Count: 8
-Transition Count: 9
+-Node Count: 8
+-Transition Count: 9
+
+-Initial routing length: 5
+-Final routing length: 7
+
 
 Press Shift+D followed by Enter</labels>
 
@@ -21,25 +25,25 @@ Press Shift+D followed by Enter</labels>
 
 Final routing: [[2, 20], [20, 21], [21, 22], [22, 5], [5, 6], [6, 8], [8, 10]]</labels>
 
-    <place displayName="true" id="Controller" initialMarking="1" invariant="&lt; inf" name="Controller" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="100"/>
-    <place displayName="true" id="P2" initialMarking="0" invariant="&lt; inf" name="P2" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="100"/>
-    <place displayName="true" id="P5" initialMarking="0" invariant="&lt; inf" name="P5" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="100"/>
-    <place displayName="true" id="P6" initialMarking="0" invariant="&lt; inf" name="P6" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="100"/>
-    <place displayName="true" id="P8" initialMarking="0" invariant="&lt; inf" name="P8" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="100"/>
-    <place displayName="true" id="P10" initialMarking="0" invariant="&lt; inf" name="P10" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="100"/>
-    <place displayName="true" id="P20" initialMarking="0" invariant="&lt; inf" name="P20" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="100"/>
-    <place displayName="true" id="P21" initialMarking="0" invariant="&lt; inf" name="P21" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="100"/>
-    <place displayName="true" id="P22" initialMarking="0" invariant="&lt; inf" name="P22" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="100"/>
-    <transition angle="0" displayName="true" id="T22_5" infiniteServer="false" name="T22_5" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="100" positionY="100" priority="0" urgent="false"/>
-    <transition angle="0" displayName="true" id="T2_20" infiniteServer="false" name="T2_20" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="100" positionY="100" priority="0" urgent="false"/>
-    <transition angle="0" displayName="true" id="T6_8" infiniteServer="false" name="T6_8" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="100" positionY="100" priority="0" urgent="false"/>
-    <transition angle="0" displayName="true" id="T8_10" infiniteServer="false" name="T8_10" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="100" positionY="100" priority="0" urgent="false"/>
-    <transition angle="0" displayName="true" id="T21_22" infiniteServer="false" name="T21_22" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="100" positionY="100" priority="0" urgent="false"/>
-    <transition angle="0" displayName="true" id="T5_6" infiniteServer="false" name="T5_6" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="100" positionY="100" priority="0" urgent="false"/>
-    <transition angle="0" displayName="true" id="T22_6" infiniteServer="false" name="T22_6" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="100" positionY="100" priority="0" urgent="false"/>
-    <transition angle="0" displayName="true" id="T20_22" infiniteServer="false" name="T20_22" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="100" positionY="100" priority="0" urgent="false"/>
-    <transition angle="0" displayName="true" id="T20_21" infiniteServer="false" name="T20_21" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="100" positionY="100" priority="0" urgent="false"/>
-    <transition angle="0" displayName="true" id="Inject_packet" infiniteServer="false" name="Inject_packet" nameOffsetX="-5.0" nameOffsetY="35.0" player="1" positionX="100" positionY="100" priority="0" urgent="false"/>
+    <place displayName="true" id="Controller" initialMarking="1" invariant="&lt; inf" name="Controller" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="200"/>
+    <place displayName="true" id="P2" initialMarking="0" invariant="&lt; inf" name="P2" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="200"/>
+    <place displayName="true" id="P5" initialMarking="0" invariant="&lt; inf" name="P5" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="200"/>
+    <place displayName="true" id="P6" initialMarking="0" invariant="&lt; inf" name="P6" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="200"/>
+    <place displayName="true" id="P8" initialMarking="0" invariant="&lt; inf" name="P8" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="200"/>
+    <place displayName="true" id="P10" initialMarking="0" invariant="&lt; inf" name="P10" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="200"/>
+    <place displayName="true" id="P20" initialMarking="0" invariant="&lt; inf" name="P20" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="200"/>
+    <place displayName="true" id="P21" initialMarking="0" invariant="&lt; inf" name="P21" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="200"/>
+    <place displayName="true" id="P22" initialMarking="0" invariant="&lt; inf" name="P22" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="200"/>
+    <transition angle="0" displayName="true" id="T22_5" infiniteServer="false" name="T22_5" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="100" positionY="200" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="T2_20" infiniteServer="false" name="T2_20" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="100" positionY="200" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="T6_8" infiniteServer="false" name="T6_8" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="100" positionY="200" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="T8_10" infiniteServer="false" name="T8_10" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="100" positionY="200" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="T21_22" infiniteServer="false" name="T21_22" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="100" positionY="200" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="T5_6" infiniteServer="false" name="T5_6" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="100" positionY="200" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="T22_6" infiniteServer="false" name="T22_6" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="100" positionY="200" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="T20_22" infiniteServer="false" name="T20_22" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="100" positionY="200" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="T20_21" infiniteServer="false" name="T20_21" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="100" positionY="200" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="Inject_packet" infiniteServer="false" name="Inject_packet" nameOffsetX="-5.0" nameOffsetY="35.0" player="1" positionX="100" positionY="200" priority="0" urgent="false"/>
     <arc id="P22 to T22_5" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P22" target="T22_5" type="timed" weight="1">
     </arc>
     <arc id="T22_5 to P5" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="T22_5" target="P5" type="normal" weight="1">

@@ -7,8 +7,12 @@
     <shared-transition name="T7_3" urgent="false"/>
   <net active="true" id="Routings" type="P/T net">
     <labels border="true" height="90" positionX="0" positionY="0" width="180">Extract from Ilan.
-Node Count: 5
-Transition Count: 4
+-Node Count: 5
+-Transition Count: 4
+
+-Initial routing length: 4
+-Final routing length: 4
+
 
 Press Shift+D followed by Enter</labels>
 
@@ -16,17 +20,17 @@ Press Shift+D followed by Enter</labels>
 
 Final routing: [[1, 0], [0, 7], [7, 3], [3, 2]]</labels>
 
-    <place displayName="true" id="Controller" initialMarking="1" invariant="&lt; inf" name="Controller" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="100"/>
-    <place displayName="true" id="P0" initialMarking="0" invariant="&lt; inf" name="P0" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="100"/>
-    <place displayName="true" id="P1" initialMarking="0" invariant="&lt; inf" name="P1" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="100"/>
-    <place displayName="true" id="P2" initialMarking="0" invariant="&lt; inf" name="P2" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="100"/>
-    <place displayName="true" id="P3" initialMarking="0" invariant="&lt; inf" name="P3" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="100"/>
-    <place displayName="true" id="P7" initialMarking="0" invariant="&lt; inf" name="P7" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="100"/>
-    <transition angle="0" displayName="true" id="T1_0" infiniteServer="false" name="T1_0" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="100" positionY="100" priority="0" urgent="false"/>
-    <transition angle="0" displayName="true" id="T0_7" infiniteServer="false" name="T0_7" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="100" positionY="100" priority="0" urgent="false"/>
-    <transition angle="0" displayName="true" id="T3_2" infiniteServer="false" name="T3_2" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="100" positionY="100" priority="0" urgent="false"/>
-    <transition angle="0" displayName="true" id="T7_3" infiniteServer="false" name="T7_3" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="100" positionY="100" priority="0" urgent="false"/>
-    <transition angle="0" displayName="true" id="Inject_packet" infiniteServer="false" name="Inject_packet" nameOffsetX="-5.0" nameOffsetY="35.0" player="1" positionX="100" positionY="100" priority="0" urgent="false"/>
+    <place displayName="true" id="Controller" initialMarking="1" invariant="&lt; inf" name="Controller" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="200"/>
+    <place displayName="true" id="P0" initialMarking="0" invariant="&lt; inf" name="P0" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="200"/>
+    <place displayName="true" id="P1" initialMarking="0" invariant="&lt; inf" name="P1" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="200"/>
+    <place displayName="true" id="P2" initialMarking="0" invariant="&lt; inf" name="P2" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="200"/>
+    <place displayName="true" id="P3" initialMarking="0" invariant="&lt; inf" name="P3" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="200"/>
+    <place displayName="true" id="P7" initialMarking="0" invariant="&lt; inf" name="P7" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="200"/>
+    <transition angle="0" displayName="true" id="T1_0" infiniteServer="false" name="T1_0" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="100" positionY="200" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="T0_7" infiniteServer="false" name="T0_7" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="100" positionY="200" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="T3_2" infiniteServer="false" name="T3_2" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="100" positionY="200" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="T7_3" infiniteServer="false" name="T7_3" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="100" positionY="200" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="Inject_packet" infiniteServer="false" name="Inject_packet" nameOffsetX="-5.0" nameOffsetY="35.0" player="1" positionX="100" positionY="200" priority="0" urgent="false"/>
     <arc id="P1 to T1_0" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P1" target="T1_0" type="timed" weight="1">
     </arc>
     <arc id="T1_0 to P0" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="T1_0" target="P0" type="normal" weight="1">
