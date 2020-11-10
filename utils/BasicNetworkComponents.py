@@ -16,6 +16,20 @@ def initialize_network(g, jsonParser):
         for t in transitions:
             if t.source == node.id:
                 node.transition_count += 1
+                if [t.source, t.target] in jsonParser.init_route and [t.source, t.target] in jsonParser.final_route:
+                    #print(f"In both {t.source} {t.target}")
+                    node.init_route = t.target
+                    node.final_route = t.target
+                elif [t.source, t.target] in jsonParser.init_route:
+                    node.init_route = t.target
+                    #print(f"In init {t.source} {t.target}")
+                elif [t.source, t.target] in jsonParser.final_route:
+                    node.final_route = t.target
+                    #print(f"In final {t.source} {t.target}")
+
+    #for node in nodes:
+        #print(f"Node {node.id}      initial: {node.init_route}     final: {node.final_route}")
+
     return nodes, transitions
 
 def get_node(node_id, nodes):
@@ -96,64 +110,65 @@ def routing_configuration(network, jsonParser, nodes: list, transitions: list):
     xml_str += query
     return xml_str
 
-#Switches
-def switches(jsonParser, nodes: list, transitions: list):
+# Switches
+def switches(nodes, transitions):
     controller = Node(-1, "Controller", "1")
     controller.x = 100
     controller.y = 100
     xml_str = ""
-
+    switch_nodes = []
     for node in nodes:
-        if node.transition_count == 2:
-            u_nodes = []
-            u_trans = []
-            ut = Transition(f"Update_{node.notation}", controller, None, f"Update_{node.notation}")
-            ut.x = 300
-            ut.y = 100
-            y = 100
-            for t in transitions:
-                if t.source == node.id:
-                    n = Node(f"P{t.source}_{t.target}_active", f"P{t.source}_{t.target}_active", "0")
-                    n.x = ut.x + 200
-                    n.y = y
-                    if([t.source, t.target] in jsonParser.init_route):
-                        n.marking = "1"
-                        n.id = f"P{t.source}_initial"
-                        n.notation = f"P{t.source}_initial"
-                    else:
-                        n.id = f"P{t.source}_final"
-                        n.notation = f"P{t.source}_final"
+        if node.init_route != node.final_route:
+            switch_nodes.append(node)
+            #if node.init_route and node.final_route:
+             #   print(f"Node {node.id}: Full switch")
+            #elif node.init_route and not node.final_route:
+             #   print(f"Node {node.id}: Half initial switch")
+            #elif not node.init_route and node.final_route:
+             #   print(f"Node {node.id}: Half final switch")
 
-                    u_nodes.append(n)
-                    t.x = n.x + 200
-                    t.y = y
-                    y += 150
-                    u_trans.append(t)
+    for node in switch_nodes:
+        #print(node.notation)
+        update_transition = Transition(f"Update_{node.notation}", controller, None, f"Update_{node.notation}")
+        update_transition.x , update_transition.y = 300, 100
 
-            xml_str += f"  <net active=\"true\" id=\"{node.notation}_Switch\" type=\"P/T net\">\n"
-            xml_str += controller.to_file()
-            for n in u_nodes:
-                xml_str += n.to_file()
-            xml_str += ut.to_file()
-            for t in u_trans:
-                xml_str += t.to_file()
-            xml_str += Inbound_Arc(controller, ut, "timed", "1").to_file()
-            xml_str += Outbound_Arc(ut, controller).to_file()
-            for i in range(len(u_nodes)):
-                xml_str += Inbound_Arc(u_nodes[i], u_trans[i], "timed", "1").to_file()
-                xml_str += Outbound_Arc(u_trans[i], u_nodes[i]).to_file()
-            
-            for t in jsonParser.init_route:
-                if t[0] == node.id:
-                    for n in u_nodes:
-                        if n.notation == f"P{t[0]}_initial":
-                            xml_str += Inbound_Arc(n, ut, "timed", "1").to_file()
+        initial_place = Node(f"P{node.id}_initial", f"P{node.id}_initial", "1")
+        initial_place.x, initial_place.y = 500, 100
 
-            for t in jsonParser.final_route:
-                if t[0] == node.id:
-                    for n in u_nodes:
-                        if n.notation == f"P{t[0]}_final":
-                            xml_str += Outbound_Arc(ut, n).to_file()
+        final_place = Node(f"P{node.id}_final", f"P{node.id}_final")
+        final_place.x, final_place.y = 500, 300
 
-            xml_str += "  </net>\n\n"
-    return xml_str
+        initial_transition, final_transition = None, None
+        if node.init_route != None:
+            initial_transition = next((x for x in transitions if x.source == node.id and x.target == node.init_route), None)
+            initial_transition.x, initial_transition.y = 700, 100
+        if node.final_route != None:
+            final_transition = next((x for x in transitions if x.source == node.id and x.target == node.final_route), None)
+            final_transition.x, final_transition.y = 700, 300
+        
+        xml_str += f"  <net active=\"true\" id=\"{node.notation}_Switch\" type=\"P/T net\">\n"
+        xml_str += controller.to_file()
+        xml_str += update_transition.to_file()
+
+        xml_str += Inbound_Arc(controller, update_transition, "timed", "1").to_file()
+        xml_str += Outbound_Arc(update_transition, controller).to_file()
+
+        xml_str += initial_place.to_file()
+        xml_str += final_place.to_file()
+        xml_str += Inbound_Arc(initial_place, update_transition, "timed", "1").to_file()
+        xml_str += Outbound_Arc(update_transition, final_place).to_file()
+
+        if initial_transition:
+            xml_str += initial_transition.to_file()
+            xml_str += Inbound_Arc(initial_place, initial_transition, "timed", "1").to_file()
+            xml_str += Outbound_Arc(initial_transition, initial_place).to_file()
+
+        if final_transition:
+            xml_str += final_transition.to_file()
+            xml_str += Inbound_Arc(final_place, final_transition, "timed", "1").to_file()
+            xml_str += Outbound_Arc(final_transition, final_place).to_file()
+
+
+        xml_str += "  </net>\n\n"
+
+    return xml_str 

@@ -4,6 +4,8 @@ class Node:
         self.notation = notation
         self.marking = marking
         self.transition_count = 0
+        self.init_route = None
+        self.final_route = None
         self.x = 100
         self.y = 200
         self.type = None

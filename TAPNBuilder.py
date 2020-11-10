@@ -27,8 +27,7 @@ def write_to_file(network):
 
     # Initial state of the network
     f.write(BNC.routing_configuration(network, jsonParser, nodes, transitions))
-    f.write(BNC.switches(jsonParser, nodes, transitions))
-
+    f.write(BNC.switches(nodes, transitions))
     # Other components
     f.write(ANC.visited(nodes, transitions))
     if jsonParser.properties["Waypointing"]:
@@ -56,4 +55,4 @@ def write_all_to_file():
 
 write_all_to_file()
 
-#write_to_file("Quest")
+#write_to_file("Aconet")

@@ -145,7 +145,7 @@ def cleanup():
 #focus on not yet supported
 #build_all()
 #build_not_supported()
-jsonGtBuilder("Colt")
-#jsonbuilder("Colt")
+#jsonGtBuilder("Colt")
+jsonbuilder("Colt")
 
 #cleanup()
