@@ -77,10 +77,10 @@ def loopfreedom(nodes: list, transitions: list):
     
     query_raw = "AG("
     for node in nodes[1:-1]:
-        q = f"{node.notation}_visited.{node.notation}_visited > 2 and "
+        q = f"{node.notation}_visited.{node.notation}_visited &lt; 2 and "
         query_raw += q
     lnode = nodes[-1]
-    query_raw += f"{lnode.notation}_visited.{lnode.notation}_visited > 2)\n"
+    query_raw += f"{lnode.notation}_visited.{lnode.notation}_visited &lt; 2)"
     query = "<query active=\"true\" approximationDenominator=\"2\" capacity=\"5\" discreteInclusion=\"false\" enableOverApproximation=\"false\" enableUnderApproximation=\"false\" extrapolationOption=\"null\" gcd=\"false\" hashTableSize=\"null\" inclusionPlaces=\"*NONE*\" name=\"LoopFree\" overApproximation=\"true\" pTrie=\"true\" query=\"{}\" reduction=\"true\" reductionOption=\"VerifyTAPNdiscreteVerification\" searchOption=\"DFS\" symmetry=\"true\" timeDarts=\"false\" traceOption=\"NONE\" useStubbornReduction=\"true\"/>\n".format(query_raw)
     xml_str += query
         
