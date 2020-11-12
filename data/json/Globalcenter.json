@@ -2,12 +2,16 @@
     "Initial_routing": [
         [
             0,
-            1
+            8
         ]
     ],
     "Final_routing": [
         [
             0,
+            1
+        ],
+        [
+            1,
             2
         ],
         [
@@ -33,15 +37,16 @@
         [
             7,
             8
-        ],
-        [
-            8,
-            1
         ]
     ],
     "Properties": {
         "Waypointing": false,
-        "LoopFreedom": true,
-        "Reachability": 1
+        "LoopFreedom": {
+            "startNode": 0
+        },
+        "Reachability": {
+            "startNode": 0,
+            "finalNode": 7
+        }
     }
 }

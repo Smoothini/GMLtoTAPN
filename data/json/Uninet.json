@@ -1,69 +1,56 @@
 {
     "Initial_routing": [
         [
-            0,
-            10
+            2,
+            3
         ],
         [
-            10,
-            7
-        ],
-        [
-            7,
+            3,
             4
         ],
         [
             4,
-            1
+            7
         ],
         [
-            1,
-            2
+            7,
+            10
         ]
     ],
     "Final_routing": [
         [
-            0,
-            10
+            2,
+            3
         ],
         [
-            10,
-            7
-        ],
-        [
-            7,
-            5
-        ],
-        [
-            5,
-            6
-        ],
-        [
-            6,
+            3,
             4
         ],
         [
             4,
-            12
+            6
         ],
         [
-            12,
-            1
+            6,
+            7
         ],
         [
-            1,
-            2
+            7,
+            10
         ]
     ],
     "Properties": {
-        "Waypointing": true,
-        "WaypointNodeIds": [
-            1,
-            10,
-            4,
-            7
-        ],
-        "LoopFreedom": true,
-        "Reachability": 2
+        "Waypoint": {
+            "startNode": 2,
+            "finalNode": 4,
+            "waypoint": 4
+        },
+        "LoopFreedom": {
+            "startNode": 2
+        },
+        "Reachability": {
+            "startNode": 2,
+            "finalNode": 4
+        }
     }
 }

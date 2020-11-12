@@ -1,6 +1,7 @@
 graph [
   DateObtained "22/10/10"
   multigraph 1
+  directed 1
   GeoLocation "Europe"
   GeoExtent "Continent"
   Network "NORDU"

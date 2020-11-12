@@ -1,6 +1,7 @@
 graph [
   DateObtained "18/10/10"
   multigraph 1
+  directed 1
   GeoLocation "Global"
   GeoExtent "Global"
   Network "Packet Exchange"

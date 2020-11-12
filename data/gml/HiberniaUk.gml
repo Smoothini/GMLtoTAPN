@@ -1,6 +1,7 @@
 graph [
   DateObtained "23/03/11"
   multigraph 1
+  directed 1
   GeoLocation "UK"
   GeoExtent "Country"
   Network "Hibernia Atlantic (UK)"

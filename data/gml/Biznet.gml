@@ -1,6 +1,7 @@
 graph [
   DateObtained "16/01/11"
   multigraph 1
+  directed 1
   GeoLocation "Indonesia"
   GeoExtent "Country"
   Network "BizNetworks"

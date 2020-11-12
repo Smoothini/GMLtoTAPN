@@ -1,6 +1,7 @@
 graph [
   DateObtained "18/10/10"
   multigraph 1
+  directed 1
   GeoLocation "Wisconsin, USA"
   GeoExtent "Region"
   Network "SpiraLight"

@@ -1,6 +1,7 @@
 graph [
   DateObtained "28/03/12"
   multigraph 1
+  directed 1
   GeoLocation "Italy"
   GeoExtent "Country"
   Network "GARR"

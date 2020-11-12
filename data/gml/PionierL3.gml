@@ -1,6 +1,7 @@
 graph [
   DateObtained "5/07/11"
   multigraph 1
+  directed 1
   GeoLocation "Poland"
   GeoExtent "Country"
   Network "PIONIER"

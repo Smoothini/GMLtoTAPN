@@ -1,77 +1,37 @@
 {
     "Initial_routing": [
         [
-            0,
-            11
-        ],
-        [
-            11,
-            2
-        ],
-        [
-            2,
-            14
-        ],
-        [
-            14,
-            15
-        ],
-        [
-            15,
-            8
-        ]
-    ],
-    "Final_routing": [
-        [
-            0,
-            3
-        ],
-        [
-            3,
-            7
-        ],
-        [
-            7,
-            5
-        ],
-        [
-            5,
-            4
-        ],
-        [
-            4,
-            6
-        ],
-        [
-            6,
-            1
-        ],
-        [
             1,
             2
         ],
         [
             2,
-            10
-        ],
-        [
-            10,
-            19
-        ],
-        [
-            19,
-            17
-        ],
-        [
-            17,
             14
         ],
         [
             14,
-            9
+            17
         ],
         [
-            9,
+            17,
+            18
+        ]
+    ],
+    "Final_routing": [
+        [
+            1,
+            6
+        ],
+        [
+            6,
+            13
+        ],
+        [
+            13,
+            14
+        ],
+        [
+            14,
             15
         ],
         [
@@ -80,25 +40,25 @@
         ],
         [
             16,
-            13
+            17
         ],
         [
-            13,
-            12
-        ],
-        [
-            12,
-            8
+            17,
+            18
         ]
     ],
     "Properties": {
-        "Waypointing": true,
-        "WaypointNodeIds": [
-            2,
-            14,
-            15
-        ],
-        "LoopFreedom": true,
-        "Reachability": 8
+        "Waypoint": {
+            "startNode": 1,
+            "finalNode": 6,
+            "waypoint": 14
+        },
+        "LoopFreedom": {
+            "startNode": 1
+        },
+        "Reachability": {
+            "startNode": 1,
+            "finalNode": 6
+        }
     }
 }

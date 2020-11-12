@@ -1,6 +1,7 @@
 graph [
   DateObtained "19/10/10"
   multigraph 1
+  directed 1
   GeoLocation "Washington State, USA"
   GeoExtent "Region"
   Network "Noel Communications "

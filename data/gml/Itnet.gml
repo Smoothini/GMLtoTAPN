@@ -1,6 +1,7 @@
 graph [
   DateObtained "3/02/11"
   multigraph 1
+  directed 1
   GeoLocation "Ireland"
   GeoExtent "Country"
   Network "Itnet"
