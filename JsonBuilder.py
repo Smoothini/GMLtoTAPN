@@ -2,7 +2,7 @@ import networkx as nx
 import json, time
 import random
 import os
-import graph_tool.all as gt
+#import graph_tool.all as gt
 
 def jsonbuilder(network):
     mydic = {}
@@ -68,7 +68,7 @@ def jsonbuilder(network):
 ##in progress, doesn't look very gang gang so far..
 def jsonGtBuilder(network):
     start = time.time()
-    g = gt.load_graph(f"data/gml/{network}.gml")
+    #g = gt.load_graph(f"data/gml/{network}.gml")
     n = g.num_vertices()
 
     lmax = 0
@@ -78,7 +78,7 @@ def jsonGtBuilder(network):
 
     for source in range(n):
         for target in range(n-1):
-            v, e = gt.shortest_path(g, source, target)
+            #v, e = gt.shortest_path(g, source, target)
             if len(v) > lmax:
                 lmax = len(v)
                 s = source
