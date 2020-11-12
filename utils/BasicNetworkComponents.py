@@ -70,6 +70,7 @@ def full_network(g, network):
 
 
 # Initial and final network routing
+# Also reachability query, missing only to remove transitions on final node
 def routing_configuration(network, jsonParser, nodes: list, transitions: list):
     xml_str = ""
     controller = Node(-1, "Controller", "1")
@@ -105,10 +106,11 @@ def routing_configuration(network, jsonParser, nodes: list, transitions: list):
     #AG(!(deadlock)∨Pv′≥1)
     
     #q = "AG ({}.{} &gt;= 1 or Routings.P{} = 0)".format(net, node.notation, final_id)
-    q = "AG (!(deadlock) or Routings.P{}>=1)".format(jsonParser.properties["Reachability"])
+    reach_query = "(!(deadlock) or Routings.P{}>=1)".format(jsonParser.properties["Reachability"])
+    q = "AG{}".format(reach_query)
     query = "<query active=\"true\" approximationDenominator=\"2\" capacity=\"5\" discreteInclusion=\"false\" enableOverApproximation=\"false\" enableUnderApproximation=\"false\" extrapolationOption=\"null\" gcd=\"false\" hashTableSize=\"null\" inclusionPlaces=\"*NONE*\" name=\"{}\" overApproximation=\"true\" pTrie=\"true\" query=\"{}\" reduction=\"true\" reductionOption=\"VerifyTAPNdiscreteVerification\" searchOption=\"DFS\" symmetry=\"true\" timeDarts=\"false\" traceOption=\"NONE\" useStubbornReduction=\"true\"/>\n\n".format("Reach_P{}".format(jsonParser.properties["Reachability"]), q)
     xml_str += query
-    return xml_str
+    return xml_str, reach_query
 
 # Switches
 def switches(nodes, transitions):

@@ -1,27 +1,27 @@
 from entities.Arcs import Full_Arc, Outbound_Arc, Inbound_Arc
 from entities.Node import Node
 from entities.Transition import Transition
+import random
 
 def get_node(node_id, nodes):
     return next((x for x in nodes if x.id == node_id), None)            
 
-# Waypoint component
+# Waypoint query
 def waypoints(nodes, transitions: list, waypointlist: list, final_id):
     xml_str = ""
-    waypoints = []
-    for waypoint in waypointlist:
-        if get_node(waypoint, nodes):
-            waypoints.append(get_node(waypoint, nodes))
-    for node in waypoints:
-        node.notation = f"P{node.id}_visited"
+    waypoint = get_node(random.choice(waypointlist), nodes)
+    
+    waypoint.notation = f"P{waypoint.id}_visited"
+    
+    wp_query = "({}.{} &gt;= 1 or Routings.P{} = 0)".format(waypoint.notation, waypoint.notation, final_id)
+    q = "AG {}".format(wp_query)
+    waypoint.notation = f"P{waypoint.id}"
+    query = "<query active=\"true\" approximationDenominator=\"2\" capacity=\"5\" discreteInclusion=\"false\" enableOverApproximation=\"false\" enableUnderApproximation=\"false\" extrapolationOption=\"null\" gcd=\"false\" hashTableSize=\"null\" inclusionPlaces=\"*NONE*\" name=\"Waypoint_{}\" overApproximation=\"true\" pTrie=\"true\" query=\"{}\" reduction=\"true\" reductionOption=\"VerifyTAPNdiscreteVerification\" searchOption=\"DFS\" symmetry=\"true\" timeDarts=\"false\" traceOption=\"NONE\" useStubbornReduction=\"true\"/>\n".format(waypoint.notation, q)
+    xml_str += query
         
-        q = "AG ({}.{} &gt;= 1 or Routings.P{} = 0)".format(node.notation, node.notation, final_id)
-        node.notation = f"P{node.id}"
-        query = "<query active=\"true\" approximationDenominator=\"2\" capacity=\"5\" discreteInclusion=\"false\" enableOverApproximation=\"false\" enableUnderApproximation=\"false\" extrapolationOption=\"null\" gcd=\"false\" hashTableSize=\"null\" inclusionPlaces=\"*NONE*\" name=\"Waypoint_{}\" overApproximation=\"true\" pTrie=\"true\" query=\"{}\" reduction=\"true\" reductionOption=\"VerifyTAPNdiscreteVerification\" searchOption=\"DFS\" symmetry=\"true\" timeDarts=\"false\" traceOption=\"NONE\" useStubbornReduction=\"true\"/>\n".format(node.notation, q)
-        xml_str += query
-        
-    return xml_str
+    return xml_str, wp_query
 
+#Visited components
 def visited(nodes, transitions):
     xml_str = ""
     for node in nodes[1:]:
@@ -75,16 +75,23 @@ def visited(nodes, transitions):
 def loopfreedom(nodes: list, transitions: list):
     xml_str = ""
     
-    query_raw = "AG("
+    loop_query= "("
     for node in nodes[1:-1]:
         q = f"{node.notation}_visited.{node.notation}_visited &lt; 2 and "
-        query_raw += q
+        loop_query += q
     lnode = nodes[-1]
-    query_raw += f"{lnode.notation}_visited.{lnode.notation}_visited &lt; 2)"
-    query = "<query active=\"true\" approximationDenominator=\"2\" capacity=\"5\" discreteInclusion=\"false\" enableOverApproximation=\"false\" enableUnderApproximation=\"false\" extrapolationOption=\"null\" gcd=\"false\" hashTableSize=\"null\" inclusionPlaces=\"*NONE*\" name=\"LoopFree\" overApproximation=\"true\" pTrie=\"true\" query=\"{}\" reduction=\"true\" reductionOption=\"VerifyTAPNdiscreteVerification\" searchOption=\"DFS\" symmetry=\"true\" timeDarts=\"false\" traceOption=\"NONE\" useStubbornReduction=\"true\"/>\n".format(query_raw)
+    loop_query += f"{lnode.notation}_visited.{lnode.notation}_visited &lt; 2)"
+
+    q = "AG{}".format(loop_query)
+    query = "<query active=\"true\" approximationDenominator=\"2\" capacity=\"5\" discreteInclusion=\"false\" enableOverApproximation=\"false\" enableUnderApproximation=\"false\" extrapolationOption=\"null\" gcd=\"false\" hashTableSize=\"null\" inclusionPlaces=\"*NONE*\" name=\"LoopFree\" overApproximation=\"true\" pTrie=\"true\" query=\"{}\" reduction=\"true\" reductionOption=\"VerifyTAPNdiscreteVerification\" searchOption=\"DFS\" symmetry=\"true\" timeDarts=\"false\" traceOption=\"NONE\" useStubbornReduction=\"true\"/>\n".format(q)
     xml_str += query
         
     return xml_str
+
+def combinedQuery(reach_query, wp_query, loop_query = None):
+    big_query = f"AG({reach_query} and {wp_query})"
+    return "<query active=\"true\" approximationDenominator=\"2\" capacity=\"5\" discreteInclusion=\"false\" enableOverApproximation=\"false\" enableUnderApproximation=\"false\" extrapolationOption=\"null\" gcd=\"false\" hashTableSize=\"null\" inclusionPlaces=\"*NONE*\" name=\"All3\" overApproximation=\"true\" pTrie=\"true\" query=\"{}\" reduction=\"true\" reductionOption=\"VerifyTAPNdiscreteVerification\" searchOption=\"DFS\" symmetry=\"true\" timeDarts=\"false\" traceOption=\"NONE\" useStubbornReduction=\"true\"/>\n".format(big_query)
+    
 
 
 #def all_props_query()
