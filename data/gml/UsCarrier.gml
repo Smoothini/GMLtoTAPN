@@ -1,6 +1,7 @@
 graph [
   DateObtained "15/11/10"
   multigraph 1
+  directed 1
   GeoLocation "Georgia, Alabama, Florida, USA"
   GeoExtent "Region"
   Network "US Carrier"

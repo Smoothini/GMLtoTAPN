@@ -54,6 +54,6 @@ def write_all_to_file():
             print(f"Failure! {f[:-4]} not converted..")
     print("Operation done in: {} seconds".format((str(time.time()-start))[:5]))
 
-write_all_to_file()
-
+#write_all_to_file()
+write_to_file("btNorthAmerica")
 #write_to_file("Quest")

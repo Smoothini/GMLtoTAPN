@@ -1,6 +1,7 @@
 graph [
   DateObtained "18/10/10"
   multigraph 1
+  directed 1
   GeoLocation "Missouri"
   GeoExtent "Region"
   Network "Missouri Network Alliance "

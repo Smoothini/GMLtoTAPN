@@ -1,79 +1,35 @@
 {
     "Initial_routing": [
         [
-            29,
-            20
+            0,
+            1
         ],
         [
-            20,
-            21
+            1,
+            6
         ],
         [
-            21,
-            13
-        ],
-        [
-            13,
+            6,
             12
         ],
         [
             12,
-            8
+            13
         ],
         [
-            8,
-            9
-        ],
-        [
-            9,
-            14
-        ]
-    ],
-    "Final_routing": [
-        [
-            29,
-            28
-        ],
-        [
-            28,
+            13,
             27
         ],
         [
             27,
-            13
+            28
         ],
         [
-            13,
-            23
-        ],
-        [
-            23,
-            22
-        ],
-        [
-            22,
-            5
-        ],
-        [
-            5,
-            12
-        ],
-        [
-            12,
-            7
-        ],
-        [
-            7,
-            3
-        ],
-        [
-            3,
-            21
-        ],
-        [
-            21,
-            0
-        ],
+            28,
+            29
+        ]
+    ],
+    "Final_routing": [
         [
             0,
             1
@@ -84,26 +40,37 @@
         ],
         [
             6,
-            15
+            12
         ],
         [
-            15,
-            9
-        ],
-        [
-            9,
-            14
-        ]
-    ],
-    "Properties": {
-        "Waypointing": true,
-        "WaypointNodeIds": [
-            9,
-            21,
             12,
             13
         ],
-        "LoopFreedom": true,
-        "Reachability": 14
+        [
+            13,
+            27
+        ],
+        [
+            27,
+            28
+        ],
+        [
+            28,
+            29
+        ]
+    ],
+    "Properties": {
+        "Waypoint": {
+            "startNode": 0,
+            "finalNode": 6,
+            "waypoint": 6
+        },
+        "LoopFreedom": {
+            "startNode": 0
+        },
+        "Reachability": {
+            "startNode": 0,
+            "finalNode": 6
+        }
     }
 }

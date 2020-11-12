@@ -1,6 +1,7 @@
 graph [
   DateObtained "19/10/10"
   multigraph 1
+  directed 1
   GeoLocation "Global"
   GeoExtent "Global"
   Network "Airtel"

@@ -1,6 +1,7 @@
 graph [
   GeoLocation "Czech Republic"
   multigraph 1
+  directed 1
   GeoExtent "Country"
   Network "Dial Telecom "
   Provenance "Primary"

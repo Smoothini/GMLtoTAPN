@@ -1,6 +1,7 @@
 graph [
   DateObtained "22/10/10"
   multigraph 1
+  directed 1
   GeoLocation "Singapore"
   GeoExtent "Country"
   Network "Singaren"

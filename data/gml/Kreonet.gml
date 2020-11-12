@@ -1,6 +1,7 @@
 graph [
   DateObtained "2/12/10"
   multigraph 1
+  directed 1
   GeoLocation "South Korea"
   GeoExtent "Country"
   Network "KREONET"

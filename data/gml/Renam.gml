@@ -1,6 +1,7 @@
 graph [
   DateObtained "12/07/11"
   multigraph 1
+  directed 1
   GeoLocation "Moldova"
   GeoExtent "Country"
   Network "Renam"

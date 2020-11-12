@@ -1,25 +1,7 @@
 {
     "Initial_routing": [
         [
-            1,
-            0
-        ],
-        [
-            0,
-            4
-        ],
-        [
-            4,
-            5
-        ]
-    ],
-    "Final_routing": [
-        [
-            1,
-            0
-        ],
-        [
-            0,
+            8,
             12
         ],
         [
@@ -28,20 +10,35 @@
         ],
         [
             18,
-            4
+            20
+        ]
+    ],
+    "Final_routing": [
+        [
+            8,
+            12
         ],
         [
-            4,
-            5
+            12,
+            18
+        ],
+        [
+            18,
+            20
         ]
     ],
     "Properties": {
-        "Waypointing": true,
-        "WaypointNodeIds": [
-            0,
-            4
-        ],
-        "LoopFreedom": true,
-        "Reachability": 5
+        "Waypoint": {
+            "startNode": 8,
+            "finalNode": 2,
+            "waypoint": 12
+        },
+        "LoopFreedom": {
+            "startNode": 8
+        },
+        "Reachability": {
+            "startNode": 8,
+            "finalNode": 2
+        }
     }
 }

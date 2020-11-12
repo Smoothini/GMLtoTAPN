@@ -1,6 +1,7 @@
 graph [
   DateObtained "19/10/10"
   multigraph 1
+  directed 1
   GeoLocation "Asia-Pacific"
   GeoExtent "Continent"
   Network "AI3"

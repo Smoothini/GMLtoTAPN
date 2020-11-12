@@ -1,6 +1,7 @@
 graph [
   DateObtained "16/11/10"
   multigraph 1
+  directed 1
   GeoLocation "Global"
   GeoExtent "Global"
   Network "Deutsche Telekom "

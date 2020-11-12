@@ -1,6 +1,7 @@
 graph [
   DateObtained "24/01/11"
   multigraph 1
+  directed 1
   GeoLocation "Central South, UK"
   GeoExtent "Region"
   Network "Janet Lense"

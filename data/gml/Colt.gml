@@ -1,6 +1,7 @@
 graph [
   DateObtained "6/11/10"
   multigraph 1
+  directed 1
   GeoLocation "Europe"
   GeoExtent "Continent"
   Network "Colt Telecom "

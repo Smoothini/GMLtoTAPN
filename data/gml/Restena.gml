@@ -1,6 +1,7 @@
 graph [
   DateObtained "3/02/11"
   multigraph 1
+  directed 1
   GeoLocation "Luxembourg"
   GeoExtent "Country"
   Network "Restena"

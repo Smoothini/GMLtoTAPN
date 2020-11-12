@@ -1,6 +1,7 @@
 graph [
   DateObtained "24/10/10"
   multigraph 1
+  directed 1
   GeoLocation "Iowa, USA"
   GeoExtent "Region"
   Network "INS IXC Services "

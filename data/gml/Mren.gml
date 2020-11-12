@@ -1,6 +1,7 @@
 graph [
   DateObtained "20/07/11"
   multigraph 1
+  directed 1
   GeoLocation "Montenegro"
   GeoExtent "Country"
   Network "MREN"

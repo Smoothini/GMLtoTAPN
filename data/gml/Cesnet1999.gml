@@ -1,6 +1,7 @@
 graph [
   DateObtained "20/01/11"
   multigraph 1
+  directed 1
   GeoLocation "Czech Republic"
   GeoExtent "Country"
   Network "CESNET"
