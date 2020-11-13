@@ -7,16 +7,15 @@ def get_node(node_id, nodes):
     return next((x for x in nodes if x.id == node_id), None)            
 
 # Waypoint query
-def waypoints(nodes, transitions: list, waypointlist: list, final_id):
+def waypoint(u, v, w):
     xml_str = ""
-    waypoint = get_node(random.choice(waypointlist), nodes)
+
+    w = f"P{w}_visited"
+    v = f"P{v}"
     
-    waypoint.notation = f"P{waypoint.id}_visited"
-    
-    wp_query = "({}.{} &gt;= 1 or Routings.P{} = 0)".format(waypoint.notation, waypoint.notation, final_id)
+    wp_query = "({}.{} &gt;= 1 or Routings.{} = 0)".format(w, w, v)
     q = "AG {}".format(wp_query)
-    waypoint.notation = f"P{waypoint.id}"
-    query = "<query active=\"true\" approximationDenominator=\"2\" capacity=\"5\" discreteInclusion=\"false\" enableOverApproximation=\"false\" enableUnderApproximation=\"false\" extrapolationOption=\"null\" gcd=\"false\" hashTableSize=\"null\" inclusionPlaces=\"*NONE*\" name=\"Waypoint_{}\" overApproximation=\"true\" pTrie=\"true\" query=\"{}\" reduction=\"true\" reductionOption=\"VerifyTAPNdiscreteVerification\" searchOption=\"DFS\" symmetry=\"true\" timeDarts=\"false\" traceOption=\"NONE\" useStubbornReduction=\"true\"/>\n".format(waypoint.notation, q)
+    query = "<query active=\"true\" approximationDenominator=\"2\" capacity=\"5\" discreteInclusion=\"false\" enableOverApproximation=\"false\" enableUnderApproximation=\"false\" extrapolationOption=\"null\" gcd=\"false\" hashTableSize=\"null\" inclusionPlaces=\"*NONE*\" name=\"Waypoint_{}\" overApproximation=\"true\" pTrie=\"true\" query=\"{}\" reduction=\"true\" reductionOption=\"VerifyTAPNdiscreteVerification\" searchOption=\"DFS\" symmetry=\"true\" timeDarts=\"false\" traceOption=\"NONE\" useStubbornReduction=\"true\"/>\n".format(w, q)
     xml_str += query
         
     return xml_str, wp_query
@@ -72,16 +71,9 @@ def visited(nodes, transitions):
 
 
 # Loopfreedom query
-def loopfreedom(nodes: list, transitions: list):
+def loopfreedom(u):
     xml_str = ""
-    
-    loop_query= "("
-    for node in nodes[1:-1]:
-        q = f"{node.notation}_visited.{node.notation}_visited &lt; 2 and "
-        loop_query += q
-    lnode = nodes[-1]
-    loop_query += f"{lnode.notation}_visited.{lnode.notation}_visited &lt; 2)"
-
+    loop_query = f"(P{u}_visited.P{u}_visited &lt; 2)"
     q = "AG{}".format(loop_query)
     query = "<query active=\"true\" approximationDenominator=\"2\" capacity=\"5\" discreteInclusion=\"false\" enableOverApproximation=\"false\" enableUnderApproximation=\"false\" extrapolationOption=\"null\" gcd=\"false\" hashTableSize=\"null\" inclusionPlaces=\"*NONE*\" name=\"LoopFree\" overApproximation=\"true\" pTrie=\"true\" query=\"{}\" reduction=\"true\" reductionOption=\"VerifyTAPNdiscreteVerification\" searchOption=\"DFS\" symmetry=\"true\" timeDarts=\"false\" traceOption=\"NONE\" useStubbornReduction=\"true\"/>\n".format(q)
     xml_str += query

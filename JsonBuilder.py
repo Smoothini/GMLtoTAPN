@@ -45,84 +45,99 @@ def makeDirected(filepath):
 def jsonbuilder(network):
     filepath = "data/gml/" + network + ".gml"
 
-    if isDirected(filepath) == False:
+    if not isDirected(filepath):
         makeDirected(filepath)
 
-    mydic = {}
     start = time.time()
     g = nx.read_gml(filepath, label='id')
     g = nx.DiGraph(g)
 
+    routings = findRoutings(g)
+
+    if routings:
+        info = generateJSONInfo(g, routings)
+        generateJSONFile(info, network)
+        print("Success! Json settings for {} generated! Execution time: {} seconds".format(network,
+                                                                                           (str(time.time() - start))[
+                                                                                           :5]))
+    else:
+        print("Failure! No final routing available for {}... Execution time: {} seconds.".format(network,
+                                                                                          (str(time.time() - start))[
+                                                                                          :5]))
+
+
+def findRoutings(g):
     nodes_raw = list(g.nodes(data=True))
-    n = len(nodes_raw)
-    #
-    lmax = 0
-    s, t = -1, -1
-    init_path = []
+    length = 0
 
-    for source in range(n):
+    for source in range(len(nodes_raw)):
+        i = 1
         paths = list(nx.single_source_shortest_path_length(g, source))
-        pathLength = nx.shortest_path_length(g, source=source, target=paths[-1])
-        if pathLength > lmax:
-            lmax = pathLength
-            s = source
-            t = paths[-1]
+        for target in reversed(paths):
+            all_paths = list(nx.all_simple_paths(g, source=source, target=target))
+            all_paths = sorted(all_paths, key=len, reverse=True)
+            if len(all_paths) >= 2:
+                if len(all_paths[0]) + len(all_paths[1]) > length:
+                    routings = all_paths[:2]
+                    length = len(all_paths[0]) + len(all_paths[1])
+        i += 1
 
-    # for source in range(n):
-    #     for target in range(n - 1):
-    #        l = nx.shortest_path_length(g, source=source, target=target)
-    #       if l > lmax:
-    #          lmax = l
-    #         s, t = source, target
+    if length:
+        return routings[:2]
+    else:
+        return False
 
-    init_path = list(nx.shortest_path(g, source=s, target=t))
-    print(f"Max shortest path: {lmax}, between {s} and {t}")
-    print(f"Path: {init_path}")
-    all_paths = list(nx.all_simple_paths(g, source=s, target=t))
-    # all_paths = list(nx.all_shortest_paths(g, source=s, target=t))
-    lmax_path = 0
-    final_path = []
-    print(f"Amount of paths: {len(all_paths)}")
-    for path in all_paths:
-        if len(path) > lmax_path:
-            lmax_path = len(path)
-            final_path = path
-    print(f"Biggest path size: {lmax_path}")
-    print(f"Path: {str(final_path)}")
+
+def generateJSONFile(info, name):
+    myjsondic = json.dumps(info, indent=4)
+    f = open(f"data/json/{name}.json", "w")
+    f.write(myjsondic)
+    f.close()
+
+
+def generateJSONInfo(g, routings: list):
+    mydic = {}
+    init_path = routings[0]
+    final_path = routings[-1]
+    source = init_path[0]
+    target = init_path[-1]
+
+    print(f"Nodes in graph: {g.nodes}")
+    print(f"Edges in graph: {g.edges}")
+    # print(f"Max shortest path: {lmax}, between {s} and {t}")
+    print(f"Initial Path: {str(init_path)}")
+    # all_paths = list(nx.all_simple_paths(g, source=source, target=target))
+    # print(f"Amount of paths: {len(all_paths)}")
+    # print(f"Biggest path size: {lmax_path}")
+    print(f"Final Path: {str(final_path)}")
     s1 = set(init_path[1:-1])
     s2 = set(final_path[1:-1])
     wps = list(s1.intersection(s2))
     print(f"Common waypoints: {wps}")
     init_route = []
     final_route = []
-    for t in range(len(init_path) - 1):
-        init_route.append([init_path[t], init_path[t + 1]])
-    for t in range(len(final_path) - 1):
-        final_route.append([final_path[t], final_path[t + 1]])
+    for node in range(len(init_path) - 1):
+        init_route.append([init_path[node], init_path[node + 1]])
+    for node in range(len(final_path) - 1):
+        final_route.append([final_path[node], final_path[node + 1]])
     print(f"Init routing: {init_route}")
     print(f"Final routing: {final_route}")
+
     mydic["Initial_routing"] = init_route
     mydic["Final_routing"] = final_route
     mydic["Properties"] = {}
-    if len(wps):
-        mydic["Properties"]["Waypoint"] = Waypoint(s, t, wps[1]).__dict__
-    else:
-        mydic["Properties"]["Waypointing"] = False
-    mydic["Properties"]["LoopFreedom"] = LoopFreedom(s).__dict__
-    mydic["Properties"]["Reachability"] = Reachability(s, t).__dict__
+    if wps:
+        mydic["Properties"]["Waypoint"] = Waypoint(source, target, wps[0]).__dict__
+    mydic["Properties"]["LoopFreedom"] = LoopFreedom(source).__dict__
+    mydic["Properties"]["Reachability"] = Reachability(source, target).__dict__
 
-    myjsondic = json.dumps(mydic, indent=4)
-    f = open(f"data/json/{network}.json", "w")
-    f.write(myjsondic)
-    f.close()
-    print("Success! Json settings for {} generated! Execution time: {} seconds".format(network,
-                                                                                       (str(time.time() - start))[:5]))
+    return mydic
 
 
 ##in progress, doesn't look very gang gang so far..
 def jsonGtBuilder(network):
     start = time.time()
-    #g = gt.load_graph(f"data/gml/{network}.gml")
+    # g = gt.load_graph(f"data/gml/{network}.gml")
     n = g.num_vertices()
 
     lmax = 0
@@ -203,5 +218,6 @@ def cleanup():
 # focus on not yet supported
 build_all()
 # build_not_supported()
-
+# jsonbuilder("BtEurope")
+# jsonbuilder("Colt")
 # cleanup()

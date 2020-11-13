@@ -16,7 +16,7 @@ def write_to_file(network):
     g = nx.read_gml("data/gml/" + network + '.gml', label='id')
     jsonParser = JsonParser(network)
     if type(g) == nx.classes.multigraph.MultiGraph:
-        g = nx.Graph(g)
+        g = nx.DiGraph(g)
     f = open(f"data/tapn/{network}.tapn", "w")
     f.write("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n")
     f.write("<pnml xmlns=\"http://www.informatik.hu-berlin.de/top/pnml/ptNetb\">\n")
@@ -32,11 +32,11 @@ def write_to_file(network):
 
     # Other components
     f.write(ANC.visited(nodes, transitions))
-    if jsonParser.properties["Waypointing"]:
-        xml_wp, wp_query = ANC.waypoints(nodes, transitions, jsonParser.properties["WaypointNodeIds"], jsonParser.init_route[-1][1])
+    if jsonParser.properties["Waypoint"]:
+        xml_wp, wp_query = ANC.waypoint(jsonParser.waypoint["startNode"], jsonParser.waypoint["finalNode"], jsonParser.waypoint["waypoint"])
         f.write(xml_wp)
     if jsonParser.properties["LoopFreedom"]:
-        f.write(ANC.loopfreedom(nodes, transitions))
+        f.write(ANC.loopfreedom(jsonParser.loopfreedom["startNode"]))
 
     f.write(ANC.combinedQuery(reach_query, wp_query))
     
@@ -59,5 +59,5 @@ def write_all_to_file():
     print("Operation done in: {} seconds".format((str(time.time()-start))[:5]))
 
 write_all_to_file()
-
+#write_to_file("btNorthAmerica")
 #write_to_file("Aconet")

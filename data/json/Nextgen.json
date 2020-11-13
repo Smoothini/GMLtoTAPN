@@ -1,30 +1,31 @@
 {
     "Initial_routing": [
         [
-            0,
-            1
+            9,
+            10
         ],
         [
-            1,
-            14
+            10,
+            16
         ]
     ],
     "Final_routing": [
         [
-            0,
-            1
+            9,
+            15
         ],
         [
-            1,
-            14
+            15,
+            16
         ]
     ],
     "Properties": {
-        "Waypointing": true,
-        "WaypointNodeIds": [
-            1
-        ],
-        "LoopFreedom": true,
-        "Reachability": 14
+        "LoopFreedom": {
+            "startNode": 9
+        },
+        "Reachability": {
+            "startNode": 9,
+            "finalNode": 16
+        }
     }
 }
