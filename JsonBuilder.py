@@ -122,7 +122,7 @@ def jsonbuilder(network):
 ##in progress, doesn't look very gang gang so far..
 def jsonGtBuilder(network):
     start = time.time()
-    g = gt.load_graph(f"data/gml/{network}.gml")
+    #g = gt.load_graph(f"data/gml/{network}.gml")
     n = g.num_vertices()
 
     lmax = 0

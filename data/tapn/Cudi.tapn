@@ -101,30 +101,130 @@ Final routing: [[23, 14], [14, 31], [31, 45], [45, 43], [43, 44], [44, 47], [47,
     </arc>
   </net>
 
-<query active="true" approximationDenominator="2" capacity="5" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="Reach_P42" overApproximation="true" pTrie="true" query="AG (!(deadlock) or Routings.P42>=1)" reduction="true" reductionOption="VerifyTAPNdiscreteVerification" searchOption="DFS" symmetry="true" timeDarts="false" traceOption="NONE" useStubbornReduction="true"/>
+<query active="true" approximationDenominator="2" capacity="5" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="Reach_P42" overApproximation="true" pTrie="true" query="AG(!(deadlock) or Routings.P42>=1)" reduction="true" reductionOption="VerifyTAPNdiscreteVerification" searchOption="DFS" symmetry="true" timeDarts="false" traceOption="NONE" useStubbornReduction="true"/>
+
+  <net active="true" id="P2_Switch" type="P/T net">
+    <place displayName="true" id="Controller" initialMarking="1" invariant="&lt; inf" name="Controller" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="100"/>
+    <transition angle="0" displayName="true" id="Update_P2" infiniteServer="false" name="Update_P2" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="300" positionY="100" priority="0" urgent="false"/>
+    <arc id="Controller to Update_P2" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="Controller" target="Update_P2" type="timed" weight="1">
+    </arc>
+    <arc id="Update_P2 to Controller" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="Update_P2" target="Controller" type="normal" weight="1">
+    </arc>
+    <place displayName="true" id="P2_initial" initialMarking="1" invariant="&lt; inf" name="P2_initial" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="500" positionY="100"/>
+    <place displayName="true" id="P2_final" initialMarking="0" invariant="&lt; inf" name="P2_final" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="500" positionY="300"/>
+    <arc id="P2_initial to Update_P2" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P2_initial" target="Update_P2" type="timed" weight="1">
+    </arc>
+    <arc id="Update_P2 to P2_final" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="Update_P2" target="P2_final" type="normal" weight="1">
+    </arc>
+    <transition angle="0" displayName="true" id="T2_42" infiniteServer="false" name="T2_42" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="700" positionY="100" priority="0" urgent="false"/>
+    <arc id="P2_initial to T2_42" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P2_initial" target="T2_42" type="timed" weight="1">
+    </arc>
+    <arc id="T2_42 to P2_initial" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="T2_42" target="P2_initial" type="normal" weight="1">
+    </arc>
+  </net>
+
+  <net active="true" id="P41_Switch" type="P/T net">
+    <place displayName="true" id="Controller" initialMarking="1" invariant="&lt; inf" name="Controller" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="100"/>
+    <transition angle="0" displayName="true" id="Update_P41" infiniteServer="false" name="Update_P41" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="300" positionY="100" priority="0" urgent="false"/>
+    <arc id="Controller to Update_P41" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="Controller" target="Update_P41" type="timed" weight="1">
+    </arc>
+    <arc id="Update_P41 to Controller" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="Update_P41" target="Controller" type="normal" weight="1">
+    </arc>
+    <place displayName="true" id="P41_initial" initialMarking="1" invariant="&lt; inf" name="P41_initial" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="500" positionY="100"/>
+    <place displayName="true" id="P41_final" initialMarking="0" invariant="&lt; inf" name="P41_final" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="500" positionY="300"/>
+    <arc id="P41_initial to Update_P41" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P41_initial" target="Update_P41" type="timed" weight="1">
+    </arc>
+    <arc id="Update_P41 to P41_final" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="Update_P41" target="P41_final" type="normal" weight="1">
+    </arc>
+    <transition angle="0" displayName="true" id="T41_42" infiniteServer="false" name="T41_42" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="700" positionY="300" priority="0" urgent="false"/>
+    <arc id="P41_final to T41_42" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P41_final" target="T41_42" type="timed" weight="1">
+    </arc>
+    <arc id="T41_42 to P41_final" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="T41_42" target="P41_final" type="normal" weight="1">
+    </arc>
+  </net>
 
   <net active="true" id="P43_Switch" type="P/T net">
     <place displayName="true" id="Controller" initialMarking="1" invariant="&lt; inf" name="Controller" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="100"/>
-    <place displayName="true" id="P43_initial" initialMarking="1" invariant="&lt; inf" name="P43_initial" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="500" positionY="100"/>
-    <place displayName="true" id="P43_final" initialMarking="0" invariant="&lt; inf" name="P43_final" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="500" positionY="250"/>
     <transition angle="0" displayName="true" id="Update_P43" infiniteServer="false" name="Update_P43" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="300" positionY="100" priority="0" urgent="false"/>
-    <transition angle="0" displayName="true" id="T43_46" infiniteServer="false" name="T43_46" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="700" positionY="100" priority="0" urgent="false"/>
-    <transition angle="0" displayName="true" id="T43_44" infiniteServer="false" name="T43_44" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="700" positionY="250" priority="0" urgent="false"/>
     <arc id="Controller to Update_P43" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="Controller" target="Update_P43" type="timed" weight="1">
     </arc>
     <arc id="Update_P43 to Controller" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="Update_P43" target="Controller" type="normal" weight="1">
     </arc>
+    <place displayName="true" id="P43_initial" initialMarking="1" invariant="&lt; inf" name="P43_initial" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="500" positionY="100"/>
+    <place displayName="true" id="P43_final" initialMarking="0" invariant="&lt; inf" name="P43_final" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="500" positionY="300"/>
+    <arc id="P43_initial to Update_P43" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P43_initial" target="Update_P43" type="timed" weight="1">
+    </arc>
+    <arc id="Update_P43 to P43_final" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="Update_P43" target="P43_final" type="normal" weight="1">
+    </arc>
+    <transition angle="0" displayName="true" id="T43_46" infiniteServer="false" name="T43_46" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="700" positionY="100" priority="0" urgent="false"/>
     <arc id="P43_initial to T43_46" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P43_initial" target="T43_46" type="timed" weight="1">
     </arc>
     <arc id="T43_46 to P43_initial" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="T43_46" target="P43_initial" type="normal" weight="1">
     </arc>
+    <transition angle="0" displayName="true" id="T43_44" infiniteServer="false" name="T43_44" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="700" positionY="300" priority="0" urgent="false"/>
     <arc id="P43_final to T43_44" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P43_final" target="T43_44" type="timed" weight="1">
     </arc>
     <arc id="T43_44 to P43_final" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="T43_44" target="P43_final" type="normal" weight="1">
     </arc>
-    <arc id="P43_initial to Update_P43" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P43_initial" target="Update_P43" type="timed" weight="1">
+  </net>
+
+  <net active="true" id="P44_Switch" type="P/T net">
+    <place displayName="true" id="Controller" initialMarking="1" invariant="&lt; inf" name="Controller" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="100"/>
+    <transition angle="0" displayName="true" id="Update_P44" infiniteServer="false" name="Update_P44" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="300" positionY="100" priority="0" urgent="false"/>
+    <arc id="Controller to Update_P44" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="Controller" target="Update_P44" type="timed" weight="1">
     </arc>
-    <arc id="Update_P43 to P43_final" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="Update_P43" target="P43_final" type="normal" weight="1">
+    <arc id="Update_P44 to Controller" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="Update_P44" target="Controller" type="normal" weight="1">
+    </arc>
+    <place displayName="true" id="P44_initial" initialMarking="1" invariant="&lt; inf" name="P44_initial" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="500" positionY="100"/>
+    <place displayName="true" id="P44_final" initialMarking="0" invariant="&lt; inf" name="P44_final" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="500" positionY="300"/>
+    <arc id="P44_initial to Update_P44" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P44_initial" target="Update_P44" type="timed" weight="1">
+    </arc>
+    <arc id="Update_P44 to P44_final" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="Update_P44" target="P44_final" type="normal" weight="1">
+    </arc>
+    <transition angle="0" displayName="true" id="T44_47" infiniteServer="false" name="T44_47" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="700" positionY="300" priority="0" urgent="false"/>
+    <arc id="P44_final to T44_47" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P44_final" target="T44_47" type="timed" weight="1">
+    </arc>
+    <arc id="T44_47 to P44_final" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="T44_47" target="P44_final" type="normal" weight="1">
+    </arc>
+  </net>
+
+  <net active="true" id="P46_Switch" type="P/T net">
+    <place displayName="true" id="Controller" initialMarking="1" invariant="&lt; inf" name="Controller" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="100"/>
+    <transition angle="0" displayName="true" id="Update_P46" infiniteServer="false" name="Update_P46" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="300" positionY="100" priority="0" urgent="false"/>
+    <arc id="Controller to Update_P46" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="Controller" target="Update_P46" type="timed" weight="1">
+    </arc>
+    <arc id="Update_P46 to Controller" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="Update_P46" target="Controller" type="normal" weight="1">
+    </arc>
+    <place displayName="true" id="P46_initial" initialMarking="1" invariant="&lt; inf" name="P46_initial" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="500" positionY="100"/>
+    <place displayName="true" id="P46_final" initialMarking="0" invariant="&lt; inf" name="P46_final" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="500" positionY="300"/>
+    <arc id="P46_initial to Update_P46" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P46_initial" target="Update_P46" type="timed" weight="1">
+    </arc>
+    <arc id="Update_P46 to P46_final" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="Update_P46" target="P46_final" type="normal" weight="1">
+    </arc>
+    <transition angle="0" displayName="true" id="T46_2" infiniteServer="false" name="T46_2" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="700" positionY="100" priority="0" urgent="false"/>
+    <arc id="P46_initial to T46_2" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P46_initial" target="T46_2" type="timed" weight="1">
+    </arc>
+    <arc id="T46_2 to P46_initial" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="T46_2" target="P46_initial" type="normal" weight="1">
+    </arc>
+  </net>
+
+  <net active="true" id="P47_Switch" type="P/T net">
+    <place displayName="true" id="Controller" initialMarking="1" invariant="&lt; inf" name="Controller" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="100"/>
+    <transition angle="0" displayName="true" id="Update_P47" infiniteServer="false" name="Update_P47" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="300" positionY="100" priority="0" urgent="false"/>
+    <arc id="Controller to Update_P47" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="Controller" target="Update_P47" type="timed" weight="1">
+    </arc>
+    <arc id="Update_P47 to Controller" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="Update_P47" target="Controller" type="normal" weight="1">
+    </arc>
+    <place displayName="true" id="P47_initial" initialMarking="1" invariant="&lt; inf" name="P47_initial" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="500" positionY="100"/>
+    <place displayName="true" id="P47_final" initialMarking="0" invariant="&lt; inf" name="P47_final" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="500" positionY="300"/>
+    <arc id="P47_initial to Update_P47" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P47_initial" target="Update_P47" type="timed" weight="1">
+    </arc>
+    <arc id="Update_P47 to P47_final" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="Update_P47" target="P47_final" type="normal" weight="1">
+    </arc>
+    <transition angle="0" displayName="true" id="T47_41" infiniteServer="false" name="T47_41" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="700" positionY="300" priority="0" urgent="false"/>
+    <arc id="P47_final to T47_41" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P47_final" target="T47_41" type="timed" weight="1">
+    </arc>
+    <arc id="T47_41 to P47_final" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="T47_41" target="P47_final" type="normal" weight="1">
     </arc>
   </net>
 
@@ -227,12 +327,9 @@ Final routing: [[23, 14], [14, 31], [31, 45], [45, 43], [43, 44], [44, 47], [47,
     <arc id="P47_visited to T47_41" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P47_visited" target="T47_41" type="tapnInhibitor" weight="2">
     </arc>
   </net>
-<query active="true" approximationDenominator="2" capacity="5" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="Waypoint_P43" overApproximation="true" pTrie="true" query="AG (P43_visited.P43_visited &gt;= 1 or Routings.P42 = 0)" reduction="true" reductionOption="VerifyTAPNdiscreteVerification" searchOption="DFS" symmetry="true" timeDarts="false" traceOption="NONE" useStubbornReduction="true"/>
-<query active="true" approximationDenominator="2" capacity="5" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="Waypoint_P45" overApproximation="true" pTrie="true" query="AG (P45_visited.P45_visited &gt;= 1 or Routings.P42 = 0)" reduction="true" reductionOption="VerifyTAPNdiscreteVerification" searchOption="DFS" symmetry="true" timeDarts="false" traceOption="NONE" useStubbornReduction="true"/>
-<query active="true" approximationDenominator="2" capacity="5" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="Waypoint_P14" overApproximation="true" pTrie="true" query="AG (P14_visited.P14_visited &gt;= 1 or Routings.P42 = 0)" reduction="true" reductionOption="VerifyTAPNdiscreteVerification" searchOption="DFS" symmetry="true" timeDarts="false" traceOption="NONE" useStubbornReduction="true"/>
 <query active="true" approximationDenominator="2" capacity="5" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="Waypoint_P31" overApproximation="true" pTrie="true" query="AG (P31_visited.P31_visited &gt;= 1 or Routings.P42 = 0)" reduction="true" reductionOption="VerifyTAPNdiscreteVerification" searchOption="DFS" symmetry="true" timeDarts="false" traceOption="NONE" useStubbornReduction="true"/>
-<query active="true" approximationDenominator="2" capacity="5" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="LoopFree" overApproximation="true" pTrie="true" query="AG(P2_visited.P2_visited > 2 and P14_visited.P14_visited > 2 and P23_visited.P23_visited > 2 and P31_visited.P31_visited > 2 and P41_visited.P41_visited > 2 and P42_visited.P42_visited > 2 and P43_visited.P43_visited > 2 and P44_visited.P44_visited > 2 and P45_visited.P45_visited > 2 and P46_visited.P46_visited > 2 and P47_visited.P47_visited > 2)
-" reduction="true" reductionOption="VerifyTAPNdiscreteVerification" searchOption="DFS" symmetry="true" timeDarts="false" traceOption="NONE" useStubbornReduction="true"/>
+<query active="true" approximationDenominator="2" capacity="5" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="LoopFree" overApproximation="true" pTrie="true" query="AG(P2_visited.P2_visited &lt; 2 and P14_visited.P14_visited &lt; 2 and P23_visited.P23_visited &lt; 2 and P31_visited.P31_visited &lt; 2 and P41_visited.P41_visited &lt; 2 and P42_visited.P42_visited &lt; 2 and P43_visited.P43_visited &lt; 2 and P44_visited.P44_visited &lt; 2 and P45_visited.P45_visited &lt; 2 and P46_visited.P46_visited &lt; 2 and P47_visited.P47_visited &lt; 2)" reduction="true" reductionOption="VerifyTAPNdiscreteVerification" searchOption="DFS" symmetry="true" timeDarts="false" traceOption="NONE" useStubbornReduction="true"/>
+<query active="true" approximationDenominator="2" capacity="5" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="All3" overApproximation="true" pTrie="true" query="AG((!(deadlock) or Routings.P42>=1) and (P31_visited.P31_visited &gt;= 1 or Routings.P42 = 0))" reduction="true" reductionOption="VerifyTAPNdiscreteVerification" searchOption="DFS" symmetry="true" timeDarts="false" traceOption="NONE" useStubbornReduction="true"/>
   <k-bound bound="3"/>
   <feature isGame="true" isTimed="true"/>
 </pnml>
