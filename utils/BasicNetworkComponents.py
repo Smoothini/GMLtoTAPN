@@ -130,7 +130,6 @@ def switches(nodes, transitions):
              #   print(f"Node {node.id}: Half final switch")
 
     for node in switch_nodes:
-        #print(node.notation)
         update_transition = Transition(f"Update_{node.notation}", controller, None, f"Update_{node.notation}")
         update_transition.x , update_transition.y = 300, 100
 
@@ -139,7 +138,7 @@ def switches(nodes, transitions):
 
         final_place = Node(f"P{node.id}_final", f"P{node.id}_final")
         final_place.x, final_place.y = 500, 300
-
+        #print(f"P{node.id}  init: {node.init_route}   final: {node.final_route}")
         initial_transition, final_transition = None, None
         if node.init_route != None:
             initial_transition = next((x for x in transitions if x.source == node.id and x.target == node.init_route), None)

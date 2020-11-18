@@ -23,7 +23,7 @@ def waypoint(u, v, w):
 #Visited components
 def visited(nodes, transitions):
     xml_str = ""
-    for node in nodes[1:]:
+    for node in nodes:
         node.notation = f"P{node.id}_visited"
         x = 200
         y = 50
