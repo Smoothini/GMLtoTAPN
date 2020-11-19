@@ -63,4 +63,5 @@ def write_all_to_file():
 #write_to_file("btNorthAmerica")
 #write_to_file("Aconet")
 
-TN.write_batch_to_file(100, 1100, 100)
+#TN.write_batch_to_file(100, 1100, 100)
+TN.make_disjoint(5000)
