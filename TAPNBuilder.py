@@ -29,15 +29,16 @@ def write_to_file(network):
     # Initial state of the network
     xml_reach, reach_query = BNC.routing_configuration(network, jsonParser, nodes, transitions)
     f.write(xml_reach)
-    f.write(BNC.switches(nodes, transitions))
+    xml_switch, switch_count = BNC.switches(nodes[1:], transitions)
+    f.write(xml_switch)
 
     # Other components
-    f.write(ANC.visited(nodes, transitions))
+    f.write(ANC.visited(nodes[1:], transitions))
     if jsonParser.properties["Waypoint"]:
         xml_wp, wp_query = ANC.waypoint(jsonParser.waypoint["startNode"], jsonParser.waypoint["finalNode"], jsonParser.waypoint["waypoint"])
         f.write(xml_wp)
     if jsonParser.properties["LoopFreedom"]:
-        f.write(ANC.loopfreedom(jsonParser.loopfreedom["startNode"]))
+        f.write(ANC.loopfreedom(nodes[1:]))
 
     f.write(ANC.combinedQuery(reach_query, wp_query))
     
@@ -49,19 +50,24 @@ def write_to_file(network):
     f.write("</pnml>")
     f.close()
     print("Success! {} converted! Execution time: {} seconds".format(network, (str(time.time()-start))[:5]))
+    return switch_count
 
 def write_all_to_file():
     start = time.time()
+    zerolist = []
     for f in os.listdir("data/gml/"):
         try:
-            write_to_file(f[:-4])
+            cnt = write_to_file(f[:-4])
+            if cnt > 6:
+                zerolist.append((f[:-4],cnt))
         except:
             print(f"Failure! {f[:-4]} not converted..")
     print("Operation done in: {} seconds".format((str(time.time()-start))[:5]))
+    print(f"Files with >6 switches: {zerolist}")
 
-#write_all_to_file()
+write_all_to_file()
 #write_to_file("btNorthAmerica")
 #write_to_file("Aconet")
 
-TN.write_batch_to_file(2000, 5000, 1000)
+#TN.write_batch_to_file(2000, 5000, 1000)
 #TN.make_shared(100)

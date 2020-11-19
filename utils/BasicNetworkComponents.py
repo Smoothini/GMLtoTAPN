@@ -172,4 +172,4 @@ def switches(nodes, transitions):
 
         xml_str += "  </net>\n\n"
 
-    return xml_str 
+    return xml_str, len(switch_nodes)
