@@ -151,7 +151,11 @@ def routing(count, ntype, nodes, transitions, arcs):
     controller = Node(-1, "Controller", "1")
     xml_str = ""
     xml_str += "  <net active=\"true\" id=\"{}\" type=\"P/T net\">\n".format("Routings")
-    xml_str += make_label(0, 0, f"{ntype} network with {count} total nodes.\n\n-Initial routing length: {int(count/2)}\n-Final routing length: {int(count/2)}\n\n\nPress Shift+D followed by Enter")
+    if ntype == "Shared":
+        path_len = int ((count-1)/3*2+1)
+    else:
+        path_len = int(count/2)
+    xml_str += make_label(0, 0, f"{ntype} network with {count} total nodes.\n\n-Initial routing length: {path_len}\n-Final routing length: {path_len}\n\n\nPress Shift+D followed by Enter")
     #xml_str += make_label(200, 0, f"Initial routing: {str(jsonParser.init_route)}\n\nFinal routing: {str(jsonParser.final_route)}")
     for node in nodes:
         xml_str += node.to_file()
