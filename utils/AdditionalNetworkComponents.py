@@ -71,9 +71,13 @@ def visited(nodes, transitions):
 
 
 # Loopfreedom query
-def loopfreedom(u):
+def loopfreedom(nodes):
     xml_str = ""
-    loop_query = f"(P{u}_visited.P{u}_visited &lt; 2)"
+    loop_query = "("
+    for node in nodes:
+        loop_query += f"P{node.id}_visited.P{node.id}_visited &lt; 2 and "
+
+    loop_query += f"P{nodes[-1].id}_visited.P{nodes[-1].id}_visited &lt; 2)"
     q = "AG{}".format(loop_query)
     query = "<query active=\"true\" approximationDenominator=\"2\" capacity=\"5\" discreteInclusion=\"false\" enableOverApproximation=\"false\" enableUnderApproximation=\"false\" extrapolationOption=\"null\" gcd=\"false\" hashTableSize=\"null\" inclusionPlaces=\"*NONE*\" name=\"LoopFree\" overApproximation=\"true\" pTrie=\"true\" query=\"{}\" reduction=\"true\" reductionOption=\"VerifyTAPNdiscreteVerification\" searchOption=\"DFS\" symmetry=\"true\" timeDarts=\"false\" traceOption=\"NONE\" useStubbornReduction=\"true\"/>\n".format(q)
     xml_str += query

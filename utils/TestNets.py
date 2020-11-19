@@ -135,7 +135,7 @@ def net(params):
     xml_str += ANC.visited(nodes, transitions)
     xml, wp_query = ANC.waypoint(nodes[0].id, nodes[-1].id, nodes[-1].id)
     xml_str += xml
-    xml_str += ANC.loopfreedom(nodes[0].id)
+    xml_str += ANC.loopfreedom(nodes)
     xml_str += ANC.combinedQuery(reach_query, wp_query)
 
     xml_str += "  <k-bound bound=\"3\"/>\n"
@@ -173,7 +173,7 @@ def routing(count, ntype, nodes, transitions, arcs):
         xml_str += arc.to_file()
     xml_str += "  </net>\n\n"
 
-    reach_query = "(!(deadlock) or Routings.P{}>=1)".format(nodes[-1].id)
+    reach_query = "(!(deadlock) or P{}_visited.P{}_visited>=1)".format(nodes[-1].id, nodes[-1].id)
     q = "AG{}".format(reach_query)
     query = "<query active=\"true\" approximationDenominator=\"2\" capacity=\"5\" discreteInclusion=\"false\" enableOverApproximation=\"false\" enableUnderApproximation=\"false\" extrapolationOption=\"null\" gcd=\"false\" hashTableSize=\"null\" inclusionPlaces=\"*NONE*\" name=\"{}\" overApproximation=\"true\" pTrie=\"true\" query=\"{}\" reduction=\"true\" reductionOption=\"VerifyTAPNdiscreteVerification\" searchOption=\"DFS\" symmetry=\"true\" timeDarts=\"false\" traceOption=\"NONE\" useStubbornReduction=\"true\"/>\n\n".format("Reach_P{}".format(nodes[-1].id), q)
     xml_str += query
