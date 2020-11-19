@@ -59,6 +59,64 @@ def generate_disjoint (count):
     
     return count,"Disjoint",nodes,transitions,arcs
 
+def generate_shared(count):
+    count = (int((count-1)/3)) * 3 + 1
+
+    common_count = int ((count - 4) / 3)
+    common = []
+    path_count = int ((count - 2 - common_count)/2)
+    path1 = []
+    path2 = []
+
+    init_node = Node(0, "P0")
+    final_node = Node(count-1, f"P{count-1}")
+
+    for i in range(common_count):
+        common.append(Node(i+1,f"P{i+1}"))
+    
+    common.append(final_node)
+    
+    for i in range(path_count):
+        path1.append(Node(i+path_count, f"P{i+path_count}"))
+        path1[-1].init_route = common[i].id
+        path2.append(Node(i+2*path_count, f"P{i+2*path_count}"))
+        path2[-1].final_route = common[i].id
+
+    for i in range(common_count):
+        common[i].init_route = path1[i+1].id
+        common[i].final_route = path2[i+1].id
+
+    init_node.init_route = path1[0].id
+    init_node.final_route = path2[0].id
+
+    nodes = []
+    nodes.append(init_node)
+    nodes.extend(common[:-1] + path1 + path2)
+    nodes.append(final_node)
+
+    #for node in nodes:
+     #   print(f"P{node.id}   init {node.init_route}   final {node.final_route}")
+
+    transitions = []
+    arcs = []
+
+    for node in nodes:
+        if node.init_route:
+            t = Transition(f"T{node.id}_{node.init_route}", node.id, node.init_route,f"T{node.id}_{node.init_route}")
+            transitions.append(t)
+            a = Full_Arc(node, next((x for x in nodes if x.id == node.init_route), None), t)
+            arcs.append(a)
+        if node.final_route:
+            t = Transition(f"T{node.id}_{node.final_route}", node.id, node.final_route,f"T{node.id}_{node.final_route}")
+            transitions.append(t)
+            a = Full_Arc(node, next((x for x in nodes if x.id == node.final_route), None), t)
+            arcs.append(a)
+
+    return count,"Shared",nodes,transitions,arcs
+
+
+
+
 def net(params):
     count,ntype,nodes,transitions,arcs = params
     xml_str = ""
@@ -125,10 +183,15 @@ def make_disjoint(count):
     f.close()
     print(f"Success! Disjoint network of size {count} generated!")
 
-
+def make_shared(count):
+    f = open(f"data/tapn_custom_testcases/Shared_{count}.tapn", "w")
+    f.write(net(generate_shared(count)))
+    f.close()
+    print(f"Success! Shared network of size {count} generated!")
 
 def write_batch_to_file(small,big,step):
-    for t in range(small, big, step):
+    for t in range(small, big+step, step):
         make_disjoint(t)
+        make_shared(t)
 
     
