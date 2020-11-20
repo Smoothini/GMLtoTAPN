@@ -33,16 +33,18 @@ def json_maker(ntype, count, init_route, final_route, n0, nn, wp):
 
 
 def generate_disjoint (count):
+    #Generating initial and final nodes
+    #also path configurations based on size
     init_node = Node(0, "P0")
     final_node = Node(count-1, f"P{count-1}")
     path_count = int((count-2)/2)
     path1 = []
     path2 = []
-
+    #Creating nodes for the 2 paths
     for i in range(path_count):
         path1.append(Node(i+1, f"P{i+1}"))
         path2.append(Node(i+1+path_count, f"P{i+1+path_count}"))
-
+    #Setting the initial and final routings
     init_node.init_route = path1[0].id
     init_node.final_route = path2[0].id
 
@@ -53,6 +55,7 @@ def generate_disjoint (count):
     path1[-1].init_route = final_node.id
     path2[-1].final_route = final_node.id
 
+    #Making a json file out of the routings
     init_route = []
     final_route = []
 
@@ -68,6 +71,7 @@ def generate_disjoint (count):
 
     json_maker("Disjoint", count, init_route, final_route, init_node.id, final_node.id, final_node.id)
 
+    #Generating arcs and transitions based on nodes
     nodes = []
     nodes.append(init_node)
     nodes.extend(path1+path2)
@@ -92,22 +96,23 @@ def generate_disjoint (count):
 
 
 def generate_shared(count):
+    #Generating initial and final nodes
+    #also path configurations based on size
+    acc = count
     count = (int((count-1)/3)) * 3 + 1
-
     common_count = int ((count - 4) / 3)
     common = []
     path_count = int ((count - 2 - common_count)/2)
     path1 = []
     path2 = []
-
     init_node = Node(0, "P0")
     final_node = Node(count-1, f"P{count-1}")
-
+    #Making the common nodes
     for i in range(common_count):
         common.append(Node(i+1,f"P{i+1}"))
     
     common.append(final_node)
-    
+    #Making the routings
     for i in range(path_count):
         path1.append(Node(i+path_count, f"P{i+path_count}"))
         path1[-1].init_route = common[i].id
@@ -121,13 +126,30 @@ def generate_shared(count):
     init_node.init_route = path1[0].id
     init_node.final_route = path2[0].id
 
+    #Making a json file out of the routings
+    init_route = []
+    final_route = []
+
+    init_route.append([init_node.id, path1[0].id])
+    final_route.append([init_node.id, path2[0].id])
+
+    for i in range (path_count -1):
+        init_route.append([path1[i].id, path1[i].init_route])
+        init_route.append([path1[i].init_route, path1[i+1].id])
+        final_route.append([path2[i].id, path2[i].final_route])
+        final_route.append([path2[i].final_route, path2[i+1].id])
+
+    init_route.append([path1[-1].id, final_node.id])
+    final_route.append([path2[-1].id, final_node.id])
+
+    json_maker("Shared", acc, init_route, final_route, init_node.id, final_node.id, final_node.id)
+    
+
+    #Generating arcs and transitions
     nodes = []
     nodes.append(init_node)
     nodes.extend(common[:-1] + path1 + path2)
     nodes.append(final_node)
-
-    #for node in nodes:
-     #   print(f"P{node.id}   init {node.init_route}   final {node.final_route}")
 
     transitions = []
     arcs = []
@@ -228,5 +250,5 @@ def make_shared(count):
 
 def write_batch_to_file(small,big,step):
     for t in range(small, big+step, step):
-        make_disjoint(t)
-        #make_shared(t)
+        #make_disjoint(t)
+        make_shared(t)
