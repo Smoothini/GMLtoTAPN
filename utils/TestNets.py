@@ -1,5 +1,5 @@
 import time, os
-
+import json
 from entities.Arcs import Full_Arc, Outbound_Arc, Inbound_Arc
 from entities.Node import Node
 from entities.Transition import Transition
@@ -9,55 +9,49 @@ import utils.AdditionalNetworkComponents as ANC
 def make_label(x, y, message):
     return "    <labels border=\"true\" height=\"90\" positionX=\"{}\" positionY=\"{}\" width=\"180\">{}</labels>\n\n".format(x, y, message)
 
-
 def generate_disjoint (count):
-    chain_length = int(count/2)
-    cup = []
-    cdown = []
-    for i in range (chain_length):
-        cup.append(Node(i, f"P{i}", "0"))
-        cdown.append(Node(i+chain_length, f"P{i+chain_length}", "0"))
-    
-    for i in range (chain_length - 1):
-        cup[i].init_route = cup[i+1].id
+    init_node = Node(0, "P0")
+    final_node = Node(count-1, f"P{count-1}")
+    path_count = int((count-2)/2)
+    path1 = []
+    path2 = []
 
-    cup[0].final_route = cdown[0].id
-    cup[chain_length-1].init_route = cdown[-1].id
+    for i in range(path_count):
+        path1.append(Node(i+1, f"P{i+1}"))
+        path2.append(Node(i+1+path_count, f"P{i+1+path_count}"))
 
-    for i in range (chain_length - 1):
-        cdown[i].final_route = cdown[i+1].id
+    init_node.init_route = path1[0].id
+    init_node.final_route = path2[0].id
 
-    tup = []
-    tdown = []
+    for i in range(path_count-1):
+        path1[i].init_route = path1[i+1].id
+        path2[i].final_route = path2[i+1].id
 
-    for i in range (chain_length - 1):
-        t1 = f"{i}_{i+1}"
-        tup.append(Transition(t1, i, i+1, f"T{t1}"))
-        t2 = f"{i+chain_length}_{i+1 + chain_length}"
-        tdown.append(Transition(t2, i+chain_length, i+1+chain_length, f"T{t2}"))
-    
-    ut = Transition(f"{0}_{chain_length}", 0, chain_length, f"T{0}_{chain_length}")
-    dt = Transition(f"{chain_length-1}_{count-1}", chain_length-1, count-1, f"T{chain_length-1}_{count-1}")
-    tup.append(ut)
-    tdown.append(dt)
+    path1[-1].init_route = final_node.id
+    path2[-1].final_route = final_node.id
 
-    aup = []
-    adown = []
+    nodes = []
+    nodes.append(init_node)
+    nodes.extend(path1+path2)
+    nodes.append(final_node)
 
-    for i in range (chain_length - 1):
-        aup.append(Full_Arc(cup[i], cup[i+1], tup[i]))
-        adown.append(Full_Arc(cdown[i], cdown[i+1], tdown[i]))
+    transitions = []
+    arcs = []
 
-    ua = Full_Arc(cup[0], cdown[0], ut)
-    da = Full_Arc(cup[-1], cdown[-1], dt)
-    aup.append(ua)
-    adown.append(da)
+    for node in nodes:
+        if node.init_route:
+            t = Transition(f"T{node.id}_{node.init_route}", node.id, node.init_route,f"T{node.id}_{node.init_route}")
+            transitions.append(t)
+            a = Full_Arc(node, next((x for x in nodes if x.id == node.init_route), None), t)
+            arcs.append(a)
+        if node.final_route:
+            t = Transition(f"T{node.id}_{node.final_route}", node.id, node.final_route,f"T{node.id}_{node.final_route}")
+            transitions.append(t)
+            a = Full_Arc(node, next((x for x in nodes if x.id == node.final_route), None), t)
+            arcs.append(a)
 
-    nodes = cup + cdown
-    transitions = tup + tdown
-    arcs = aup + adown
-    
     return count,"Disjoint",nodes,transitions,arcs
+
 
 def generate_shared(count):
     count = (int((count-1)/3)) * 3 + 1
@@ -131,7 +125,8 @@ def net(params):
 
     xml, reach_query = routing(count, ntype, nodes, transitions, arcs)
     xml_str += xml
-    xml_str += BNC.switches(nodes, transitions)
+    xml, switch_count = BNC.switches(nodes, transitions)
+    xml_str += xml
     xml_str += ANC.visited(nodes, transitions)
     xml, wp_query = ANC.waypoint(nodes[0].id, nodes[-1].id, nodes[-1].id)
     xml_str += xml
@@ -196,6 +191,4 @@ def make_shared(count):
 def write_batch_to_file(small,big,step):
     for t in range(small, big+step, step):
         make_disjoint(t)
-        make_shared(t)
-
-    
+        #make_shared(t)
