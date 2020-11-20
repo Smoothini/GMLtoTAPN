@@ -2,6 +2,7 @@
 <pnml xmlns="http://www.informatik.hu-berlin.de/top/pnml/ptNetb">
     <shared-place initialMarking="1" invariant="&lt; inf" name="Controller"/>
     <shared-transition name="T0_1" urgent="false"/>
+    <shared-transition name="T0_100" urgent="false"/>
     <shared-transition name="T1_2" urgent="false"/>
     <shared-transition name="T2_3" urgent="false"/>
     <shared-transition name="T3_4" urgent="false"/>
@@ -100,7 +101,7 @@
     <shared-transition name="T96_97" urgent="false"/>
     <shared-transition name="T97_98" urgent="false"/>
     <shared-transition name="T98_99" urgent="false"/>
-    <shared-transition name="T0_100" urgent="false"/>
+    <shared-transition name="T99_199" urgent="false"/>
     <shared-transition name="T100_101" urgent="false"/>
     <shared-transition name="T101_102" urgent="false"/>
     <shared-transition name="T102_103" urgent="false"/>
@@ -200,7 +201,6 @@
     <shared-transition name="T196_197" urgent="false"/>
     <shared-transition name="T197_198" urgent="false"/>
     <shared-transition name="T198_199" urgent="false"/>
-    <shared-transition name="T99_199" urgent="false"/>
   <net active="true" id="Routings" type="P/T net">
     <labels border="true" height="90" positionX="0" positionY="0" width="180">Disjoint network with 200 total nodes.
 
@@ -412,6 +412,7 @@ Press Shift+D followed by Enter</labels>
     <place displayName="true" id="P199" initialMarking="0" invariant="&lt; inf" name="P199" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="200"/>
     <place displayName="true" id="Controller" initialMarking="1" invariant="&lt; inf" name="Controller" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="200"/>
     <transition angle="0" displayName="true" id="T0_1" infiniteServer="false" name="T0_1" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="100" positionY="200" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="T0_100" infiniteServer="false" name="T0_100" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="100" positionY="200" priority="0" urgent="false"/>
     <transition angle="0" displayName="true" id="T1_2" infiniteServer="false" name="T1_2" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="100" positionY="200" priority="0" urgent="false"/>
     <transition angle="0" displayName="true" id="T2_3" infiniteServer="false" name="T2_3" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="100" positionY="200" priority="0" urgent="false"/>
     <transition angle="0" displayName="true" id="T3_4" infiniteServer="false" name="T3_4" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="100" positionY="200" priority="0" urgent="false"/>
@@ -510,7 +511,7 @@ Press Shift+D followed by Enter</labels>
     <transition angle="0" displayName="true" id="T96_97" infiniteServer="false" name="T96_97" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="100" positionY="200" priority="0" urgent="false"/>
     <transition angle="0" displayName="true" id="T97_98" infiniteServer="false" name="T97_98" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="100" positionY="200" priority="0" urgent="false"/>
     <transition angle="0" displayName="true" id="T98_99" infiniteServer="false" name="T98_99" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="100" positionY="200" priority="0" urgent="false"/>
-    <transition angle="0" displayName="true" id="T0_100" infiniteServer="false" name="T0_100" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="100" positionY="200" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="T99_199" infiniteServer="false" name="T99_199" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="100" positionY="200" priority="0" urgent="false"/>
     <transition angle="0" displayName="true" id="T100_101" infiniteServer="false" name="T100_101" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="100" positionY="200" priority="0" urgent="false"/>
     <transition angle="0" displayName="true" id="T101_102" infiniteServer="false" name="T101_102" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="100" positionY="200" priority="0" urgent="false"/>
     <transition angle="0" displayName="true" id="T102_103" infiniteServer="false" name="T102_103" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="100" positionY="200" priority="0" urgent="false"/>
@@ -610,11 +611,14 @@ Press Shift+D followed by Enter</labels>
     <transition angle="0" displayName="true" id="T196_197" infiniteServer="false" name="T196_197" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="100" positionY="200" priority="0" urgent="false"/>
     <transition angle="0" displayName="true" id="T197_198" infiniteServer="false" name="T197_198" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="100" positionY="200" priority="0" urgent="false"/>
     <transition angle="0" displayName="true" id="T198_199" infiniteServer="false" name="T198_199" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="100" positionY="200" priority="0" urgent="false"/>
-    <transition angle="0" displayName="true" id="T99_199" infiniteServer="false" name="T99_199" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="100" positionY="200" priority="0" urgent="false"/>
     <transition angle="0" displayName="true" id="Inject_packet" infiniteServer="false" name="Inject_packet" nameOffsetX="-5.0" nameOffsetY="35.0" player="1" positionX="100" positionY="200" priority="0" urgent="false"/>
     <arc id="P0 to T0_1" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P0" target="T0_1" type="timed" weight="1">
     </arc>
     <arc id="T0_1 to P1" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="T0_1" target="P1" type="normal" weight="1">
+    </arc>
+    <arc id="P0 to T0_100" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P0" target="T0_100" type="timed" weight="1">
+    </arc>
+    <arc id="T0_100 to P100" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="T0_100" target="P100" type="normal" weight="1">
     </arc>
     <arc id="P1 to T1_2" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P1" target="T1_2" type="timed" weight="1">
     </arc>
@@ -1008,9 +1012,9 @@ Press Shift+D followed by Enter</labels>
     </arc>
     <arc id="T98_99 to P99" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="T98_99" target="P99" type="normal" weight="1">
     </arc>
-    <arc id="P0 to T0_100" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P0" target="T0_100" type="timed" weight="1">
+    <arc id="P99 to T99_199" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P99" target="T99_199" type="timed" weight="1">
     </arc>
-    <arc id="T0_100 to P100" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="T0_100" target="P100" type="normal" weight="1">
+    <arc id="T99_199 to P199" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="T99_199" target="P199" type="normal" weight="1">
     </arc>
     <arc id="P100 to T100_101" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P100" target="T100_101" type="timed" weight="1">
     </arc>
@@ -1407,10 +1411,6 @@ Press Shift+D followed by Enter</labels>
     <arc id="P198 to T198_199" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P198" target="T198_199" type="timed" weight="1">
     </arc>
     <arc id="T198_199 to P199" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="T198_199" target="P199" type="normal" weight="1">
-    </arc>
-    <arc id="P99 to T99_199" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P99" target="T99_199" type="timed" weight="1">
-    </arc>
-    <arc id="T99_199 to P199" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="T99_199" target="P199" type="normal" weight="1">
     </arc>
     <arc id="Controller to Inject_packet" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="Controller" target="Inject_packet" type="timed" weight="1">
     </arc>
@@ -7198,11 +7198,11 @@ Press Shift+D followed by Enter</labels>
   </net>
   <net active="true" id="P199_visited" type="P/T net">
     <place displayName="true" id="P199_visited" initialMarking="0" invariant="&lt; inf" name="P199_visited" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="100"/>
-    <transition angle="0" displayName="true" id="T198_199" infiniteServer="false" name="T198_199" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="200" positionY="50" priority="0" urgent="false"/>
-    <transition angle="0" displayName="true" id="T99_199" infiniteServer="false" name="T99_199" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="200" positionY="150" priority="0" urgent="false"/>
-    <arc id="T198_199 to P199_visited" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="T198_199" target="P199_visited" type="normal" weight="1">
-    </arc>
+    <transition angle="0" displayName="true" id="T99_199" infiniteServer="false" name="T99_199" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="200" positionY="50" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="T198_199" infiniteServer="false" name="T198_199" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="200" positionY="150" priority="0" urgent="false"/>
     <arc id="T99_199 to P199_visited" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="T99_199" target="P199_visited" type="normal" weight="1">
+    </arc>
+    <arc id="T198_199 to P199_visited" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="T198_199" target="P199_visited" type="normal" weight="1">
     </arc>
   </net>
 <query active="true" approximationDenominator="2" capacity="5" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="Waypoint_P199_visited" overApproximation="true" pTrie="true" query="AG (P199_visited.P199_visited &gt;= 1 or Routings.P199 = 0)" reduction="true" reductionOption="VerifyTAPNdiscreteVerification" searchOption="DFS" symmetry="true" timeDarts="false" traceOption="NONE" useStubbornReduction="true"/>
