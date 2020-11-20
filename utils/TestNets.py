@@ -250,5 +250,5 @@ def make_shared(count):
 
 def write_batch_to_file(small,big,step):
     for t in range(small, big+step, step):
-        #make_disjoint(t)
+        make_disjoint(t)
         make_shared(t)

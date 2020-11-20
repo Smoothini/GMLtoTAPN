@@ -65,9 +65,14 @@ def write_all_to_file():
     print("Operation done in: {} seconds".format((str(time.time()-start))[:5]))
     print(f"Files with >6 switches: {zerolist}")
 
-write_all_to_file()
+#write_all_to_file()
 #write_to_file("btNorthAmerica")
 #write_to_file("Aconet")
 
-#TN.write_batch_to_file(2000, 5000, 1000)
-#TN.make_shared(100)
+
+def write_all_custom():
+    TN.write_batch_to_file(10, 100, 10)
+    TN.write_batch_to_file(100, 1000, 100)
+    TN.write_batch_to_file(1000, 5000, 1000)
+
+write_all_custom()
