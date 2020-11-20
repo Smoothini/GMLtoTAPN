@@ -27,7 +27,7 @@ def json_maker(ntype, count, init_route, final_route, n0, nn, wp):
 
     
     myjsondic = json.dumps(mydic, indent=4) # ;;^)
-    f = open(f"data/json_custom_testcases/{ntype}{count}.json", "w")
+    f = open(f"data/json_custom_testcases/{ntype}_{count}.json", "w")
     f.write(myjsondic)
     f.close()
 
@@ -52,6 +52,21 @@ def generate_disjoint (count):
 
     path1[-1].init_route = final_node.id
     path2[-1].final_route = final_node.id
+
+    init_route = []
+    final_route = []
+
+    init_route.append([init_node.id, init_node.init_route])
+    final_route.append([init_node.id, init_node.final_route])
+
+    for i in range(path_count):
+        init_route.append([path1[i].id, path1[i].init_route])
+        final_route.append([path2[i].id, path2[i].final_route])
+
+    #print(f"Init path: {init_route}")
+    #print(f"Final path: {final_route}")
+
+    json_maker("Disjoint", count, init_route, final_route, init_node.id, final_node.id, final_node.id)
 
     nodes = []
     nodes.append(init_node)
