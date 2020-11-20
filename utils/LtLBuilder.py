@@ -94,6 +94,8 @@ def make_ltl(ntype,count):
     f.write(ltl)
     f.close()
 
+    print(f"LTL for {ntype} network of size {cnt_backup} generated")
+
 
 def make_all():
     for i in range(10,110,10):
