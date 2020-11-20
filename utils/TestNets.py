@@ -9,6 +9,29 @@ import utils.AdditionalNetworkComponents as ANC
 def make_label(x, y, message):
     return "    <labels border=\"true\" height=\"90\" positionX=\"{}\" positionY=\"{}\" width=\"180\">{}</labels>\n\n".format(x, y, message)
 
+
+def json_maker(ntype, count, init_route, final_route, n0, nn, wp):
+    mydic = {} # ;^)
+    mydic["Initial_routing"] = init_route
+    mydic["Final_routing"] = final_route
+    mydic["Properties"] = {}
+    mydic["Properties"]["Waypoint"] = {}
+    mydic["Properties"]["Waypoint"]["startNode"] = n0
+    mydic["Properties"]["Waypoint"]["finalNode"] = nn
+    mydic["Properties"]["Waypoint"]["waypoint"] = wp
+    mydic["Properties"]["LoopFreedom"] = {}
+    mydic["Properties"]["LoopFreedom"]["startNode"] = n0
+    mydic["Properties"]["Reachability"] = {}
+    mydic["Properties"]["Reachability"]["startNode"] = n0
+    mydic["Properties"]["Reachability"]["finalNode"] = nn
+
+    
+    myjsondic = json.dumps(mydic, indent=4) # ;;^)
+    f = open(f"data/json_custom_testcases/{ntype}{count}.json", "w")
+    f.write(myjsondic)
+    f.close()
+
+
 def generate_disjoint (count):
     init_node = Node(0, "P0")
     final_node = Node(count-1, f"P{count-1}")
