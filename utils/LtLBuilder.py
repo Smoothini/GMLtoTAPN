@@ -87,9 +87,12 @@ def make_ltl(ntype,count):
     ltl += "spec\n"
     inn = data["Properties"]["Reachability"]["startNode"]
     outt = data["Properties"]["Reachability"]["finalNode"]
+    wpp = data["Properties"]["Waypoint"]["waypoint"]
     
-    ltl += f"(port=in{inn}s -> !(port=out{outt}s))"
-
+    reach = f"(port=in{inn}s -> !(port=out{outt}s))"
+    wp = f"(port=in{wpp}s) & (TRUE U (port=out{outt}s))"
+    ltl += f"({reach} U {wp})"
+#(port=in5s -> !(port=out16s) U ((port=in10s) & (TRUE U (port=out16s))))
     f = open(f"data/ltl_custom_testcases/{ntype}_{cnt_backup}.ltl", "w")
     f.write(ltl)
     f.close()

@@ -29332,4 +29332,4 @@ link out3996s_2 => in1331s []
 link out3997s_2 => in1332s []
 link out3998s_2 => in3999s []
 spec
-(port=in0s -> !(port=out3999s))
+((port=in0s -> !(port=out3999s)) U (port=in3999s) & (TRUE U (port=out3999s)))

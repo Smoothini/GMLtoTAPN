@@ -14000,4 +14000,4 @@ link out1996s_2 => in1997s []
 link out1997s_2 => in1998s []
 link out1998s_2 => in1999s []
 spec
-(port=in0s -> !(port=out1999s))
+((port=in0s -> !(port=out1999s)) U (port=in1999s) & (TRUE U (port=out1999s)))

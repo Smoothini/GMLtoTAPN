@@ -560,4 +560,4 @@ link out76s_2 => in77s []
 link out77s_2 => in78s []
 link out78s_2 => in79s []
 spec
-(port=in0s -> !(port=out79s))
+((port=in0s -> !(port=out79s)) U (port=in79s) & (TRUE U (port=out79s)))

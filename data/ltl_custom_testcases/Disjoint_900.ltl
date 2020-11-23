@@ -6300,4 +6300,4 @@ link out896s_2 => in897s []
 link out897s_2 => in898s []
 link out898s_2 => in899s []
 spec
-(port=in0s -> !(port=out899s))
+((port=in0s -> !(port=out899s)) U (port=in899s) & (TRUE U (port=out899s)))
