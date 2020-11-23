@@ -188,10 +188,13 @@ def net(params):
     xml, switch_count = BNC.switches(nodes, transitions)
     xml_str += xml
     xml_str += ANC.visited(nodes, transitions)
+
     xml, wp_query = ANC.waypoint(nodes[0].id, nodes[-1].id, nodes[-1].id)
     xml_str += xml
-    xml_str += ANC.loopfreedom(nodes)
-    xml_str += ANC.combinedQuery(reach_query, wp_query)
+
+    xml, loop_query = ANC.loopfreedom(nodes)
+    xml_str+= xml
+    xml_str += ANC.combinedQuery(reach_query, wp_query, loop_query)
 
     xml_str += "  <k-bound bound=\"3\"/>\n"
     xml_str += "  <feature isGame=\"true\" isTimed=\"true\"/>\n"

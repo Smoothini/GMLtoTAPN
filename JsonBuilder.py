@@ -36,7 +36,7 @@ def isDirected(filepath):
 def makeDirected(filepath):
     with open(filepath, 'r+') as info:
         contents = info.readlines()
-        contents.insert(3, "  directed 1\n")
+        contents.insert(2, "  directed 1\n")
         info.seek(0)
         info.writelines(contents)
 

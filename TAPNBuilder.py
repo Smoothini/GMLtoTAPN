@@ -38,9 +38,10 @@ def write_to_file(network):
         xml_wp, wp_query = ANC.waypoint(jsonParser.waypoint["startNode"], jsonParser.waypoint["finalNode"], jsonParser.waypoint["waypoint"])
         f.write(xml_wp)
     if jsonParser.properties["LoopFreedom"]:
-        f.write(ANC.loopfreedom(nodes[1:]))
+        xml_loop, loop_query = ANC.loopfreedom(nodes[1:])
+        f.write(xml_loop)
 
-    f.write(ANC.combinedQuery(reach_query, wp_query))
+    f.write(ANC.combinedQuery(reach_query, wp_query, loop_query))
     
     
     
@@ -65,7 +66,7 @@ def write_all_to_file():
     print("Operation done in: {} seconds".format((str(time.time()-start))[:5]))
     print(f"Files with >6 switches: {zerolist}")
 
-#write_all_to_file()
+write_all_to_file()
 #write_to_file("btNorthAmerica")
 #write_to_file("Aconet")
 
@@ -75,4 +76,4 @@ def write_all_custom():
     TN.write_batch_to_file(100, 1000, 100)
     TN.write_batch_to_file(1000, 5000, 1000)
 
-write_all_custom()
+#write_all_custom()
