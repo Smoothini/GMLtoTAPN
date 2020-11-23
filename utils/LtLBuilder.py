@@ -102,14 +102,16 @@ def make_ltl(ntype,count):
 
 def make_all():
     for i in range(10,110,10):
-        make_ltl("Disjoint", i)
-        make_ltl("Shared", i)
+        #make_ltl("Disjoint", i)
+        #make_ltl("Shared", i)
+        make_ltl("Worst", i)
     for i in range(100,1100,100):
-        make_ltl("Disjoint", i)
-        make_ltl("Shared", i)
-    for i in range(2000,6000,1000):
-        make_ltl("Disjoint", i)
-        make_ltl("Shared", i)
+        #make_ltl("Disjoint", i)
+        #make_ltl("Shared", i)
+        make_ltl("Worst", i)
+    #for i in range(2000,6000,1000):
+     #   make_ltl("Disjoint", i)
+      #  make_ltl("Shared", i)
 
 
 

@@ -74,8 +74,8 @@ def write_all_to_file():
 def write_all_custom():
     TN.write_batch_to_file(10, 100, 10)
     TN.write_batch_to_file(100, 1000, 100)
-    TN.write_batch_to_file(1000, 5000, 1000)
+    #TN.write_batch_to_file(1000, 5000, 1000)
 
-#write_all_custom()
+write_all_custom()
 
-TN.generate_worst(10)
+#TN.generate_worst(10)

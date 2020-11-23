@@ -95,27 +95,58 @@ def generate_disjoint (count):
 
     return count,"Disjoint",nodes,transitions,arcs
 
+def pospath(x):
+    return [[x, x+2],[x+2, x+1],[x+1, x+3]]
 
 def generate_worst (count):
     #Generating initial and final nodes
     #also path configurations based on size
     acc = count
     count = (int((count-1)/3)) * 3 + 1
-    print(count)
-    path = []
+    series = int((count-1)/3)
+    nodes = []
     init_node = Node(0, "P0")
+    init_node.init_route = 1
     final_node = Node(count-1, f"P{count-1}")
-    path.append(init_node)
+    nodes.append(init_node)
     for i in range(count-2):
-        path.append(Node(i+1,f"P{i+1}"))
-        path[-1].init_route = i+2
-    path.append(final_node)
-
-
-
-    for node in path:
-        print(f"P{node.id} init:{node.init_route} final:{node.final_route}")
+        nodes.append(Node(i+1,f"P{i+1}"))
+        nodes[-1].init_route = i+2
+    nodes.append(final_node)
     
+    init_route = []
+    final_route = []
+
+    for node in nodes[:-1]:
+        init_route.append([node.id, node.init_route])
+
+    for i in range(series):
+        for t in pospath(i*3):
+            node = next((x for x in nodes if x.id == t[0]), None)
+            node.final_route = t[1]
+        final_route.extend(pospath(i*3))
+    
+
+    #for node in nodes:
+     #   print(f"P{node.id} init:{node.init_route} final:{node.final_route}")
+    
+    transitions = []
+    arcs = []
+
+    for node in nodes:
+        if node.init_route:
+            t = Transition(f"T{node.id}_{node.init_route}", node.id, node.init_route,f"T{node.id}_{node.init_route}")
+            transitions.append(t)
+            a = Full_Arc(node, next((x for x in nodes if x.id == node.init_route), None), t)
+            arcs.append(a)
+        if node.final_route:
+            t = Transition(f"T{node.id}_{node.final_route}", node.id, node.final_route,f"T{node.id}_{node.final_route}")
+            transitions.append(t)
+            a = Full_Arc(node, next((x for x in nodes if x.id == node.final_route), None), t)
+            arcs.append(a)
+
+    json_maker("Worst", acc, init_route, final_route, init_node.id, final_node.id, final_node.id)
+    return count,"Worst",nodes,transitions,arcs
 
 def generate_shared(count):
     #Generating initial and final nodes
@@ -233,8 +264,10 @@ def routing(count, ntype, nodes, transitions, arcs):
     xml_str += "  <net active=\"true\" id=\"{}\" type=\"P/T net\">\n".format("Routings")
     if ntype == "Shared":
         path_len = int ((count-1)/3*2+1)
-    else:
+    elif ntype == "Disjoint":
         path_len = int(count/2)
+    else:
+        path_len = count
     xml_str += make_label(0, 0, f"{ntype} network with {count} total nodes.\n\n-Initial routing length: {path_len}\n-Final routing length: {path_len}\n\n\nPress Shift+D followed by Enter")
     #xml_str += make_label(200, 0, f"Initial routing: {str(jsonParser.init_route)}\n\nFinal routing: {str(jsonParser.final_route)}")
     for node in nodes:
@@ -273,7 +306,15 @@ def make_shared(count):
     f.close()
     print(f"Success! Shared network of size {count} generated!")
 
+def make_worst(count):
+    f = open(f"data/tapn_custom_testcases/Worst_{count}.tapn", "w")
+    f.write(net(generate_worst(count)))
+    f.close()
+    print(f"Success! Worst network of size {count} generated!")
+
+
 def write_batch_to_file(small,big,step):
     for t in range(small, big+step, step):
         make_disjoint(t)
         make_shared(t)
+        make_worst(t)
