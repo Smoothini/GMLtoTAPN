@@ -32,6 +32,7 @@ def json_maker(ntype, count, init_route, final_route, n0, nn, wp):
     f.close()
 
 
+
 def generate_disjoint (count):
     #Generating initial and final nodes
     #also path configurations based on size
@@ -94,6 +95,27 @@ def generate_disjoint (count):
 
     return count,"Disjoint",nodes,transitions,arcs
 
+
+def generate_worst (count):
+    #Generating initial and final nodes
+    #also path configurations based on size
+    acc = count
+    count = (int((count-1)/3)) * 3 + 1
+    print(count)
+    path = []
+    init_node = Node(0, "P0")
+    final_node = Node(count-1, f"P{count-1}")
+    path.append(init_node)
+    for i in range(count-2):
+        path.append(Node(i+1,f"P{i+1}"))
+        path[-1].init_route = i+2
+    path.append(final_node)
+
+
+
+    for node in path:
+        print(f"P{node.id} init:{node.init_route} final:{node.final_route}")
+    
 
 def generate_shared(count):
     #Generating initial and final nodes
