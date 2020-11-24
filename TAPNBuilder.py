@@ -77,5 +77,5 @@ def write_all_custom():
     #TN.write_batch_to_file(1000, 5000, 1000)
 
 write_all_custom()
-
+#TN.make_shared(10)
 #TN.generate_worst(10)

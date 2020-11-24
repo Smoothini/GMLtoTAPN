@@ -1,5 +1,6 @@
 import time, os
 import json
+import random
 from entities.Arcs import Full_Arc, Outbound_Arc, Inbound_Arc
 from entities.Node import Node
 from entities.Transition import Transition
@@ -70,7 +71,9 @@ def generate_disjoint (count):
     #print(f"Init path: {init_route}")
     #print(f"Final path: {final_route}")
 
-    json_maker("Disjoint", count, init_route, final_route, init_node.id, final_node.id, final_node.id)
+    wp = init_node.id
+
+    json_maker("Disjoint", count, init_route, final_route, init_node.id, final_node.id, wp)
 
     #Generating arcs and transitions based on nodes
     nodes = []
@@ -93,7 +96,7 @@ def generate_disjoint (count):
             a = Full_Arc(node, next((x for x in nodes if x.id == node.final_route), None), t)
             arcs.append(a)
 
-    return count,"Disjoint",nodes,transitions,arcs
+    return count,"Disjoint",nodes,transitions,arcs,wp
 
 def pospath(x):
     return [[x, x+2],[x+2, x+1],[x+1, x+3]]
@@ -145,8 +148,10 @@ def generate_worst (count):
             a = Full_Arc(node, next((x for x in nodes if x.id == node.final_route), None), t)
             arcs.append(a)
 
-    json_maker("Worst", acc, init_route, final_route, init_node.id, final_node.id, final_node.id)
-    return count,"Worst",nodes,transitions,arcs
+    wp = random.randint(1, count-1)
+
+    json_maker("Worst", acc, init_route, final_route, init_node.id, final_node.id, wp)
+    return count,"Worst",nodes,transitions,arcs,wp
 
 def generate_shared(count):
     #Generating initial and final nodes
@@ -163,6 +168,7 @@ def generate_shared(count):
     #Making the common nodes
     for i in range(common_count):
         common.append(Node(i+1,f"P{i+1}"))
+    
     
     common.append(final_node)
     #Making the routings
@@ -195,7 +201,9 @@ def generate_shared(count):
     init_route.append([path1[-1].id, final_node.id])
     final_route.append([path2[-1].id, final_node.id])
 
-    json_maker("Shared", acc, init_route, final_route, init_node.id, final_node.id, final_node.id)
+    wp = random.randint(1,common_count)
+
+    json_maker("Shared", acc, init_route, final_route, init_node.id, final_node.id, wp)
     
 
     #Generating arcs and transitions
@@ -219,13 +227,13 @@ def generate_shared(count):
             a = Full_Arc(node, next((x for x in nodes if x.id == node.final_route), None), t)
             arcs.append(a)
 
-    return count,"Shared",nodes,transitions,arcs
+    return count,"Shared",nodes,transitions,arcs,wp
 
 
 
 
 def net(params):
-    count,ntype,nodes,transitions,arcs = params
+    count,ntype,nodes,transitions,arcs,wp = params
     xml_str = ""
     xml_str += "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n"
     xml_str += "<pnml xmlns=\"http://www.informatik.hu-berlin.de/top/pnml/ptNetb\">\n"
@@ -242,7 +250,7 @@ def net(params):
     xml_str += xml
     xml_str += ANC.visited(nodes, transitions)
 
-    xml, wp_query = ANC.waypoint(nodes[0].id, nodes[-1].id, nodes[-1].id)
+    xml, wp_query = ANC.waypoint(nodes[0].id, nodes[-1].id, wp)
     xml_str += xml
 
     xml, loop_query = ANC.loopfreedom(nodes)
