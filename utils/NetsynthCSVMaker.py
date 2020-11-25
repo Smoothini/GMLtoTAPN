@@ -11,58 +11,33 @@ def filebatch(ntype):
         content[size] = chk_time
     return sorted(content.items())
 
-
+    
 def make_csv():
-    with open(f"{results_path}results.csv", "w", newline='') as file:
-        writer = csv.writer(file)
-        writer.writerow(["Node Count", "Netsynth (D)"])
-        for i in filebatch("Disjoint"):
-            s,t = i
-            writer.writerow([s,t])
-        file.close()
-
-    with open(f"{results_path}results.csv", "a", newline='') as file:
-        writer = csv.writer(file)
-        writer.writerow(["Node Count", "Netsynth (W)"])
-        for i in filebatch("Worst"):
-            s,t = i
-            writer.writerow([s,t])
-        file.close()
-
-    with open(f"{results_path}results.csv", "a", newline='') as file:
-        writer = csv.writer(file)
-        writer.writerow(["Node Count", "Netsynth (S)"])
-        for i in filebatch("Shared"):
-            s,t = i
-            writer.writerow([s,t])
-        file.close()
-
     fd = filebatch("Disjoint")
     fw = filebatch("Worst")
     fs = filebatch("Shared")
     
-    with open(f"{results_path}results_.csv", "w", newline='') as file:
+    with open(f"{results_path}results_netsynth.csv", "w", newline='') as file:
         writer = csv.writer(file)
-        writer.writerow(["Node Count", "Netsynth (D)","Node Count", "Netsynth (W)","Node Count", "Netsynth (S)"])
+        writer.writerow(["Node Count", "Netsynth (D)",None,"Node Count", "Netsynth (W)",None,"Node Count", "Netsynth (S)"])
         for i in range(max(len(fd), len(fw), len(fs))):
             if len(fd) > i:
                 sd,td = fd[i]
             else:
-                sd,td = 0,0
+                sd,td = None,None
 
             if len(fw) > i:
                 sw,tw = fw[i]
             else:
-                sw,tw = 0,0
+                sw,tw = None,None
 
             if len(fs) > i:
                 ss,ts = fs[i]
             else:
                 ss,ts = None,None
-            writer.writerow([sd,td,sw,tw,ss,ts])
+
+            writer.writerow([sd,td,None,sw,tw,None,ss,ts])
         file.close()
     print("CSV file out of netsynth results made!")
-
-    
 
 make_csv()
