@@ -112,16 +112,3 @@ def make_all():
     #for i in range(2000,6000,1000):
      #   make_ltl("Disjoint", i)
       #  make_ltl("Shared", i)
-
-
-
-make_all()
-#x = Switch(10,11,12)
-#y = Switch(11,out1 = 12)
-#z = Switch(12, 14, 14)
-#print(x.links())
-#print(y.links())
-#print(z.links())
-#print(x.info())
-#print(y.info())
-#print(z.info())

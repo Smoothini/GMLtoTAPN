@@ -1,11 +1,12 @@
 import time, os
 import json
-import random
 from entities.Arcs import Full_Arc, Outbound_Arc, Inbound_Arc
 from entities.Node import Node
 from entities.Transition import Transition
 import utils.BasicNetworkComponents as BNC
 import utils.AdditionalNetworkComponents as ANC
+
+import utils.LtLBuilder as Ltl
 
 def make_label(x, y, message):
     return "    <labels border=\"true\" height=\"90\" positionX=\"{}\" positionY=\"{}\" width=\"180\">{}</labels>\n\n".format(x, y, message)
@@ -31,6 +32,8 @@ def json_maker(ntype, count, init_route, final_route, n0, nn, wp):
     f = open(f"data/json_custom_testcases/{ntype}_{count}.json", "w")
     f.write(myjsondic)
     f.close()
+
+    print(f"JSON for {ntype} network of size {count} generated")
 
 
 
@@ -72,8 +75,10 @@ def generate_disjoint (count):
     #print(f"Final path: {final_route}")
 
     wp = init_node.id
-
+    #making the json file
     json_maker("Disjoint", count, init_route, final_route, init_node.id, final_node.id, wp)
+    #making the ltl file
+    Ltl.make_ltl("Disjoint", count)
 
     #Generating arcs and transitions based on nodes
     nodes = []
@@ -129,10 +134,13 @@ def generate_worst (count):
             node.final_route = t[1]
         final_route.extend(pospath(i*3))
     
+    #first common node
+    wp = 1
+    #making the json file
+    json_maker("Worst", acc, init_route, final_route, init_node.id, final_node.id, wp)
+    #making the ltl file
+    Ltl.make_ltl("Worst", acc)
 
-    #for node in nodes:
-     #   print(f"P{node.id} init:{node.init_route} final:{node.final_route}")
-    
     transitions = []
     arcs = []
 
@@ -148,9 +156,6 @@ def generate_worst (count):
             a = Full_Arc(node, next((x for x in nodes if x.id == node.final_route), None), t)
             arcs.append(a)
 
-    wp = random.randint(1, count-1)
-
-    json_maker("Worst", acc, init_route, final_route, init_node.id, final_node.id, wp)
     return count,"Worst",nodes,transitions,arcs,wp
 
 def generate_shared(count):
@@ -201,10 +206,12 @@ def generate_shared(count):
     init_route.append([path1[-1].id, final_node.id])
     final_route.append([path2[-1].id, final_node.id])
 
-    wp = random.randint(1,common_count)
-
+    #first common node
+    wp = 1
+    #making the json file
     json_maker("Shared", acc, init_route, final_route, init_node.id, final_node.id, wp)
-    
+    #making the ltl file
+    Ltl.make_ltl("Shared", acc)
 
     #Generating arcs and transitions
     nodes = []
@@ -306,19 +313,19 @@ def make_disjoint(count):
     f = open(f"data/tapn_custom_testcases/Disjoint_{count}.tapn", "w")
     f.write(net(generate_disjoint(count)))
     f.close()
-    print(f"Success! Disjoint network of size {count} generated!")
+    print(f"TAPN for Disjoint network of size {count} generated")
 
 def make_shared(count):
     f = open(f"data/tapn_custom_testcases/Shared_{count}.tapn", "w")
     f.write(net(generate_shared(count)))
     f.close()
-    print(f"Success! Shared network of size {count} generated!")
+    print(f"TAPN for Shared network of size {count} generated")
 
 def make_worst(count):
     f = open(f"data/tapn_custom_testcases/Worst_{count}.tapn", "w")
     f.write(net(generate_worst(count)))
     f.close()
-    print(f"Success! Worst network of size {count} generated!")
+    print(f"TAPN for Worst network of size {count} generated")
 
 
 def write_batch_to_file(small,big,step):
