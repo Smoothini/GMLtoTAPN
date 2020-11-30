@@ -5390,6 +5390,12 @@ Press Shift+D followed by Enter</labels>
     </arc>
     <arc id="Inject_packet to P0" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="Inject_packet" target="P0" type="normal" weight="1">
     </arc>
+<place displayName="true" id="Clock" initialMarking="1" invariant="&lt;= 0" name="Clock" nameOffsetX="0" nameOffsetY="0" positionX="285" positionY="45"/><place displayName="true" id="P_u_visited" initialMarking="0" invariant="&lt; inf" name="P_u_visited" nameOffsetX="0" nameOffsetY="0" positionX="285" positionY="180"/>    <arc id="Inject_packet to P_u_visited" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="Inject_packet" target="P_u_visited" type="normal" weight="1">
+    </arc>
+    <arc id="P_u_visited to T0_199" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P_u_visited" target="T0_199" type="tapnInhibitor" weight="2">
+    </arc>
+    <arc id="P_u_visited to T0_398" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P_u_visited" target="T0_398" type="tapnInhibitor" weight="2">
+    </arc>
   </net>
 
 <query active="true" approximationDenominator="2" capacity="5" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="Reach_P597" overApproximation="true" pTrie="true" query="AG(!(deadlock) or P597_visited.P597_visited>=1)" reduction="true" reductionOption="VerifyTAPNdiscreteVerification" searchOption="DFS" symmetry="true" timeDarts="false" traceOption="NONE" useStubbornReduction="true"/>
