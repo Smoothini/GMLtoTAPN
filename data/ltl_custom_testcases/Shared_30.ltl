@@ -204,4 +204,4 @@ link out24s_2 => in7s []
 link out25s_2 => in8s []
 link out26s_2 => in27s []
 spec
-((port=in0s -> !(port=out27s)) U (port=in1s) & (TRUE U (port=out27s)))
+port=in0s -> (!(port=out27s) U ((port=in1s) & (TRUE U (port=out27s))))

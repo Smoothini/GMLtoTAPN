@@ -14,12 +14,12 @@ def filebatch(ntype):
     
 def make_csv():
     fd = filebatch("Disjoint")
-    fw = filebatch("Disjoint2")
+    fw = filebatch("Worst")
     #fs = filebatch("Shared")
     
-    with open(f"{results_path}results_netsynth2.csv", "w", newline='') as file:
+    with open(f"{results_path}results_dw_after.csv", "w", newline='') as file:
         writer = csv.writer(file)
-        writer.writerow(["Node Count", "Netsynth (D)",None,"Node Count", "Netsynth (D2)"])
+        writer.writerow(["Node Count", "Netsynth (D)",None,"Node Count", "Netsynth (W)"])
         for i in range(max(len(fd), len(fw))):
             if len(fd) > i:
                 sd,td = fd[i]

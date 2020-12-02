@@ -36,7 +36,7 @@ def json_maker(ntype, count, init_route, final_route, n0, nn, wp):
     print(f"JSON for {ntype} network of size {count} generated")
 
 
-def generate_disjoint2 (count):
+def generate_disjoint (count):
     #Generating initial and final nodes
     #also path configurations based on size
     acc = count
@@ -48,10 +48,7 @@ def generate_disjoint2 (count):
     node_path_count = (int((count-3)/4)) * 2 
     path1 = []
     path2 = []
-    #Creating nodes for the 2 paths    
-    print(count)
-    print(path_count)
-    print(node_path_count)
+    #Creating nodes for the 2 paths 
 
     for i in range(node_path_count):
         path1.append(Node(i+1, f"P{i+1}"))
@@ -103,9 +100,9 @@ def generate_disjoint2 (count):
 
     wp = mid_node.id
     #making the json file
-    json_maker("Disjoint2", acc, init_route, final_route, init_node.id, final_node.id, wp)
+    json_maker("Disjoint", acc, init_route, final_route, init_node.id, final_node.id, wp)
     #making the ltl file
-    Ltl.make_ltl("Disjoint2", acc)
+    Ltl.make_ltl("Disjoint", acc)
 
     #Generating arcs and transitions based on nodes
     nodes = []
@@ -133,73 +130,6 @@ def generate_disjoint2 (count):
             arcs.append(a)
 
     
-    return count,"Disjoint",nodes,transitions,arcs,wp
-
-
-def generate_disjoint (count):
-    #Generating initial and final nodes
-    #also path configurations based on size
-    init_node = Node(0, "P0")
-    final_node = Node(count-1, f"P{count-1}")
-    path_count = int((count-2)/2)
-    path1 = []
-    path2 = []
-    #Creating nodes for the 2 paths
-    for i in range(path_count):
-        path1.append(Node(i+1, f"P{i+1}"))
-        path2.append(Node(i+1+path_count, f"P{i+1+path_count}"))
-    #Setting the initial and final routings
-    init_node.init_route = path1[0].id
-    init_node.final_route = path2[0].id
-
-    for i in range(path_count-1):
-        path1[i].init_route = path1[i+1].id
-        path2[i].final_route = path2[i+1].id
-
-    path1[-1].init_route = final_node.id
-    path2[-1].final_route = final_node.id
-
-    #Making a json file out of the routings
-    init_route = []
-    final_route = []
-
-    init_route.append([init_node.id, init_node.init_route])
-    final_route.append([init_node.id, init_node.final_route])
-
-    for i in range(path_count):
-        init_route.append([path1[i].id, path1[i].init_route])
-        final_route.append([path2[i].id, path2[i].final_route])
-
-    #print(f"Init path: {init_route}")
-    #print(f"Final path: {final_route}")
-
-    wp = init_node.id
-    #making the json file
-    #json_maker("Disjoint", count, init_route, final_route, init_node.id, final_node.id, wp)
-    #making the ltl file
-    #Ltl.make_ltl("Disjoint", count)
-
-    #Generating arcs and transitions based on nodes
-    nodes = []
-    nodes.append(init_node)
-    nodes.extend(path1+path2)
-    nodes.append(final_node)
-
-    transitions = []
-    arcs = []
-
-    for node in nodes:
-        if node.init_route:
-            t = Transition(f"T{node.id}_{node.init_route}", node.id, node.init_route,f"T{node.id}_{node.init_route}")
-            transitions.append(t)
-            a = Full_Arc(node, next((x for x in nodes if x.id == node.init_route), None), t)
-            arcs.append(a)
-        if node.final_route:
-            t = Transition(f"T{node.id}_{node.final_route}", node.id, node.final_route,f"T{node.id}_{node.final_route}")
-            transitions.append(t)
-            a = Full_Arc(node, next((x for x in nodes if x.id == node.final_route), None), t)
-            arcs.append(a)
-
     return count,"Disjoint",nodes,transitions,arcs,wp
 
 def pospath(x):
@@ -352,7 +282,7 @@ def net(params):
 
     xml, reach_query = routing(count, ntype, nodes, transitions, arcs)
     xml_str += xml
-    xml, switch_count = BNC.switches(nodes, transitions)
+    xml, switch_count = BNC.switches_v2(nodes, transitions)
     xml_str += xml
     xml_str += ANC.visited(nodes, transitions)
 
@@ -373,6 +303,7 @@ def net(params):
 
 
 def routing(count, ntype, nodes, transitions, arcs):
+    cap = len(nodes) * 10
     controller = Node(-1, "Controller", "1")
     xml_str = ""
     xml_str += "  <net active=\"true\" id=\"{}\" type=\"P/T net\">\n".format("Routings")
@@ -410,7 +341,7 @@ def routing(count, ntype, nodes, transitions, arcs):
 
     reach_query = "(!(deadlock) or P{}_visited.P{}_visited>=1)".format(nodes[-1].id, nodes[-1].id)
     q = "AG{}".format(reach_query)
-    query = "<query active=\"true\" approximationDenominator=\"2\" capacity=\"5\" discreteInclusion=\"false\" enableOverApproximation=\"false\" enableUnderApproximation=\"false\" extrapolationOption=\"null\" gcd=\"false\" hashTableSize=\"null\" inclusionPlaces=\"*NONE*\" name=\"{}\" overApproximation=\"true\" pTrie=\"true\" query=\"{}\" reduction=\"true\" reductionOption=\"VerifyTAPNdiscreteVerification\" searchOption=\"DFS\" symmetry=\"true\" timeDarts=\"false\" traceOption=\"NONE\" useStubbornReduction=\"true\"/>\n\n".format("Reach_P{}".format(nodes[-1].id), q)
+    query = "<query active=\"true\" approximationDenominator=\"2\" capacity=\"{}\" discreteInclusion=\"false\" enableOverApproximation=\"false\" enableUnderApproximation=\"false\" extrapolationOption=\"null\" gcd=\"false\" hashTableSize=\"null\" inclusionPlaces=\"*NONE*\" name=\"{}\" overApproximation=\"true\" pTrie=\"true\" query=\"{}\" reduction=\"true\" reductionOption=\"VerifyTAPNdiscreteVerification\" searchOption=\"DFS\" symmetry=\"true\" timeDarts=\"false\" traceOption=\"NONE\" useStubbornReduction=\"true\"/>\n\n".format(cap,"Reach_P{}".format(nodes[-1].id), q)
     xml_str += query
 
     return xml_str, reach_query
@@ -434,16 +365,8 @@ def make_worst(count):
     f.close()
     print(f"TAPN for Worst network of size {count} generated")
 
-def make_disjoint2(count):
-    f = open(f"data/tapn_custom_testcases/Disjoint2_{count}.tapn", "w")
-    f.write(net(generate_disjoint2(count)))
-    f.close()
-    print(f"TAPN for Disjoint2 network of size {count} generated")
-
-
-
 def write_batch_to_file(small,big,step):
     for t in range(small, big+step, step):
-        make_disjoint2(t)
+        make_disjoint(t)
         make_shared(t)
         make_worst(t)

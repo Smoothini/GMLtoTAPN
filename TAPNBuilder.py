@@ -29,7 +29,7 @@ def write_to_file(network):
     # Initial state of the network
     xml_reach, reach_query = BNC.routing_configuration(network, jsonParser, nodes, transitions)
     f.write(xml_reach)
-    xml_switch, switch_count = BNC.switches(nodes[1:], transitions)
+    xml_switch, switch_count = BNC.switches_v2(nodes[1:], transitions)
     f.write(xml_switch)
 
     # Other components
@@ -74,11 +74,12 @@ def write_all_to_file():
 def write_all_custom():
     TN.write_batch_to_file(10, 100, 10)
     TN.write_batch_to_file(100, 1000, 100)
+
     #TN.write_batch_to_file(1000, 5000, 1000)
 
 #write_all_to_file()
 write_all_custom()
+#TN.make_disjoint(100)
 
 
-#TN.generate_disjoint2(14)
 #TN.make_disjoint2(100)
