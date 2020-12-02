@@ -11,4 +11,4 @@ The files on this branch are as follows:
 - ltl_custom_testcases: Generated Ltl files for Disjoint, Worst, and Shared nets
 
 
-ALL THE TAPAAL FILES ON THIS BRANCH CONTAIN SWITCHES FOR EVERY SINGLE PLACE (for now).
+ALL THE TAPAAL FILES ON THIS BRANCH CONTAIN SWITCHES ONLY FOR COMMON PLACES IN THE INITIAL AND FINAL ROUTING (for now).

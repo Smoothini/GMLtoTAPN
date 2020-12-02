@@ -107,6 +107,31 @@ Final routing: [[10, 29], [29, 32], [32, 38], [38, 39], [39, 48], [48, 49]]</lab
 
 <query active="true" approximationDenominator="2" capacity="10000" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="Reach_P49" overApproximation="true" pTrie="true" query="AG(!(deadlock) or Routings.P49>=1)" reduction="true" reductionOption="VerifyTAPNdiscreteVerification" searchOption="DFS" symmetry="true" timeDarts="false" traceOption="NONE" useStubbornReduction="true"/>
 
+  <net active="true" id="P10_Switch" type="P/T net">
+    <place displayName="true" id="Controller" initialMarking="1" invariant="&lt; inf" name="Controller" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="100"/>
+    <transition angle="0" displayName="true" id="Update_P10" infiniteServer="false" name="Update_P10" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="300" positionY="100" priority="0" urgent="false"/>
+    <arc id="Controller to Update_P10" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="Controller" target="Update_P10" type="timed" weight="1">
+    </arc>
+    <arc id="Update_P10 to Controller" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="Update_P10" target="Controller" type="normal" weight="1">
+    </arc>
+    <place displayName="true" id="P10_initial" initialMarking="1" invariant="&lt; inf" name="P10_initial" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="500" positionY="100"/>
+    <place displayName="true" id="P10_final" initialMarking="0" invariant="&lt; inf" name="P10_final" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="500" positionY="300"/>
+    <arc id="P10_initial to Update_P10" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P10_initial" target="Update_P10" type="timed" weight="1">
+    </arc>
+    <arc id="Update_P10 to P10_final" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="Update_P10" target="P10_final" type="normal" weight="1">
+    </arc>
+    <transition angle="0" displayName="true" id="T10_29" infiniteServer="false" name="T10_29" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="700" positionY="300" priority="0" urgent="false"/>
+    <arc id="P10_initial to T10_29" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P10_initial" target="T10_29" type="timed" weight="1">
+    </arc>
+    <arc id="T10_29 to P10_initial" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="T10_29" target="P10_initial" type="normal" weight="1">
+    </arc>
+    <transition angle="0" displayName="true" id="T10_29" infiniteServer="false" name="T10_29" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="700" positionY="300" priority="0" urgent="false"/>
+    <arc id="P10_final to T10_29" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P10_final" target="T10_29" type="timed" weight="1">
+    </arc>
+    <arc id="T10_29 to P10_final" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="T10_29" target="P10_final" type="normal" weight="1">
+    </arc>
+  </net>
+
   <net active="true" id="P29_Switch" type="P/T net">
     <place displayName="true" id="Controller" initialMarking="1" invariant="&lt; inf" name="Controller" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="100"/>
     <transition angle="0" displayName="true" id="Update_P29" infiniteServer="false" name="Update_P29" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="300" positionY="100" priority="0" urgent="false"/>
@@ -132,143 +157,28 @@ Final routing: [[10, 29], [29, 32], [32, 38], [38, 39], [39, 48], [48, 49]]</lab
     </arc>
   </net>
 
-  <net active="true" id="P32_Switch" type="P/T net">
+  <net active="true" id="P48_Switch" type="P/T net">
     <place displayName="true" id="Controller" initialMarking="1" invariant="&lt; inf" name="Controller" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="100"/>
-    <transition angle="0" displayName="true" id="Update_P32" infiniteServer="false" name="Update_P32" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="300" positionY="100" priority="0" urgent="false"/>
-    <arc id="Controller to Update_P32" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="Controller" target="Update_P32" type="timed" weight="1">
+    <transition angle="0" displayName="true" id="Update_P48" infiniteServer="false" name="Update_P48" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="300" positionY="100" priority="0" urgent="false"/>
+    <arc id="Controller to Update_P48" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="Controller" target="Update_P48" type="timed" weight="1">
     </arc>
-    <arc id="Update_P32 to Controller" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="Update_P32" target="Controller" type="normal" weight="1">
+    <arc id="Update_P48 to Controller" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="Update_P48" target="Controller" type="normal" weight="1">
     </arc>
-    <place displayName="true" id="P32_initial" initialMarking="1" invariant="&lt; inf" name="P32_initial" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="500" positionY="100"/>
-    <place displayName="true" id="P32_final" initialMarking="0" invariant="&lt; inf" name="P32_final" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="500" positionY="300"/>
-    <arc id="P32_initial to Update_P32" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P32_initial" target="Update_P32" type="timed" weight="1">
+    <place displayName="true" id="P48_initial" initialMarking="1" invariant="&lt; inf" name="P48_initial" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="500" positionY="100"/>
+    <place displayName="true" id="P48_final" initialMarking="0" invariant="&lt; inf" name="P48_final" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="500" positionY="300"/>
+    <arc id="P48_initial to Update_P48" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P48_initial" target="Update_P48" type="timed" weight="1">
     </arc>
-    <arc id="Update_P32 to P32_final" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="Update_P32" target="P32_final" type="normal" weight="1">
+    <arc id="Update_P48 to P48_final" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="Update_P48" target="P48_final" type="normal" weight="1">
     </arc>
-    <transition angle="0" displayName="true" id="T32_38" infiniteServer="false" name="T32_38" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="700" positionY="300" priority="0" urgent="false"/>
-    <arc id="P32_final to T32_38" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P32_final" target="T32_38" type="timed" weight="1">
+    <transition angle="0" displayName="true" id="T48_49" infiniteServer="false" name="T48_49" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="700" positionY="300" priority="0" urgent="false"/>
+    <arc id="P48_initial to T48_49" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P48_initial" target="T48_49" type="timed" weight="1">
     </arc>
-    <arc id="T32_38 to P32_final" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="T32_38" target="P32_final" type="normal" weight="1">
+    <arc id="T48_49 to P48_initial" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="T48_49" target="P48_initial" type="normal" weight="1">
     </arc>
-  </net>
-
-  <net active="true" id="P37_Switch" type="P/T net">
-    <place displayName="true" id="Controller" initialMarking="1" invariant="&lt; inf" name="Controller" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="100"/>
-    <transition angle="0" displayName="true" id="Update_P37" infiniteServer="false" name="Update_P37" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="300" positionY="100" priority="0" urgent="false"/>
-    <arc id="Controller to Update_P37" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="Controller" target="Update_P37" type="timed" weight="1">
+    <transition angle="0" displayName="true" id="T48_49" infiniteServer="false" name="T48_49" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="700" positionY="300" priority="0" urgent="false"/>
+    <arc id="P48_final to T48_49" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P48_final" target="T48_49" type="timed" weight="1">
     </arc>
-    <arc id="Update_P37 to Controller" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="Update_P37" target="Controller" type="normal" weight="1">
-    </arc>
-    <place displayName="true" id="P37_initial" initialMarking="1" invariant="&lt; inf" name="P37_initial" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="500" positionY="100"/>
-    <place displayName="true" id="P37_final" initialMarking="0" invariant="&lt; inf" name="P37_final" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="500" positionY="300"/>
-    <arc id="P37_initial to Update_P37" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P37_initial" target="Update_P37" type="timed" weight="1">
-    </arc>
-    <arc id="Update_P37 to P37_final" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="Update_P37" target="P37_final" type="normal" weight="1">
-    </arc>
-    <transition angle="0" displayName="true" id="T37_45" infiniteServer="false" name="T37_45" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="700" positionY="100" priority="0" urgent="false"/>
-    <arc id="P37_initial to T37_45" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P37_initial" target="T37_45" type="timed" weight="1">
-    </arc>
-    <arc id="T37_45 to P37_initial" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="T37_45" target="P37_initial" type="normal" weight="1">
-    </arc>
-  </net>
-
-  <net active="true" id="P38_Switch" type="P/T net">
-    <place displayName="true" id="Controller" initialMarking="1" invariant="&lt; inf" name="Controller" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="100"/>
-    <transition angle="0" displayName="true" id="Update_P38" infiniteServer="false" name="Update_P38" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="300" positionY="100" priority="0" urgent="false"/>
-    <arc id="Controller to Update_P38" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="Controller" target="Update_P38" type="timed" weight="1">
-    </arc>
-    <arc id="Update_P38 to Controller" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="Update_P38" target="Controller" type="normal" weight="1">
-    </arc>
-    <place displayName="true" id="P38_initial" initialMarking="1" invariant="&lt; inf" name="P38_initial" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="500" positionY="100"/>
-    <place displayName="true" id="P38_final" initialMarking="0" invariant="&lt; inf" name="P38_final" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="500" positionY="300"/>
-    <arc id="P38_initial to Update_P38" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P38_initial" target="Update_P38" type="timed" weight="1">
-    </arc>
-    <arc id="Update_P38 to P38_final" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="Update_P38" target="P38_final" type="normal" weight="1">
-    </arc>
-    <transition angle="0" displayName="true" id="T38_39" infiniteServer="false" name="T38_39" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="700" positionY="300" priority="0" urgent="false"/>
-    <arc id="P38_final to T38_39" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P38_final" target="T38_39" type="timed" weight="1">
-    </arc>
-    <arc id="T38_39 to P38_final" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="T38_39" target="P38_final" type="normal" weight="1">
-    </arc>
-  </net>
-
-  <net active="true" id="P39_Switch" type="P/T net">
-    <place displayName="true" id="Controller" initialMarking="1" invariant="&lt; inf" name="Controller" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="100"/>
-    <transition angle="0" displayName="true" id="Update_P39" infiniteServer="false" name="Update_P39" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="300" positionY="100" priority="0" urgent="false"/>
-    <arc id="Controller to Update_P39" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="Controller" target="Update_P39" type="timed" weight="1">
-    </arc>
-    <arc id="Update_P39 to Controller" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="Update_P39" target="Controller" type="normal" weight="1">
-    </arc>
-    <place displayName="true" id="P39_initial" initialMarking="1" invariant="&lt; inf" name="P39_initial" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="500" positionY="100"/>
-    <place displayName="true" id="P39_final" initialMarking="0" invariant="&lt; inf" name="P39_final" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="500" positionY="300"/>
-    <arc id="P39_initial to Update_P39" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P39_initial" target="Update_P39" type="timed" weight="1">
-    </arc>
-    <arc id="Update_P39 to P39_final" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="Update_P39" target="P39_final" type="normal" weight="1">
-    </arc>
-    <transition angle="0" displayName="true" id="T39_48" infiniteServer="false" name="T39_48" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="700" positionY="300" priority="0" urgent="false"/>
-    <arc id="P39_final to T39_48" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P39_final" target="T39_48" type="timed" weight="1">
-    </arc>
-    <arc id="T39_48 to P39_final" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="T39_48" target="P39_final" type="normal" weight="1">
-    </arc>
-  </net>
-
-  <net active="true" id="P45_Switch" type="P/T net">
-    <place displayName="true" id="Controller" initialMarking="1" invariant="&lt; inf" name="Controller" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="100"/>
-    <transition angle="0" displayName="true" id="Update_P45" infiniteServer="false" name="Update_P45" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="300" positionY="100" priority="0" urgent="false"/>
-    <arc id="Controller to Update_P45" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="Controller" target="Update_P45" type="timed" weight="1">
-    </arc>
-    <arc id="Update_P45 to Controller" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="Update_P45" target="Controller" type="normal" weight="1">
-    </arc>
-    <place displayName="true" id="P45_initial" initialMarking="1" invariant="&lt; inf" name="P45_initial" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="500" positionY="100"/>
-    <place displayName="true" id="P45_final" initialMarking="0" invariant="&lt; inf" name="P45_final" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="500" positionY="300"/>
-    <arc id="P45_initial to Update_P45" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P45_initial" target="Update_P45" type="timed" weight="1">
-    </arc>
-    <arc id="Update_P45 to P45_final" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="Update_P45" target="P45_final" type="normal" weight="1">
-    </arc>
-    <transition angle="0" displayName="true" id="T45_46" infiniteServer="false" name="T45_46" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="700" positionY="100" priority="0" urgent="false"/>
-    <arc id="P45_initial to T45_46" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P45_initial" target="T45_46" type="timed" weight="1">
-    </arc>
-    <arc id="T45_46 to P45_initial" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="T45_46" target="P45_initial" type="normal" weight="1">
-    </arc>
-  </net>
-
-  <net active="true" id="P46_Switch" type="P/T net">
-    <place displayName="true" id="Controller" initialMarking="1" invariant="&lt; inf" name="Controller" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="100"/>
-    <transition angle="0" displayName="true" id="Update_P46" infiniteServer="false" name="Update_P46" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="300" positionY="100" priority="0" urgent="false"/>
-    <arc id="Controller to Update_P46" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="Controller" target="Update_P46" type="timed" weight="1">
-    </arc>
-    <arc id="Update_P46 to Controller" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="Update_P46" target="Controller" type="normal" weight="1">
-    </arc>
-    <place displayName="true" id="P46_initial" initialMarking="1" invariant="&lt; inf" name="P46_initial" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="500" positionY="100"/>
-    <place displayName="true" id="P46_final" initialMarking="0" invariant="&lt; inf" name="P46_final" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="500" positionY="300"/>
-    <arc id="P46_initial to Update_P46" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P46_initial" target="Update_P46" type="timed" weight="1">
-    </arc>
-    <arc id="Update_P46 to P46_final" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="Update_P46" target="P46_final" type="normal" weight="1">
-    </arc>
-    <transition angle="0" displayName="true" id="T46_47" infiniteServer="false" name="T46_47" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="700" positionY="100" priority="0" urgent="false"/>
-    <arc id="P46_initial to T46_47" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P46_initial" target="T46_47" type="timed" weight="1">
-    </arc>
-    <arc id="T46_47 to P46_initial" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="T46_47" target="P46_initial" type="normal" weight="1">
-    </arc>
-  </net>
-
-  <net active="true" id="P47_Switch" type="P/T net">
-    <place displayName="true" id="Controller" initialMarking="1" invariant="&lt; inf" name="Controller" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="100"/>
-    <transition angle="0" displayName="true" id="Update_P47" infiniteServer="false" name="Update_P47" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="300" positionY="100" priority="0" urgent="false"/>
-    <arc id="Controller to Update_P47" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="Controller" target="Update_P47" type="timed" weight="1">
-    </arc>
-    <arc id="Update_P47 to Controller" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="Update_P47" target="Controller" type="normal" weight="1">
-    </arc>
-    <place displayName="true" id="P47_initial" initialMarking="1" invariant="&lt; inf" name="P47_initial" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="500" positionY="100"/>
-    <place displayName="true" id="P47_final" initialMarking="0" invariant="&lt; inf" name="P47_final" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="500" positionY="300"/>
-    <arc id="P47_initial to Update_P47" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P47_initial" target="Update_P47" type="timed" weight="1">
-    </arc>
-    <arc id="Update_P47 to P47_final" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="Update_P47" target="P47_final" type="normal" weight="1">
-    </arc>
-    <transition angle="0" displayName="true" id="T47_48" infiniteServer="false" name="T47_48" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="700" positionY="100" priority="0" urgent="false"/>
-    <arc id="P47_initial to T47_48" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P47_initial" target="T47_48" type="timed" weight="1">
-    </arc>
-    <arc id="T47_48 to P47_initial" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="T47_48" target="P47_initial" type="normal" weight="1">
+    <arc id="T48_49 to P48_final" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="T48_49" target="P48_final" type="normal" weight="1">
     </arc>
   </net>
 

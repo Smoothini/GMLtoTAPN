@@ -282,7 +282,7 @@ def net(params):
 
     xml, reach_query = routing(count, ntype, nodes, transitions, arcs)
     xml_str += xml
-    xml, switch_count = BNC.switches(nodes, transitions)
+    xml, switch_count = BNC.switches_v2(nodes, transitions)
     xml_str += xml
     xml_str += ANC.visited(nodes, transitions)
 

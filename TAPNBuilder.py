@@ -29,7 +29,7 @@ def write_to_file(network):
     # Initial state of the network
     xml_reach, reach_query = BNC.routing_configuration(network, jsonParser, nodes, transitions)
     f.write(xml_reach)
-    xml_switch, switch_count = BNC.switches(nodes[1:], transitions)
+    xml_switch, switch_count = BNC.switches_v2(nodes[1:], transitions)
     f.write(xml_switch)
 
     # Other components
