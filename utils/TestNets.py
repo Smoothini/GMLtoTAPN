@@ -282,7 +282,7 @@ def net(params):
 
     xml, reach_query = routing(count, ntype, nodes, transitions, arcs)
     xml_str += xml
-    xml, switch_count = BNC.switches_v2(nodes, transitions)
+    xml, switch_count = BNC.switches(nodes, transitions)
     xml_str += xml
     xml_str += ANC.visited(nodes, transitions)
 
@@ -310,7 +310,7 @@ def routing(count, ntype, nodes, transitions, arcs):
     if ntype == "Shared":
         path_len = int ((count-1)/3*2+1)
     elif ntype == "Disjoint":
-        path_len = int(count/2)
+        path_len = (int((count-3)/4) + 1) * 2 + 1
     else:
         path_len = count
     xml_str += make_label(0, 0, f"{ntype} network with {count} total nodes.\n\n-Initial routing length: {path_len}\n-Final routing length: {path_len}\n\n\nPress Shift+D followed by Enter")
