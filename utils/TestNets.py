@@ -97,8 +97,9 @@ def generate_disjoint (count):
 
     #print(f"Init path: {init_route}")
     #print(f"Final path: {final_route}")
-
-    wp = mid_node.id
+    # verified: waypoint = mid_node.id
+    # non verified: waypoint = literally anything else
+    wp = 1
     #making the json file
     json_maker("Disjoint", acc, init_route, final_route, init_node.id, final_node.id, wp)
     #making the ltl file
@@ -236,7 +237,7 @@ def generate_shared(count):
     final_route.append([path2[-1].id, final_node.id])
 
     #first common node
-    wp = 1
+    wp = path_count
     #making the json file
     json_maker("Shared", acc, init_route, final_route, init_node.id, final_node.id, wp)
     #making the ltl file

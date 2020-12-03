@@ -29,5 +29,5 @@ def write_benchmarks_csv():
 
 
 #TB.write_all_to_file()
-#write_all_custom()
-write_benchmarks_csv()
+write_all_custom()
+#write_benchmarks_csv()
