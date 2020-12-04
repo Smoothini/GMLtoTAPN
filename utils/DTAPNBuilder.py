@@ -17,7 +17,7 @@ def build_composed_model(params):
     xml += f"<place id=\"{ctrl}\" name=\"{ctrl}\" invariant=\"&lt; inf\" initialMarking=\"1\" />\n"
     for place in places:
         xml += f"<place id=\"{place.notation}\" name=\"{place.notation}\" invariant=\"&lt; inf\" initialMarking=\"0\" />\n"
-    xml += f"<place id=\"{clock}\" name=\"{clock}\" invariant=\"&lt; 0\" initialMarking=\"1\" />\n"
+    xml += f"<place id=\"{clock}\" name=\"{clock}\" invariant=\"&lt;= 0\" initialMarking=\"1\" />\n"
     xml += "<place id=\"P_u_visited\" name=\"P_u_visited\" invariant=\"&lt; inf\" initialMarking=\"0\" />\n"
     for place in places:
         if place.init_route and place.final_route:
