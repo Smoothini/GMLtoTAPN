@@ -1,5 +1,6 @@
 import utils.TAPNBuilder as TB
 import utils.TestNets as TN
+import utils.DTAPNBuilder as DB
 import utils.CSVMaker as CM
 
 netsynth_results_path = "/home/escanor/Apps/netsynth/ltl_results/"
@@ -29,5 +30,7 @@ def write_benchmarks_csv():
 
 
 #TB.write_all_to_file()
-write_all_custom()
+#write_all_custom()
 #write_benchmarks_csv()
+
+DB.build_composed_model(TN.generate_disjoint(10))

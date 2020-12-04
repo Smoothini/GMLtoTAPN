@@ -1,6 +1,5 @@
 from utils.JsonParser import JsonParser
 import utils.GMLParser as GML
-import utils.TestNets as TN
 
 import networkx as nx
 import time, os
@@ -65,13 +64,3 @@ def write_all_to_file():
             print(f"Failure! {f[:-4]} not converted..")
     print("Operation done in: {} seconds".format((str(time.time()-start))[:5]))
     print(f"Files with >6 switches: {zerolist}")
-
-#write_all_to_file()
-#write_to_file("btNorthAmerica")
-#write_to_file("Aconet")
-
-
-#TN.make_disjoint(100)
-
-
-#TN.make_disjoint2(100)
