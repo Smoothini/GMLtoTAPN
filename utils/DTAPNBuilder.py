@@ -1,8 +1,14 @@
 #TODO pass initial place as argument or something
 #TODO queries
+import json, time
 
-def build_composed_model(params):
-    count, ntype, places, transitions, _, _ = params
+def build_composed_model(params, path):
+    start = time.time()
+    count, ntype, places, transitions, _, _, acc = params
+    count = acc
+    path = path
+    with open(f"data/json_custom_testcases/{ntype}_{count}.json") as f:
+        json_params = json.load(f)
 
     switches = []
     ctrl = "Controller"
@@ -74,12 +80,34 @@ def build_composed_model(params):
         
     xml += "</net>\n"
     xml += "</pnml>"
+    f = open(f"{path}/{ntype}_{count}.xml", "w")
+    f.write(xml)
+    f.close
 
-    print(xml)
+    f = open(f"data/time/{ntype}/{ntype}_{count}_DXML.txt", "w")
+    f.write(str(time.time() - start))
+    f.close()
 
-def build_query():
-    query = ""
+    print(f"DTAPN XML for {ntype} network of size {count} generated in {time.time()-start} seconds")
 
-    query += "control: "
-    query += "mota"
-    print(query)
+    start = time.time()
+    reach = json_params["Properties"]["Reachability"]["finalNode"]
+    waypoint = json_params["Properties"]["Waypoint"]["waypoint"]
+    
+
+    f = open(f"{path}/{ntype}_{count}.q", "w")
+    f.write(build_query(reach=reach, waypoint=waypoint))
+    f.close
+
+    f = open(f"data/time/{ntype}/{ntype}_{count}_DQuery.txt", "w")
+    f.write(str(time.time() - start))
+    f.close()
+
+    print(f"DTAPN Query file for {ntype} network of size {count} generated in {time.time()-start} seconds")
+
+def build_query(ntype=None, reach=None, waypoint=None):
+    query = "control: "
+    #((!(deadlock) or P10_visited >= 1) and (P9_visited >= 1 or P10 = 0))
+    q = f"AG ((!(deadlock) or P{reach}_visited >= 1) and (P{waypoint}_visited >= 1 or P{reach} = 0))"
+    query += q
+    return query

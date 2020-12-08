@@ -1,4 +1,5 @@
 import json
+import time
 
 class Switch:
     def __init__(self, sid, out1 = None, out2 = None):
@@ -52,7 +53,8 @@ class Switch:
 def find_switch(switches, sid):
     return next((x for x in switches if x.sid == sid), None)
 
-def make_ltl(ntype,count):
+def make_ltl(ntype,count,path="data/json_custom_testcases"):
+    start = time.time()
     cnt_backup = count
     with open(f"data/json_custom_testcases/{ntype}_{count}.json") as f:
         data = json.load(f)
@@ -104,7 +106,11 @@ def make_ltl(ntype,count):
     f.write(ltl)
     f.close()
 
-    print(f"LTL for {ntype} network of size {cnt_backup} generated")
+    f = open(f"data/time/{ntype}/{ntype}_{cnt_backup}_LTL.txt", "w")
+    f.write(str(time.time() - start))
+    f.close()
+
+    print(f"LTL for {ntype} network of size {cnt_backup} generated in {time.time()-start} seconds")
 
 
 def make_all():

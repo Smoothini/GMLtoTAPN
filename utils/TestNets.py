@@ -5,14 +5,15 @@ from entities.Node import Node
 from entities.Transition import Transition
 import utils.BasicNetworkComponents as BNC
 import utils.AdditionalNetworkComponents as ANC
-
 import utils.LtLBuilder as Ltl
+import utils.DTAPNBuilder as DB
 
 def make_label(x, y, message):
     return "    <labels border=\"true\" height=\"90\" positionX=\"{}\" positionY=\"{}\" width=\"180\">{}</labels>\n\n".format(x, y, message)
 
 
 def json_maker(ntype, count, init_route, final_route, n0, nn, wp):
+    start = time.time()
     mydic = {} # ;^)
     mydic["Initial_routing"] = init_route
     mydic["Final_routing"] = final_route
@@ -33,10 +34,15 @@ def json_maker(ntype, count, init_route, final_route, n0, nn, wp):
     f.write(myjsondic)
     f.close()
 
-    print(f"JSON for {ntype} network of size {count} generated")
+    f = open(f"data/time/{ntype}/{ntype}_{count}_JSON.txt", "w")
+    f.write(str(time.time() - start))
+    f.close()
+
+    print(f"JSON for {ntype} network of size {count} generated in {time.time()-start} seconds")
 
 
 def generate_disjoint (count):
+    start = time.time()
     #Generating initial and final nodes
     #also path configurations based on size
     acc = count
@@ -100,10 +106,17 @@ def generate_disjoint (count):
     # verified: waypoint = mid_node.id
     # non verified: waypoint = literally anything else
     wp = 1
+
+    f = open(f"data/time/Disjoint/Disjoint_{acc}_PREP.txt", "w")
+    f.write(str(time.time() - start))
+    f.close()
+
+    print(f"Prep time Disjoint size {acc}: {time.time()-start} seconds")
     #making the json file
     json_maker("Disjoint", acc, init_route, final_route, init_node.id, final_node.id, wp)
     #making the ltl file
     Ltl.make_ltl("Disjoint", acc)
+
 
     #Generating arcs and transitions based on nodes
     nodes = []
@@ -131,16 +144,18 @@ def generate_disjoint (count):
             arcs.append(a)
 
     
-    return count,"Disjoint",nodes,transitions,arcs,wp
+    return count,"Disjoint",nodes,transitions,arcs,wp,acc
 
 def pospath(x):
     return [[x, x+2],[x+2, x+1],[x+1, x+3]]
 
 def generate_worst (count):
+    start = time.time()
     #Generating initial and final nodes
     #also path configurations based on size
     acc = count
     count = (int((count-1)/3)) * 3 + 1
+    print(count)
     series = int((count-1)/3)
     nodes = []
     init_node = Node(0, "P0")
@@ -166,10 +181,12 @@ def generate_worst (count):
     
     #first common node
     wp = 1
+    print(f"Prep time Worst size {acc}: {time.time()-start} seconds")
     #making the json file
     json_maker("Worst", acc, init_route, final_route, init_node.id, final_node.id, wp)
     #making the ltl file
     Ltl.make_ltl("Worst", acc)
+
 
     transitions = []
     arcs = []
@@ -186,9 +203,10 @@ def generate_worst (count):
             a = Full_Arc(node, next((x for x in nodes if x.id == node.final_route), None), t)
             arcs.append(a)
 
-    return count,"Worst",nodes,transitions,arcs,wp
+    return count,"Worst",nodes,transitions,arcs,wp,acc
 
 def generate_shared(count):
+    start = time.time()
     #Generating initial and final nodes
     #also path configurations based on size
     acc = count
@@ -238,10 +256,13 @@ def generate_shared(count):
 
     #first common node
     wp = path_count
+    print(f"Prep time Shared size {acc}: {time.time()-start} seconds")
     #making the json file
     json_maker("Shared", acc, init_route, final_route, init_node.id, final_node.id, wp)
     #making the ltl file
     Ltl.make_ltl("Shared", acc)
+
+
 
     #Generating arcs and transitions
     nodes = []
@@ -264,13 +285,14 @@ def generate_shared(count):
             a = Full_Arc(node, next((x for x in nodes if x.id == node.final_route), None), t)
             arcs.append(a)
 
-    return count,"Shared",nodes,transitions,arcs,wp
+
+    return count,"Shared",nodes,transitions,arcs,wp,acc
 
 
 
 
 def net(params):
-    count,ntype,nodes,transitions,arcs,wp = params
+    count,ntype,nodes,transitions,arcs,wp,_ = params
     xml_str = ""
     xml_str += "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n"
     xml_str += "<pnml xmlns=\"http://www.informatik.hu-berlin.de/top/pnml/ptNetb\">\n"

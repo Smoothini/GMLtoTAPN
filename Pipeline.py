@@ -2,6 +2,7 @@ import utils.TAPNBuilder as TB
 import utils.TestNets as TN
 import utils.DTAPNBuilder as DB
 import utils.CSVMaker as CM
+import utils.LtLBuilder as LTL
 
 netsynth_results_path = "/home/escanor/Apps/netsynth/ltl_results/"
 dtapn_results_path = "/home/escanor/Apps/verifydtapn-strategy_output/build/bin/Results/"
@@ -12,13 +13,29 @@ csv_results_path = "/home/escanor/GMLtoTAPN/data/csv/"
 #
 
 
-# Write all the TAPN, JSON, LTL
+# Write all the TAPN, JSON, LTL, DTAPN
 # Missing only ltl for zootopo
 def write_all_custom():
-    TN.write_batch_to_file(10, 100, 10)
-    TN.write_batch_to_file(100, 1000, 100)
-    #TN.write_batch_to_file(10,100,6)
-    #TN.write_batch_to_file(1000, 5000, 1000)
+    #TN.write_batch_to_file(10, 100, 10)
+    #TN.write_batch_to_file(100, 1000, 100)
+
+    for i in range(10, 110, 10):
+        DB.build_composed_model(TN.generate_disjoint(i), "data/claaudia/disjoint_wpreach_dtapn")
+
+        DB.build_composed_model(TN.generate_shared(i), "data/claaudia/shared_wpreach_dtapn")
+
+        DB.build_composed_model(TN.generate_worst(i), "data/claaudia/worst_wpreach_dtapn")
+
+    for i in range(100, 1100, 100):
+        DB.build_composed_model(TN.generate_disjoint(i), "data/claaudia/disjoint_wpreach_dtapn")
+
+        DB.build_composed_model(TN.generate_shared(i), "data/claaudia/shared_wpreach_dtapn")
+
+        DB.build_composed_model(TN.generate_worst(i), "data/claaudia/worst_wpreach_dtapn")
+    
+
+
+
 
 def write_benchmarks_csv():
     CM.make_csv("Disjoint", dtapn_results_path, csv_results_path, "Tapaal")
@@ -29,8 +46,5 @@ def write_benchmarks_csv():
     CM.make_csv("Worst", netsynth_results_path, csv_results_path, "Netsynth")
 
 
-#TB.write_all_to_file()
-#write_all_custom()
+write_all_custom()
 #write_benchmarks_csv()
-
-DB.build_composed_model(TN.generate_disjoint(10))
