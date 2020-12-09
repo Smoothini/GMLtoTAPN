@@ -26,10 +26,7 @@ def json_maker(ntype, count, init_route, final_route, n0, nn, wp):
     mydic["Properties"]["LoopFreedom"]["startNode"] = n0
     mydic["Properties"]["Reachability"] = {}
     mydic["Properties"]["Reachability"]["startNode"] = n0
-    if ntype == "Worst":
-        mydic["Properties"]["Reachability"]["finalNode"] = 4
-    else:
-        mydic["Properties"]["Reachability"]["finalNode"] = nn
+    mydic["Properties"]["Reachability"]["finalNode"] = nn
 
     
     myjsondic = json.dumps(mydic, indent=4) # ;;^)
@@ -108,7 +105,7 @@ def generate_disjoint (count):
     #print(f"Final path: {final_route}")
     # verified: waypoint = mid_node.id
     # non verified: waypoint = literally anything else
-    wp = 1
+    wp = mid_node.id
 
     f = open(f"data/time/Disjoint/Disjoint_{acc}_PREP.txt", "w")
     f.write(str(time.time() - start))
@@ -183,7 +180,7 @@ def generate_worst (count):
         final_route.extend(pospath(i*3))
     
     #first common node
-    wp = 5
+    wp = 1
     print(f"Prep time Worst size {acc}: {time.time()-start} seconds")
     #making the json file
     json_maker("Worst", acc, init_route, final_route, init_node.id, final_node.id, wp)
@@ -258,7 +255,7 @@ def generate_shared(count):
     final_route.append([path2[-1].id, final_node.id])
 
     #first common node
-    wp = path_count
+    wp = 1
     print(f"Prep time Shared size {acc}: {time.time()-start} seconds")
     #making the json file
     json_maker("Shared", acc, init_route, final_route, init_node.id, final_node.id, wp)
