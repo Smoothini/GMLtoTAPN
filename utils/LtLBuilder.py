@@ -59,7 +59,7 @@ def make_ltl(ntype,count,path="data/json_custom_testcases"):
     with open(f"data/json_custom_testcases/{ntype}_{count}.json") as f:
         data = json.load(f)
 
-    count = data["Properties"]["Reachability"]["finalNode"]+1
+    count = data["Properties"]["Waypoint"]["finalNode"]+1
     switches = []
 
     for i in range(count):

@@ -25,6 +25,7 @@ def write_all_custom():
         DB.build_composed_model(TN.generate_shared(i), "data/claaudia/shared_wpreach_dtapn")
 
         DB.build_composed_model(TN.generate_worst(i), "data/claaudia/worst_wpreach_dtapn")
+        TN.make_worst(i)
 
     for i in range(100, 1100, 100):
         DB.build_composed_model(TN.generate_disjoint(i), "data/claaudia/disjoint_wpreach_dtapn")

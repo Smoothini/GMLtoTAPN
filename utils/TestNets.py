@@ -26,7 +26,10 @@ def json_maker(ntype, count, init_route, final_route, n0, nn, wp):
     mydic["Properties"]["LoopFreedom"]["startNode"] = n0
     mydic["Properties"]["Reachability"] = {}
     mydic["Properties"]["Reachability"]["startNode"] = n0
-    mydic["Properties"]["Reachability"]["finalNode"] = nn
+    if ntype == "Worst":
+        mydic["Properties"]["Reachability"]["finalNode"] = 4
+    else:
+        mydic["Properties"]["Reachability"]["finalNode"] = nn
 
     
     myjsondic = json.dumps(mydic, indent=4) # ;;^)
@@ -180,7 +183,7 @@ def generate_worst (count):
         final_route.extend(pospath(i*3))
     
     #first common node
-    wp = 1
+    wp = 5
     print(f"Prep time Worst size {acc}: {time.time()-start} seconds")
     #making the json file
     json_maker("Worst", acc, init_route, final_route, init_node.id, final_node.id, wp)
