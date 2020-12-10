@@ -35,7 +35,14 @@ def write_all_custom():
 
     for i in range(2000, 6000, 1000):
         DB.build_composed_model(TN.generate_disjoint(i), "data/claaudia/disjoint_wpreach_dtapn")
-    
+
+def write_custom():
+    #for i in range(1000,5500,500):
+     #   DB.build_composed_model(TN.generate_disjoint(i), "data/claaudia/disjoint500_5000")
+    #for i in range(100,430,30):
+     #   DB.build_composed_model(TN.generate_shared(i), "data/claaudia/shared100_400")
+    for i in range(10, 22, 2):
+        DB.build_composed_model(TN.generate_worst(i), "data/claaudia/worst10_20")
 
 
 
@@ -49,5 +56,5 @@ def write_benchmarks_csv():
     CM.make_csv("Worst", netsynth_results_path, csv_results_path, "Netsynth")
 
 
-write_all_custom()
+write_custom()
 #write_benchmarks_csv()

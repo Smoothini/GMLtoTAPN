@@ -1,0 +1,1 @@
+control: AG ((!(deadlock) or P4502_visited >= 1) and (P4501_visited >= 1 or P4502 = 0))
