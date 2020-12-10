@@ -255,7 +255,7 @@ def generate_shared(count):
     final_route.append([path2[-1].id, final_node.id])
 
     #first common node
-    wp = common_count
+    wp = path_count
     print(f"Prep time Shared size {acc}: {time.time()-start} seconds")
     #making the json file
     json_maker("Shared", acc, init_route, final_route, init_node.id, final_node.id, wp)

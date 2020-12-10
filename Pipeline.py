@@ -40,8 +40,8 @@ def write_custom():
     for i in range(10,110,10):
         DB.build_composed_model(TN.generate_disjoint(i), "data/claaudia/disjoint")
         DB.build_composed_model(TN.generate_shared(i), "data/claaudia/shared")
-    for i in range(4,28,3):
-        DB.build_composed_model(TN.generate_worst(i), "data/claaudia/worst")
+    #for i in range(4,28,3):
+     #   DB.build_composed_model(TN.generate_worst(i), "data/claaudia/worst")
 
 
 
