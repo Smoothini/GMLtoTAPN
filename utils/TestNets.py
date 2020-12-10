@@ -105,7 +105,7 @@ def generate_disjoint (count):
     #print(f"Final path: {final_route}")
     # verified: waypoint = mid_node.id
     # non verified: waypoint = literally anything else
-    wp = mid_node.id
+    wp = 1
 
     f = open(f"data/time/Disjoint/Disjoint_{acc}_PREP.txt", "w")
     f.write(str(time.time() - start))
@@ -255,7 +255,7 @@ def generate_shared(count):
     final_route.append([path2[-1].id, final_node.id])
 
     #first common node
-    wp = 1
+    wp = common_count
     print(f"Prep time Shared size {acc}: {time.time()-start} seconds")
     #making the json file
     json_maker("Shared", acc, init_route, final_route, init_node.id, final_node.id, wp)

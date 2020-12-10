@@ -37,12 +37,11 @@ def write_all_custom():
         DB.build_composed_model(TN.generate_disjoint(i), "data/claaudia/disjoint_wpreach_dtapn")
 
 def write_custom():
-    for i in range(1000,5400,400):
-        DB.build_composed_model(TN.generate_disjoint(i), "data/claaudia/disjoint1000_5000")
-    #for i in range(100,430,30):
-     #   DB.build_composed_model(TN.generate_shared(i), "data/claaudia/shared100_400")
-    for i in range(4, 28, 3):
-        DB.build_composed_model(TN.generate_worst(i), "data/claaudia/worst4_25")
+    for i in range(10,110,10):
+        DB.build_composed_model(TN.generate_disjoint(i), "data/claaudia/disjoint")
+        DB.build_composed_model(TN.generate_shared(i), "data/claaudia/shared")
+    for i in range(4,28,3):
+        DB.build_composed_model(TN.generate_worst(i), "data/claaudia/worst")
 
 
 
