@@ -233,7 +233,8 @@ def build_composed_model_gml(fname, places, transitions, path, negative = False,
             #print(f"{place.id} {place.init_route} {place.final_route}")
             if place.init_route != None:
                 v1,m1 = magnisep(place.init_route)
-                xml += f"<inhibitorArc inscription=\"[0,inf)\" source=\"{v3}_visitedxxx{m0}\" target=\"T{v0}_{v1}xxx{m0}\" weight=\"2\"/>\n"
+                if place.final_route != place.init_route:
+                    xml += f"<inhibitorArc inscription=\"[0,inf)\" source=\"{v3}_visitedxxx{m0}\" target=\"T{v0}_{v1}xxx{m0}\" weight=\"2\"/>\n"
             if place.final_route != None:
                 v2,m2 = magnisep(place.final_route)
                 xml += f"<inhibitorArc inscription=\"[0,inf)\" source=\"{v3}_visitedxxx{m0}\" target=\"T{v0}_{v2}xxx{m0}\" weight=\"2\"/>\n"

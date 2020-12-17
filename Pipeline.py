@@ -35,7 +35,8 @@ def write_all_custom():
     #for i in range(4, 28, 3):
      #   DB.build_composed_model(TN.generate_worst(i), "data/claaudia/worst", negative=True)
     #TB.write_all_to_file(10)
-    TB.write_zoo_to_file("Eenet", 1)
+    TB.write_zoo_to_file("Eenet", 2)
+    TN.make_worst(16)
     #LTL.make_ltl_zoo("Aarnet")
     #LTL.make_all_zoo()
 
