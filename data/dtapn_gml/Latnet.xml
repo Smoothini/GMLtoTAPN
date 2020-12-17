@@ -1,0 +1,67 @@
+<pnml>
+<net id="ComposedModel" type="P/T net">
+<place id="Controller" name="Controller" invariant="&lt; inf" initialMarking="1" />
+<place id="P5" name="P5" invariant="&lt; inf" initialMarking="0" />
+<place id="P10" name="P10" invariant="&lt; inf" initialMarking="0" />
+<place id="P30" name="P30" invariant="&lt; inf" initialMarking="0" />
+<place id="P36" name="P36" invariant="&lt; inf" initialMarking="0" />
+<place id="P42" name="P42" invariant="&lt; inf" initialMarking="0" />
+<place id="P56" name="P56" invariant="&lt; inf" initialMarking="0" />
+<place id="Clock" name="Clock" invariant="&lt;= 0" initialMarking="1" />
+<place id="P_u_visited" name="P_u_visited" invariant="&lt; inf" initialMarking="0" />
+<place id="P30_initial" name="P30_initial" invariant="&lt; inf" initialMarking="1" />
+<place id="P30_final" name="P30_final" invariant="&lt; inf" initialMarking="0" />
+<place id="P5_visited" name="P5_visited" invariant="&lt; inf" initialMarking="0" />
+<place id="P10_visited" name="P10_visited" invariant="&lt; inf" initialMarking="0" />
+<place id="P30_visited" name="P30_visited" invariant="&lt; inf" initialMarking="0" />
+<place id="P36_visited" name="P36_visited" invariant="&lt; inf" initialMarking="0" />
+<place id="P42_visited" name="P42_visited" invariant="&lt; inf" initialMarking="0" />
+<place id="P56_visited" name="P56_visited" invariant="&lt; inf" initialMarking="0" />
+<transition player="0" id="T36_56" name="T36_56" urgent="false"/>
+<transition player="0" id="T10_30" name="T10_30" urgent="false"/>
+<transition player="0" id="T30_36" name="T30_36" urgent="false"/>
+<transition player="0" id="T30_42" name="T30_42" urgent="false"/>
+<transition player="0" id="T5_10" name="T5_10" urgent="false"/>
+<transition player="0" id="T42_56" name="T42_56" urgent="false"/>
+<transition player="1" id="Inject_packet" name="Inject_packet" urgent="false"/>
+<transition player="0" id="Update_P30" name="Update_P30" urgent="false"/>
+<inputArc inscription="[0,inf)" source="P36" target="T36_56" />
+<inputArc inscription="[0,inf)" source="P10" target="T10_30" />
+<inputArc inscription="[0,inf)" source="P30" target="T30_36" />
+<inputArc inscription="[0,inf)" source="P30" target="T30_42" />
+<inputArc inscription="[0,inf)" source="P5" target="T5_10" />
+<inputArc inscription="[0,inf)" source="P42" target="T42_56" />
+<inputArc inscription="[0,inf)" source="Controller" target="Inject_packet" />
+<inputArc inscription="[0,inf)" source="Controller" target="Update_P30" />
+<inputArc inscription="[0,inf)" source="P30_initial" target="Update_P30" />
+<inputArc inscription="[0,inf)" source="P30_initial" target="T30_36" />
+<inputArc inscription="[0,inf)" source="P30_final" target="T30_42" />
+<outputArc inscription="1" source="T36_56" target="P56" />
+<outputArc inscription="1" source="T10_30" target="P30" />
+<outputArc inscription="1" source="T30_36" target="P36" />
+<outputArc inscription="1" source="T30_42" target="P42" />
+<outputArc inscription="1" source="T5_10" target="P10" />
+<outputArc inscription="1" source="T42_56" target="P56" />
+<outputArc inscription="1" source="Inject_packet" target="P5" />
+<outputArc inscription="1" source="Inject_packet" target="P_u_visited" />
+<outputArc inscription="1" source="Update_P30" target="Controller" />
+<outputArc inscription="1" source="Update_P30" target="P30_final" />
+<outputArc inscription="1" source="T30_36" target="P30_initial" />
+<outputArc inscription="1" source="T30_42" target="P30_final" />
+<outputArc inscription="1" source="T5_10" target="P10_visited" />
+<outputArc inscription="1" source="T10_30" target="P30_visited" />
+<outputArc inscription="1" source="T30_36" target="P36_visited" />
+<outputArc inscription="1" source="T30_42" target="P42_visited" />
+<outputArc inscription="1" source="T36_56" target="P56_visited" />
+<outputArc inscription="1" source="T42_56" target="P56_visited" />
+<inhibitorArc inscription="[0,inf)" source="P_u_visited" target="T5_10" weight="2"/>
+<inhibitorArc inscription="[0,inf)" source="P5_visited" target="T5_10" weight="2"/>
+<inhibitorArc inscription="[0,inf)" source="P5_visited" target="T5_10" weight="2"/>
+<inhibitorArc inscription="[0,inf)" source="P10_visited" target="T10_30" weight="2"/>
+<inhibitorArc inscription="[0,inf)" source="P10_visited" target="T10_30" weight="2"/>
+<inhibitorArc inscription="[0,inf)" source="P30_visited" target="T30_36" weight="2"/>
+<inhibitorArc inscription="[0,inf)" source="P30_visited" target="T30_42" weight="2"/>
+<inhibitorArc inscription="[0,inf)" source="P36_visited" target="T36_56" weight="2"/>
+<inhibitorArc inscription="[0,inf)" source="P42_visited" target="T42_56" weight="2"/>
+</net>
+</pnml>

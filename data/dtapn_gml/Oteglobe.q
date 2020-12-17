@@ -1,0 +1,1 @@
+control: AG ((!(deadlock) or P92_visited >= 1) and (P28_visited >= 1 or P92 = 0))

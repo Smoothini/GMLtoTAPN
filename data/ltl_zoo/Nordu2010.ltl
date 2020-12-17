@@ -1,0 +1,32 @@
+switch 11 (in11s,out11s,out11s_2) [] {
+ rule in11s => out11s []
+ }
+ final {
+ rule in11s => out11s_2 []
+ }
+switch 12 (in12s,out12s) [] {
+ rule in12s => out12s []
+ }
+ final {
+     
+ }
+switch 16 (in16s,out16s,out16s_2) [] {
+ rule in16s => out16s []
+ }
+ final {
+ rule in16s => out16s_2 []
+ }
+switch 17 (in17s,out17s) [] {
+ rule in17s => out17s []
+ }
+ final {
+ rule in17s => out17s []
+ }
+link  => in11s []
+link out11s => in12s []
+link out11s_2 => in16s []
+link out12s => in16s []
+link out16s => in17s []
+link out16s_2 => in17s []
+spec
+port=in11s -> (!(port=out17s) U ((port=in16s) & (TRUE U (port=out17s))))

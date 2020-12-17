@@ -1,0 +1,72 @@
+switch 7 (in7s,out7s,out7s_2) [] {
+ rule in7s => out7s []
+ }
+ final {
+ rule in7s => out7s_2 []
+ }
+switch 8 (in8s,out8s) [] {
+ rule in8s => out8s []
+ }
+ final {
+     
+ }
+switch 9 (in9s,out9s,out9s_2) [] {
+ rule in9s => out9s []
+ }
+ final {
+ rule in9s => out9s_2 []
+ }
+switch 86 (in86s,out86s,out86s_2) [] {
+ rule in86s => out86s []
+ }
+ final {
+ rule in86s => out86s_2 []
+ }
+switch 133 (in133s,out133s,out133s_2) [] {
+ rule in133s => out133s []
+ }
+ final {
+ rule in133s => out133s_2 []
+ }
+switch 138 (in138s,out138s,out138s_2) [] {
+ rule in138s => out138s []
+ }
+ final {
+ rule in138s => out138s_2 []
+ }
+switch 139 (in139s,out139s,out139s_2) [] {
+ rule in139s => out139s []
+ }
+ final {
+ rule in139s => out139s_2 []
+ }
+switch 140 (in140s,out140s,out140s_2) [] {
+ rule in140s => out140s []
+ }
+ final {
+ rule in140s => out140s_2 []
+ }
+switch 141 (in141s,out141s) [] {
+ rule in141s => out141s []
+ }
+ final {
+ rule in141s => out141s []
+ }
+link  => in7s []
+link out7s => in8s []
+link out7s_2 => in9s []
+link out8s => in9s []
+link out9s => in86s []
+link out9s_2 => in86s []
+link out86s => in133s []
+link out86s_2 => in133s []
+link out133s => in138s []
+link out133s_2 => in138s []
+link out138s => in139s []
+link out138s_2 => in139s []
+link out139s => in140s []
+link out139s_2 => in140s []
+link out140s => in141s []
+link out140s_2 => in141s []
+spec
+port=in7s -> (!(port=out141s) U ((port=in133s) & (TRUE U (port=out141s))))

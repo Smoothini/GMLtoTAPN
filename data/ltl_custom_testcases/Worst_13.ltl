@@ -102,4 +102,4 @@ link out10s_2 => in12s []
 link out11s => in12s []
 link out11s_2 => in10s []
 spec
-port=in0s -> (!(port=out12s) U ((port=in1s) & (TRUE U (port=out12s))))
+port=in0s -> (!(port=out11s) U ((port=in12s) & (TRUE U (port=out11s))))

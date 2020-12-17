@@ -1,0 +1,77 @@
+<pnml>
+<net id="ComposedModel" type="P/T net">
+<place id="Controller" name="Controller" invariant="&lt; inf" initialMarking="1" />
+<place id="P5" name="P5" invariant="&lt; inf" initialMarking="0" />
+<place id="P10" name="P10" invariant="&lt; inf" initialMarking="0" />
+<place id="P11" name="P11" invariant="&lt; inf" initialMarking="0" />
+<place id="P12" name="P12" invariant="&lt; inf" initialMarking="0" />
+<place id="P13" name="P13" invariant="&lt; inf" initialMarking="0" />
+<place id="P14" name="P14" invariant="&lt; inf" initialMarking="0" />
+<place id="P15" name="P15" invariant="&lt; inf" initialMarking="0" />
+<place id="Clock" name="Clock" invariant="&lt;= 0" initialMarking="1" />
+<place id="P_u_visited" name="P_u_visited" invariant="&lt; inf" initialMarking="0" />
+<place id="P5_initial" name="P5_initial" invariant="&lt; inf" initialMarking="1" />
+<place id="P5_final" name="P5_final" invariant="&lt; inf" initialMarking="0" />
+<place id="P5_visited" name="P5_visited" invariant="&lt; inf" initialMarking="0" />
+<place id="P10_visited" name="P10_visited" invariant="&lt; inf" initialMarking="0" />
+<place id="P11_visited" name="P11_visited" invariant="&lt; inf" initialMarking="0" />
+<place id="P12_visited" name="P12_visited" invariant="&lt; inf" initialMarking="0" />
+<place id="P13_visited" name="P13_visited" invariant="&lt; inf" initialMarking="0" />
+<place id="P14_visited" name="P14_visited" invariant="&lt; inf" initialMarking="0" />
+<place id="P15_visited" name="P15_visited" invariant="&lt; inf" initialMarking="0" />
+<transition player="0" id="T13_14" name="T13_14" urgent="false"/>
+<transition player="0" id="T10_11" name="T10_11" urgent="false"/>
+<transition player="0" id="T5_11" name="T5_11" urgent="false"/>
+<transition player="0" id="T12_13" name="T12_13" urgent="false"/>
+<transition player="0" id="T11_12" name="T11_12" urgent="false"/>
+<transition player="0" id="T5_10" name="T5_10" urgent="false"/>
+<transition player="0" id="T14_15" name="T14_15" urgent="false"/>
+<transition player="1" id="Inject_packet" name="Inject_packet" urgent="false"/>
+<transition player="0" id="Update_P5" name="Update_P5" urgent="false"/>
+<inputArc inscription="[0,inf)" source="P13" target="T13_14" />
+<inputArc inscription="[0,inf)" source="P10" target="T10_11" />
+<inputArc inscription="[0,inf)" source="P5" target="T5_11" />
+<inputArc inscription="[0,inf)" source="P12" target="T12_13" />
+<inputArc inscription="[0,inf)" source="P11" target="T11_12" />
+<inputArc inscription="[0,inf)" source="P5" target="T5_10" />
+<inputArc inscription="[0,inf)" source="P14" target="T14_15" />
+<inputArc inscription="[0,inf)" source="Controller" target="Inject_packet" />
+<inputArc inscription="[0,inf)" source="Controller" target="Update_P5" />
+<inputArc inscription="[0,inf)" source="P5_initial" target="Update_P5" />
+<inputArc inscription="[0,inf)" source="P5_initial" target="T5_10" />
+<inputArc inscription="[0,inf)" source="P5_final" target="T5_11" />
+<outputArc inscription="1" source="T13_14" target="P14" />
+<outputArc inscription="1" source="T10_11" target="P11" />
+<outputArc inscription="1" source="T5_11" target="P11" />
+<outputArc inscription="1" source="T12_13" target="P13" />
+<outputArc inscription="1" source="T11_12" target="P12" />
+<outputArc inscription="1" source="T5_10" target="P10" />
+<outputArc inscription="1" source="T14_15" target="P15" />
+<outputArc inscription="1" source="Inject_packet" target="P5" />
+<outputArc inscription="1" source="Inject_packet" target="P_u_visited" />
+<outputArc inscription="1" source="Update_P5" target="Controller" />
+<outputArc inscription="1" source="Update_P5" target="P5_final" />
+<outputArc inscription="1" source="T5_10" target="P5_initial" />
+<outputArc inscription="1" source="T5_11" target="P5_final" />
+<outputArc inscription="1" source="T5_10" target="P10_visited" />
+<outputArc inscription="1" source="T10_11" target="P11_visited" />
+<outputArc inscription="1" source="T5_11" target="P11_visited" />
+<outputArc inscription="1" source="T11_12" target="P12_visited" />
+<outputArc inscription="1" source="T12_13" target="P13_visited" />
+<outputArc inscription="1" source="T13_14" target="P14_visited" />
+<outputArc inscription="1" source="T14_15" target="P15_visited" />
+<inhibitorArc inscription="[0,inf)" source="P_u_visited" target="T5_10" weight="2"/>
+<inhibitorArc inscription="[0,inf)" source="P_u_visited" target="T5_11" weight="2"/>
+<inhibitorArc inscription="[0,inf)" source="P5_visited" target="T5_10" weight="2"/>
+<inhibitorArc inscription="[0,inf)" source="P5_visited" target="T5_11" weight="2"/>
+<inhibitorArc inscription="[0,inf)" source="P10_visited" target="T10_11" weight="2"/>
+<inhibitorArc inscription="[0,inf)" source="P11_visited" target="T11_12" weight="2"/>
+<inhibitorArc inscription="[0,inf)" source="P11_visited" target="T11_12" weight="2"/>
+<inhibitorArc inscription="[0,inf)" source="P12_visited" target="T12_13" weight="2"/>
+<inhibitorArc inscription="[0,inf)" source="P12_visited" target="T12_13" weight="2"/>
+<inhibitorArc inscription="[0,inf)" source="P13_visited" target="T13_14" weight="2"/>
+<inhibitorArc inscription="[0,inf)" source="P13_visited" target="T13_14" weight="2"/>
+<inhibitorArc inscription="[0,inf)" source="P14_visited" target="T14_15" weight="2"/>
+<inhibitorArc inscription="[0,inf)" source="P14_visited" target="T14_15" weight="2"/>
+</net>
+</pnml>

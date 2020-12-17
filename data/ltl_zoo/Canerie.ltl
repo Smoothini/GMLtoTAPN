@@ -1,0 +1,56 @@
+switch 0 (in0s,out0s,out0s_2) [] {
+ rule in0s => out0s []
+ }
+ final {
+ rule in0s => out0s_2 []
+ }
+switch 3 (in3s,out3s,out3s_2) [] {
+ rule in3s => out3s []
+ }
+ final {
+ rule in3s => out3s_2 []
+ }
+switch 22 (in22s,out22s,out22s_2) [] {
+ rule in22s => out22s []
+ }
+ final {
+ rule in22s => out22s_2 []
+ }
+switch 27 (in27s,out27s,out27s_2) [] {
+ rule in27s => out27s []
+ }
+ final {
+ rule in27s => out27s_2 []
+ }
+switch 29 (in29s,out29s,out29s_2) [] {
+ rule in29s => out29s []
+ }
+ final {
+ rule in29s => out29s_2 []
+ }
+switch 30 (in30s,out30s) [] {
+ rule in30s => out30s []
+ }
+ final {
+     
+ }
+switch 31 (in31s,out31s) [] {
+ rule in31s => out31s []
+ }
+ final {
+ rule in31s => out31s []
+ }
+link  => in0s []
+link out0s => in3s []
+link out0s_2 => in3s []
+link out3s => in22s []
+link out3s_2 => in22s []
+link out22s => in27s []
+link out22s_2 => in27s []
+link out27s => in29s []
+link out27s_2 => in29s []
+link out29s => in30s []
+link out29s_2 => in31s []
+link out30s => in31s []
+spec
+port=in0s -> (!(port=out31s) U ((port=in3s) & (TRUE U (port=out31s))))

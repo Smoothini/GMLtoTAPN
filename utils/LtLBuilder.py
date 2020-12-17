@@ -1,4 +1,4 @@
-import json
+import json,os,csv
 import time
 
 class Switch:
@@ -92,6 +92,11 @@ def make_ltl(ntype,count,path="data/json_custom_testcases"):
     wpp = data["Properties"]["Waypoint"]["waypoint"]
     
     init = f"port=in{inn}s"
+
+    #x = outt
+    #outt = wpp
+    #wpp = x
+
     reach = f"!(port=out{outt}s)"
     wp = f"((port=in{wpp}s) & (TRUE U (port=out{outt}s)))"
     spec = f"{init} -> ({reach} U {wp})"
@@ -113,6 +118,79 @@ def make_ltl(ntype,count,path="data/json_custom_testcases"):
     print(f"LTL for {ntype} network of size {cnt_backup} generated in {time.time()-start} seconds")
 
 
+
+def make_ltl_zoo(fname):
+    start = time.time()
+    with open(f"data/json/{fname}.json") as f:
+        data = json.load(f)
+    sw = []
+    for i in data["Initial_routing"]:
+        sw.append(i[0])
+
+    for i in data["Final_routing"]:
+        sw.append(i[0])
+    sw.append(data["Final_routing"][-1][1])
+
+    swnodup = list(dict.fromkeys(sw))
+    print(swnodup)
+    switches = []
+
+    for i in swnodup:
+        switches.append(Switch(i))
+    
+    init_route = data["Initial_routing"]
+    final_route = data["Final_routing"]
+
+    for edge in init_route:
+        switch = find_switch(switches,edge[0])
+        switch.out1 = edge[1]
+
+    for edge in final_route:
+        switch = find_switch(switches,edge[0])
+        switch.out2 = edge[1]
+    
+    switch_init = find_switch(switches, data["Properties"]["Reachability"]["startNode"])
+    ltl = ""
+    for s in switches:
+        ltl += s.info()
+    
+    ltl += f"link  => in{switch_init.sid}s []\n"
+
+    for s in switches[:-1]:
+        ltl += s.links()
+    
+    ltl += "spec\n"
+    inn = data["Properties"]["Reachability"]["startNode"]
+    outt = data["Properties"]["Reachability"]["finalNode"]
+    wpp = data["Properties"]["Waypoint"]["waypoint"]
+    
+    init = f"port=in{inn}s"
+
+    #x = outt
+    #outt = wpp
+    #wpp = x
+
+    reach = f"!(port=out{outt}s)"
+    wp = f"((port=in{wpp}s) & (TRUE U (port=out{outt}s)))"
+    spec = f"{init} -> ({reach} U {wp})"
+
+    ltl += spec
+    #print(spec)
+    #port=in0s ->    (! U ( & (U )
+    #port=in0s ->    (!(port=out3s) U ((port=in1s) & (TRUE U (port=out3s)))
+
+    #port=in0s ->    (!(port=out3s) U ((port=in1s) & (TRUE U (port=out3s))))
+    f = open(f"data/ltl_zoo/{fname}.ltl", "w")
+    f.write(ltl)
+    f.close()
+
+    f = open(f"data/time/LTLZOO/{fname}_LTL.txt", "w")
+    f.write(str(time.time() - start))
+    f.close()
+
+    print(f"LTL for {fname} network generated in {time.time()-start} seconds")
+    return (len(data["Initial_routing"]) + len(data["Final_routing"]))
+
 def make_all():
     for i in range(10,110,10):
         make_ltl("Disjoint", i)
@@ -125,3 +203,15 @@ def make_all():
     #for i in range(2000,6000,1000):
      #   make_ltl("Disjoint", i)
       #  make_ltl("Shared", i)
+
+def make_all_zoo():
+    with open(f"zoosize.csv", "w", newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow(["Net", "Node count"])
+        for f in os.listdir("data/gml/"):
+            try:
+                lenn = make_ltl_zoo(f[:-4])
+                writer.writerow([f[:-4], lenn])
+            except:
+                print(f"Failure! {f[:-4]} not converted..")
+        file.close()

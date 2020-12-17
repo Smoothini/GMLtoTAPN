@@ -1,0 +1,64 @@
+switch 19 (in19s,out19s,out19s_2) [] {
+ rule in19s => out19s []
+ }
+ final {
+ rule in19s => out19s_2 []
+ }
+switch 20 (in20s,out20s,out20s_2) [] {
+ rule in20s => out20s []
+ }
+ final {
+ rule in20s => out20s_2 []
+ }
+switch 31 (in31s,out31s,out31s_2) [] {
+ rule in31s => out31s []
+ }
+ final {
+ rule in31s => out31s_2 []
+ }
+switch 34 (in34s,out34s,out34s_2) [] {
+ rule in34s => out34s []
+ }
+ final {
+ rule in34s => out34s_2 []
+ }
+switch 35 (in35s,out35s,out35s_2) [] {
+ rule in35s => out35s []
+ }
+ final {
+ rule in35s => out35s_2 []
+ }
+switch 48 (in48s,out48s) [] {
+ rule in48s => out48s []
+ }
+ final {
+     
+ }
+switch 49 (in49s,out49s,out49s_2) [] {
+ rule in49s => out49s []
+ }
+ final {
+ rule in49s => out49s_2 []
+ }
+switch 50 (in50s,out50s) [] {
+ rule in50s => out50s []
+ }
+ final {
+ rule in50s => out50s []
+ }
+link  => in19s []
+link out19s => in20s []
+link out19s_2 => in20s []
+link out20s => in31s []
+link out20s_2 => in31s []
+link out31s => in34s []
+link out31s_2 => in34s []
+link out34s => in35s []
+link out34s_2 => in35s []
+link out35s => in48s []
+link out35s_2 => in49s []
+link out48s => in49s []
+link out49s => in50s []
+link out49s_2 => in50s []
+spec
+port=in19s -> (!(port=out50s) U ((port=in34s) & (TRUE U (port=out50s))))

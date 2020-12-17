@@ -1,0 +1,63 @@
+switch 0 (in0s,out0s,out0s_2) [] {
+ rule in0s => out0s []
+ }
+ final {
+ rule in0s => out0s_2 []
+ }
+switch 2 (in2s,out2s) [] {
+ rule in2s => out2s []
+ }
+ final {
+     
+ }
+switch 14 (in14s,out14s,out14s_2) [] {
+ rule in14s => out14s []
+ }
+ final {
+ rule in14s => out14s_2 []
+ }
+switch 21 (in21s,out21s,out21s_2) [] {
+ rule in21s => out21s []
+ }
+ final {
+ rule in21s => out21s_2 []
+ }
+switch 22 (in22s,out22s,out22s_2) [] {
+ rule in22s => out22s []
+ }
+ final {
+ rule in22s => out22s_2 []
+ }
+switch 23 (in23s,out23s,out23s_2) [] {
+ rule in23s => out23s []
+ }
+ final {
+ rule in23s => out23s_2 []
+ }
+switch 3 (in3s,out3s_2) [] {
+
+ }
+ final {
+ rule in3s => out3s_2 []
+ }
+switch 24 (in24s,out24s) [] {
+ rule in24s => out24s []
+ }
+ final {
+ rule in24s => out24s []
+ }
+link  => in0s []
+link out0s => in2s []
+link out0s_2 => in3s []
+link out2s => in14s []
+link out14s => in21s []
+link out14s_2 => in21s []
+link out21s => in22s []
+link out21s_2 => in22s []
+link out22s => in23s []
+link out22s_2 => in23s []
+link out23s => in24s []
+link out23s_2 => in24s []
+link out3s_2 => in14s []
+spec
+port=in0s -> (!(port=out24s) U ((port=in23s) & (TRUE U (port=out24s))))

@@ -1,0 +1,60 @@
+<pnml>
+<net id="ComposedModel" type="P/T net">
+<place id="Controller" name="Controller" invariant="&lt; inf" initialMarking="1" />
+<place id="P10" name="P10" invariant="&lt; inf" initialMarking="0" />
+<place id="P23" name="P23" invariant="&lt; inf" initialMarking="0" />
+<place id="P29" name="P29" invariant="&lt; inf" initialMarking="0" />
+<place id="P41" name="P41" invariant="&lt; inf" initialMarking="0" />
+<place id="P50" name="P50" invariant="&lt; inf" initialMarking="0" />
+<place id="Clock" name="Clock" invariant="&lt;= 0" initialMarking="1" />
+<place id="P_u_visited" name="P_u_visited" invariant="&lt; inf" initialMarking="0" />
+<place id="P29_initial" name="P29_initial" invariant="&lt; inf" initialMarking="1" />
+<place id="P29_final" name="P29_final" invariant="&lt; inf" initialMarking="0" />
+<place id="P10_visited" name="P10_visited" invariant="&lt; inf" initialMarking="0" />
+<place id="P23_visited" name="P23_visited" invariant="&lt; inf" initialMarking="0" />
+<place id="P29_visited" name="P29_visited" invariant="&lt; inf" initialMarking="0" />
+<place id="P41_visited" name="P41_visited" invariant="&lt; inf" initialMarking="0" />
+<place id="P50_visited" name="P50_visited" invariant="&lt; inf" initialMarking="0" />
+<transition player="0" id="T23_29" name="T23_29" urgent="false"/>
+<transition player="0" id="T10_23" name="T10_23" urgent="false"/>
+<transition player="0" id="T29_41" name="T29_41" urgent="false"/>
+<transition player="0" id="T29_50" name="T29_50" urgent="false"/>
+<transition player="0" id="T41_50" name="T41_50" urgent="false"/>
+<transition player="1" id="Inject_packet" name="Inject_packet" urgent="false"/>
+<transition player="0" id="Update_P29" name="Update_P29" urgent="false"/>
+<inputArc inscription="[0,inf)" source="P23" target="T23_29" />
+<inputArc inscription="[0,inf)" source="P10" target="T10_23" />
+<inputArc inscription="[0,inf)" source="P29" target="T29_41" />
+<inputArc inscription="[0,inf)" source="P29" target="T29_50" />
+<inputArc inscription="[0,inf)" source="P41" target="T41_50" />
+<inputArc inscription="[0,inf)" source="Controller" target="Inject_packet" />
+<inputArc inscription="[0,inf)" source="Controller" target="Update_P29" />
+<inputArc inscription="[0,inf)" source="P29_initial" target="Update_P29" />
+<inputArc inscription="[0,inf)" source="P29_initial" target="T29_41" />
+<inputArc inscription="[0,inf)" source="P29_final" target="T29_50" />
+<outputArc inscription="1" source="T23_29" target="P29" />
+<outputArc inscription="1" source="T10_23" target="P23" />
+<outputArc inscription="1" source="T29_41" target="P41" />
+<outputArc inscription="1" source="T29_50" target="P50" />
+<outputArc inscription="1" source="T41_50" target="P50" />
+<outputArc inscription="1" source="Inject_packet" target="P10" />
+<outputArc inscription="1" source="Inject_packet" target="P_u_visited" />
+<outputArc inscription="1" source="Update_P29" target="Controller" />
+<outputArc inscription="1" source="Update_P29" target="P29_final" />
+<outputArc inscription="1" source="T29_41" target="P29_initial" />
+<outputArc inscription="1" source="T29_50" target="P29_final" />
+<outputArc inscription="1" source="T10_23" target="P23_visited" />
+<outputArc inscription="1" source="T23_29" target="P29_visited" />
+<outputArc inscription="1" source="T29_41" target="P41_visited" />
+<outputArc inscription="1" source="T29_50" target="P50_visited" />
+<outputArc inscription="1" source="T41_50" target="P50_visited" />
+<inhibitorArc inscription="[0,inf)" source="P_u_visited" target="T10_23" weight="2"/>
+<inhibitorArc inscription="[0,inf)" source="P10_visited" target="T10_23" weight="2"/>
+<inhibitorArc inscription="[0,inf)" source="P10_visited" target="T10_23" weight="2"/>
+<inhibitorArc inscription="[0,inf)" source="P23_visited" target="T23_29" weight="2"/>
+<inhibitorArc inscription="[0,inf)" source="P23_visited" target="T23_29" weight="2"/>
+<inhibitorArc inscription="[0,inf)" source="P29_visited" target="T29_41" weight="2"/>
+<inhibitorArc inscription="[0,inf)" source="P29_visited" target="T29_50" weight="2"/>
+<inhibitorArc inscription="[0,inf)" source="P41_visited" target="T41_50" weight="2"/>
+</net>
+</pnml>

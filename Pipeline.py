@@ -19,29 +19,26 @@ def write_all_custom():
     #TN.write_batch_to_file(10, 100, 10)
     #TN.write_batch_to_file(100, 1000, 100)
 
-    for i in range(10, 110, 10):
-        DB.build_composed_model(TN.generate_disjoint(i), "data/claaudia/disjoint_wpreach_dtapn")
+    #for i in range(100, 2200, 100):
+     #   DB.build_composed_model(TN.generate_disjoint(i), "data/claaudia/disjoint")
 
-        DB.build_composed_model(TN.generate_shared(i), "data/claaudia/shared_wpreach_dtapn")
+    #for i in range(120, 580, 20):
+     #   DB.build_composed_model(TN.generate_shared(i), "data/claaudia/shared")
 
-        DB.build_composed_model(TN.generate_worst(i), "data/claaudia/worst_wpreach_dtapn")
-
-    for i in range(100, 1100, 100):
-        DB.build_composed_model(TN.generate_disjoint(i), "data/claaudia/disjoint_wpreach_dtapn")
-
-        DB.build_composed_model(TN.generate_shared(i), "data/claaudia/shared_wpreach_dtapn")
-
-        DB.build_composed_model(TN.generate_worst(i), "data/claaudia/worst_wpreach_dtapn")
-
-    for i in range(2000, 6000, 1000):
-        DB.build_composed_model(TN.generate_disjoint(i), "data/claaudia/disjoint_wpreach_dtapn")
-
-def write_custom():
-    for i in range(100,1100,100):
-        DB.build_composed_model(TN.generate_disjoint(i), "data/claaudia/disjoint")
-        #DB.build_composed_model(TN.generate_shared(i), "data/claaudia/shared")
-    #for i in range(4,28,3):
+    #for i in range(25, 225, 25):
      #   DB.build_composed_model(TN.generate_worst(i), "data/claaudia/worst")
+    #for i in range(300, 1100, 100):
+     #   DB.build_composed_model(TN.generate_worst(i), "data/claaudia/worst")
+    #for i in range(2000, 6000, 1000):
+     #   DB.build_composed_model(TN.generate_worst(i), "data/claaudia/worst")
+
+    #for i in range(4, 28, 3):
+     #   DB.build_composed_model(TN.generate_worst(i), "data/claaudia/worst", negative=True)
+    #TB.write_all_to_file(10)
+    TB.write_zoo_to_file("Eenet", 1)
+    #LTL.make_ltl_zoo("Aarnet")
+    #LTL.make_all_zoo()
+
 
 
 
@@ -55,5 +52,5 @@ def write_benchmarks_csv():
     CM.make_csv("Worst", netsynth_results_path, csv_results_path, "Netsynth")
 
 
-write_custom()
+write_all_custom()
 #write_benchmarks_csv()

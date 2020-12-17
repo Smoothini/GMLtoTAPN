@@ -1,0 +1,52 @@
+<pnml>
+<net id="ComposedModel" type="P/T net">
+<place id="Controller" name="Controller" invariant="&lt; inf" initialMarking="1" />
+<place id="P11" name="P11" invariant="&lt; inf" initialMarking="0" />
+<place id="P74" name="P74" invariant="&lt; inf" initialMarking="0" />
+<place id="P75" name="P75" invariant="&lt; inf" initialMarking="0" />
+<place id="P76" name="P76" invariant="&lt; inf" initialMarking="0" />
+<place id="Clock" name="Clock" invariant="&lt;= 0" initialMarking="1" />
+<place id="P_u_visited" name="P_u_visited" invariant="&lt; inf" initialMarking="0" />
+<place id="P74_initial" name="P74_initial" invariant="&lt; inf" initialMarking="1" />
+<place id="P74_final" name="P74_final" invariant="&lt; inf" initialMarking="0" />
+<place id="P11_visited" name="P11_visited" invariant="&lt; inf" initialMarking="0" />
+<place id="P74_visited" name="P74_visited" invariant="&lt; inf" initialMarking="0" />
+<place id="P75_visited" name="P75_visited" invariant="&lt; inf" initialMarking="0" />
+<place id="P76_visited" name="P76_visited" invariant="&lt; inf" initialMarking="0" />
+<transition player="0" id="T11_74" name="T11_74" urgent="false"/>
+<transition player="0" id="T74_76" name="T74_76" urgent="false"/>
+<transition player="0" id="T74_75" name="T74_75" urgent="false"/>
+<transition player="0" id="T75_76" name="T75_76" urgent="false"/>
+<transition player="1" id="Inject_packet" name="Inject_packet" urgent="false"/>
+<transition player="0" id="Update_P74" name="Update_P74" urgent="false"/>
+<inputArc inscription="[0,inf)" source="P11" target="T11_74" />
+<inputArc inscription="[0,inf)" source="P74" target="T74_76" />
+<inputArc inscription="[0,inf)" source="P74" target="T74_75" />
+<inputArc inscription="[0,inf)" source="P75" target="T75_76" />
+<inputArc inscription="[0,inf)" source="Controller" target="Inject_packet" />
+<inputArc inscription="[0,inf)" source="Controller" target="Update_P74" />
+<inputArc inscription="[0,inf)" source="P74_initial" target="Update_P74" />
+<inputArc inscription="[0,inf)" source="P74_initial" target="T74_75" />
+<inputArc inscription="[0,inf)" source="P74_final" target="T74_76" />
+<outputArc inscription="1" source="T11_74" target="P74" />
+<outputArc inscription="1" source="T74_76" target="P76" />
+<outputArc inscription="1" source="T74_75" target="P75" />
+<outputArc inscription="1" source="T75_76" target="P76" />
+<outputArc inscription="1" source="Inject_packet" target="P11" />
+<outputArc inscription="1" source="Inject_packet" target="P_u_visited" />
+<outputArc inscription="1" source="Update_P74" target="Controller" />
+<outputArc inscription="1" source="Update_P74" target="P74_final" />
+<outputArc inscription="1" source="T74_75" target="P74_initial" />
+<outputArc inscription="1" source="T74_76" target="P74_final" />
+<outputArc inscription="1" source="T11_74" target="P74_visited" />
+<outputArc inscription="1" source="T74_75" target="P75_visited" />
+<outputArc inscription="1" source="T74_76" target="P76_visited" />
+<outputArc inscription="1" source="T75_76" target="P76_visited" />
+<inhibitorArc inscription="[0,inf)" source="P_u_visited" target="T11_74" weight="2"/>
+<inhibitorArc inscription="[0,inf)" source="P11_visited" target="T11_74" weight="2"/>
+<inhibitorArc inscription="[0,inf)" source="P11_visited" target="T11_74" weight="2"/>
+<inhibitorArc inscription="[0,inf)" source="P74_visited" target="T74_75" weight="2"/>
+<inhibitorArc inscription="[0,inf)" source="P74_visited" target="T74_76" weight="2"/>
+<inhibitorArc inscription="[0,inf)" source="P75_visited" target="T75_76" weight="2"/>
+</net>
+</pnml>

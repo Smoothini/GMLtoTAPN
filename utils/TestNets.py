@@ -105,7 +105,7 @@ def generate_disjoint (count):
     #print(f"Final path: {final_route}")
     # verified: waypoint = mid_node.id
     # non verified: waypoint = literally anything else
-    wp = 1
+    wp = mid_node.id
 
     f = open(f"data/time/Disjoint/Disjoint_{acc}_PREP.txt", "w")
     f.write(str(time.time() - start))
@@ -179,8 +179,9 @@ def generate_worst (count):
             node.final_route = t[1]
         final_route.extend(pospath(i*3))
     
-    #first common node
-    wp = 1
+    # verified: waypoint = literally anything
+    # non verified: waypoint = something after the reach..
+    wp = final_node.id - 1
     print(f"Prep time Worst size {acc}: {time.time()-start} seconds")
     #making the json file
     json_maker("Worst", acc, init_route, final_route, init_node.id, final_node.id, wp)
@@ -254,8 +255,9 @@ def generate_shared(count):
     init_route.append([path1[-1].id, final_node.id])
     final_route.append([path2[-1].id, final_node.id])
 
-    #first common node
-    wp = path_count
+    # verified: waypoint = 1
+    # non verified: waypoint = path_count
+    wp = 1
     print(f"Prep time Shared size {acc}: {time.time()-start} seconds")
     #making the json file
     json_maker("Shared", acc, init_route, final_route, init_node.id, final_node.id, wp)
