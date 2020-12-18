@@ -81,8 +81,10 @@ def findRoutings(g):
                     routings = all_paths[:2]
                     length = len(all_paths[0]) + len(all_paths[1])
         i += 1
+        
 
     if length:
+        print(routings[:2])
         return routings[:2]
     else:
         return False
@@ -216,8 +218,9 @@ def cleanup():
 
 
 # focus on not yet supported
-build_all()
+#build_all()
 # build_not_supported()
 # jsonbuilder("BtEurope")
 # jsonbuilder("Colt")
 # cleanup()
+jsonbuilder("Eenet")

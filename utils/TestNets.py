@@ -324,6 +324,7 @@ def net(params):
 
     return xml_str
 
+#def make_zoo(fname, scale, nodes, transitions):
 
 
 
@@ -389,6 +390,13 @@ def make_worst(count):
     f.write(net(generate_worst(count)))
     f.close()
     print(f"TAPN for Worst network of size {count} generated")
+
+def make_zoo(fname):
+    f = open(f"data/tapn_scale/{fname}.tapn", "w")
+    f.write(net(generate_zoo(fname)))
+    f.close()
+    print(f"TAPN for {fname} generated scaled")
+
 
 def write_batch_to_file(small,big,step):
     for t in range(small, big+step, step):

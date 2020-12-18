@@ -1,0 +1,1 @@
+control: AG ((!(deadlock) or P32 >= 1) and (P33 >= 1 or P32 = 0))

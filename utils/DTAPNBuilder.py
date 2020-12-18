@@ -111,10 +111,10 @@ def build_query(ntype=None, reach=None, waypoint=None, negative=False):
         reach = waypoint
         waypoint = x
     query = "control: "
+    r,n0 = magnisep(reach)
+    wp,n1 = magnisep(waypoint)
     #((!(deadlock) or P10_visited >= 1) and (P9_visited >= 1 or P10 = 0))
-    r0,s0 = magnisep(reach)
-    w0,s1 = magnisep(waypoint)
-    q = f"AG ((!(deadlock) or P{r0}_visitedxxx{s0} >= 1) and (P{w0}_visitedxxx{s1} >= 1 or P{r0}xxx{s0} = 0))"
+    q = f"AG ((!(deadlock) or P{r}_visitedxxx{n0} >= 1) and (P{wp}_visitedxxx{n1} >= 1 or P{r}xxx{n0} = 0))"
     query += q
     return query
 
@@ -195,8 +195,8 @@ def build_composed_model_gml(fname, places, transitions, path, negative = False,
             v1,m1 = magnisep(t.init_route)
             v2,m2 = magnisep(t.final_route)
             v3,m3 = magnisep(t.notation)
-            xml += f"<outputArc inscription=\"1\" source=\"T{v0}_{v1}xxx{m0}\" target=\"{v3}_initialxxx{m0}\" />\n"
-            xml += f"<outputArc inscription=\"1\" source=\"T{v0}_{v2}xxx{m0}\" target=\"{v3}_finalxxx{m0}\" />\n"
+            xml += f"<outputArc inscription=\"1\" source=\"T{v0}_{v1}xxx{m1}\" target=\"{v3}_initialxxx{m0}\" />\n"
+            xml += f"<outputArc inscription=\"1\" source=\"T{v0}_{v2}xxx{m2}\" target=\"{v3}_finalxxx{m0}\" />\n"
         else:
             xml += f"<outputArc inscription=\"1\" source=\"T{t.id}_{t.init_route}\" target=\"{t.notation}_initial\" />\n"
             xml += f"<outputArc inscription=\"1\" source=\"T{t.id}_{t.final_route}\" target=\"{t.notation}_final\" />\n"
@@ -228,16 +228,19 @@ def build_composed_model_gml(fname, places, transitions, path, negative = False,
 
     for place in places:
         if uber:
+            reach, _ = magnisep(pn)
             v0,m0 = magnisep(place.id)
             v3,m3 = magnisep(place.notation)
             #print(f"{place.id} {place.init_route} {place.final_route}")
             if place.init_route != None:
                 v1,m1 = magnisep(place.init_route)
                 if place.final_route != place.init_route:
-                    xml += f"<inhibitorArc inscription=\"[0,inf)\" source=\"{v3}_visitedxxx{m0}\" target=\"T{v0}_{v1}xxx{m0}\" weight=\"2\"/>\n"
+                    target = f"T{v0}_{v1}xxx{m0}"
+                    xml += f"<inhibitorArc inscription=\"[0,inf)\" source=\"{v3}_visitedxxx{m0}\" target=\"{target}\" weight=\"2\"/>\n"
             if place.final_route != None:
-                v2,m2 = magnisep(place.final_route)
-                xml += f"<inhibitorArc inscription=\"[0,inf)\" source=\"{v3}_visitedxxx{m0}\" target=\"T{v0}_{v2}xxx{m0}\" weight=\"2\"/>\n"
+                v1,m1 = magnisep(place.final_route)
+                target = f"T{v0}_{v1}xxx{m1}"
+                xml += f"<inhibitorArc inscription=\"[0,inf)\" source=\"{v3}_visitedxxx{m0}\" target=\"{target}\" weight=\"2\"/>\n"
         else:    
             if place.init_route:
                 xml += f"<inhibitorArc inscription=\"[0,inf)\" source=\"{place.notation}_visited\" target=\"T{place.id}_{place.init_route}\" weight=\"2\"/>\n"

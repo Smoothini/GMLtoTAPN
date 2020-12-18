@@ -10,6 +10,59 @@ from entities.Transition import Transition
 import utils.BasicNetworkComponents as BNC
 import utils.AdditionalNetworkComponents as ANC
 import utils.DTAPNBuilder as DB
+import utils.LtLBuilder as LTL
+
+def write_scaled_tapn_to_file(network, scale, snodes, strans): 
+    start = time.time()
+    #combined queries maybe???
+    g = nx.read_gml("data/gml/" + network + '.gml', label='id')
+    jsonParser = JsonParser(network)
+    if type(g) == nx.classes.multigraph.MultiGraph:
+        g = nx.DiGraph(g)
+    jsonParser.scale_data(scale)
+    f = open(f"data/tapn_scale/{network}.tapn", "w")
+    f.write("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n")
+    f.write("<pnml xmlns=\"http://www.informatik.hu-berlin.de/top/pnml/ptNetb\">\n")
+
+    nodes, transitions = snodes, strans
+
+    for node in nodes:
+        print(node.id)
+    for t in transitions:
+        print(t.id)
+    #DB.build_composed_model_gml(network, nodes[1:], transitions, "data/dtapn_gml/")
+    
+
+    #f.write(BNC.full_network(g, network))
+
+    # Initial state of the network
+    xml_reach, reach_query = BNC.routing_configuration(network, jsonParser, nodes, transitions)
+    f.write(xml_reach)
+    xml_switch, switch_count = BNC.switches(nodes, transitions)
+    f.write(xml_switch)
+
+    # Other components
+    f.write(ANC.visited(nodes, transitions))
+    if jsonParser.properties["Waypoint"]:
+        xml_wp, wp_query = ANC.waypoint(jsonParser.waypoint["startNode"], jsonParser.waypoint["finalNode"], jsonParser.waypoint["waypoint"])
+        f.write(xml_wp)
+    if jsonParser.properties["LoopFreedom"]:
+        xml_loop, loop_query = ANC.loopfreedom(nodes[1:])
+        f.write(xml_loop)
+
+    f.write(ANC.combinedQuery(reach_query, wp_query, loop_query))
+    
+    
+    
+
+    f.write("  <k-bound bound=\"3\"/>\n")
+    f.write("  <feature isGame=\"true\" isTimed=\"true\"/>\n")
+    f.write("</pnml>")
+    f.close()
+    print("Success! {} converted! Execution time: {} seconds".format(network, (str(time.time()-start))[:5]))
+    return switch_count
+
+
 
 def write_to_file(network):
     start = time.time()
@@ -99,7 +152,7 @@ def write_zoo_to_file(network, magni):
     
     
     for i in range(magni-1):
-        tt = Transition(f"Linkerxxx{i}", f"{end}xxx{i}", f"{start}xxx{i+1}", f"Linkerxxx{i}")
+        tt = Transition(f"T{end}_{start}xxx{i+1}", f"{end}xxx{i}", f"{start}xxx{i+1}", f"T{end}_{start}xxx{i+1}")
         m0 = find_node(ubernodes, f"{end}xxx{i}")
         m0.init_route = f"{start}xxx{i+1}"
         m0.final_route = f"{start}xxx{i+1}"
@@ -111,7 +164,7 @@ def write_zoo_to_file(network, magni):
 
     #print(len(ubernodes), len(ubertransitions))
     DB.build_composed_model_gml(network, ubernodes, ubertransitions, "data/uberdtapn/", uber=True, wp=f"{wp}xxx{magni-1}", pn=f"{end}xxx{magni-1}")
-
+    #write_scaled_tapn_to_file(network, magni, ubernodes, ubertransitions)
 
 def write_all_to_file(magni):
     start = time.time()

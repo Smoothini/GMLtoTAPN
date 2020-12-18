@@ -30,4 +30,4 @@ link out1s_2 => in3s []
 link out2s => in3s []
 link out2s_2 => in1s []
 spec
-port=in0s -> (!(port=out2s) U ((port=in3s) & (TRUE U (port=out2s))))
+port=in0s -> (!(port=out3s) U ((port=in2s) & (TRUE U (port=out3s))))

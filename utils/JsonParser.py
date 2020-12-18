@@ -1,5 +1,6 @@
 import json
 from entities.Node import Node
+import utils.LtLBuilder as LTL
 class JsonParser:
     def __init__(self, network):
         self.network = network
@@ -22,6 +23,9 @@ class JsonParser:
         with open(f"data/json/{network}.json") as f:
             data = json.load(f)
             return data
+    
+    def scale_data(self, scale):
+        self.data = LTL.scale_json(self.data, scale)
 
     def get_routings(self, routing):
         tuples = []

@@ -3,6 +3,7 @@ import utils.TestNets as TN
 import utils.DTAPNBuilder as DB
 import utils.CSVMaker as CM
 import utils.LtLBuilder as LTL
+import utils.JsonBuilder as JB
 
 netsynth_results_path = "/home/escanor/Apps/netsynth/ltl_results/"
 dtapn_results_path = "/home/escanor/Apps/verifydtapn-strategy_output/build/bin/Results/"
@@ -32,15 +33,18 @@ def write_all_custom():
     #for i in range(2000, 6000, 1000):
      #   DB.build_composed_model(TN.generate_worst(i), "data/claaudia/worst")
 
-    #for i in range(4, 28, 3):
+    #for i in range(4, 51, 3):
      #   DB.build_composed_model(TN.generate_worst(i), "data/claaudia/worst", negative=True)
-    #TB.write_all_to_file(10)
-    TB.write_zoo_to_file("Eenet", 2)
-    TN.make_worst(16)
+    scale = 50
+    #TB.write_zoo_to_file("Eenet", 2)
+    #TN.make_worst(16)
     #LTL.make_ltl_zoo("Aarnet")
     #LTL.make_all_zoo()
-
-
+    #LTL.make_ltl_zoo_scale("Eenet", 2)
+    #TB.write_all_to_file(scale)
+    #LTL.make_all_zoo_scale(scale)
+    #TB.write_scaled_tapn_to_file("Eenet", 2)
+    #TB.write_zoo_to_file("Eenet",2)
 
 
 
