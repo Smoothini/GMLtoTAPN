@@ -10,6 +10,8 @@ dtapn_results_path = "/home/escanor/Apps/verifydtapn-strategy_output/build/bin/R
 
 csv_results_path = "/home/escanor/GMLtoTAPN/data/csv/"
 
+### Writes a json, then xml,q,tapn and then a ltl file for a Zoo Topo
+## Can be chained by increasing scale
 def write_zoo(network, scale=1):
     JB.jsonbuilder("Eenet")
     TB.write_to_file("Eenet", scale=scale)
@@ -45,5 +47,6 @@ def write_benchmarks_csv():
     CM.make_csv("Worst", netsynth_results_path, csv_results_path, "Netsynth")
 
 
-write_zoo("Eenet", scale=10)
+#write_zoo("Eenet", scale=10)
 #TB.write_all_to_file()
+JB.build_all()
