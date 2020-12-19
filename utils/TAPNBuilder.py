@@ -1,15 +1,13 @@
-from utils.JsonParser import JsonParser
-import utils.VarOps as varOps
-
-import networkx as nx
-import time, os, copy
-
 from entities.Arcs import Full_Arc, Outbound_Arc, Inbound_Arc
 from entities.Node import Node
 from entities.Transition import Transition
+from utils.JsonParser import JsonParser
 import utils.BasicNetworkComponents as BNC
 import utils.AdditionalNetworkComponents as ANC
 import utils.DTAPNBuilder as DB
+
+import networkx as nx
+import time, os, copy
 
 ## Used by Zoo Topology
 def write_to_file(network, scale=1):
@@ -46,16 +44,19 @@ def write_to_file(network, scale=1):
     f.write("  <feature isGame=\"true\" isTimed=\"true\"/>\n")
     f.write("</pnml>")
     f.close()
-    print("Tapaal File for {} generated in {} seconds".format(network, (str(time.time()-start))[:5]))
+    print("Tapaal File for {} network generated in {} seconds".format(network, (str(time.time()-start))[:5]))
 
 def find_node(nodes, nid):
     return next((x for x in nodes if x.id == nid), None)
 
 def write_all_to_file():
     start = time.time()
+    cnt = 0
     for f in os.listdir("data/gml/"):
         try:
             write_to_file(f[:-4])
+            cnt += 1
         except:
             print(f"Failure! {f[:-4]} not converted..")
     print("Operation done in: {} seconds".format((str(time.time()-start))[:5]))
+    print(f"Succesfully written {cnt} files.")

@@ -11,6 +11,7 @@ dtapn_results_path = "/home/escanor/Apps/verifydtapn-strategy_output/build/bin/R
 csv_results_path = "/home/escanor/GMLtoTAPN/data/csv/"
 
 def write_zoo(network, scale=1):
+    JB.jsonbuilder("Eenet")
     TB.write_to_file("Eenet", scale=scale)
     LTL.make_ltl_zoo("Eenet", scale=scale)
 
@@ -44,4 +45,5 @@ def write_benchmarks_csv():
     CM.make_csv("Worst", netsynth_results_path, csv_results_path, "Netsynth")
 
 
-write_zoo("Eenet", scale=2)
+write_zoo("Eenet", scale=10)
+#TB.write_all_to_file()

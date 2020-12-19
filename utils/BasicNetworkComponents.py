@@ -100,7 +100,7 @@ def routing_configuration(network, jsonParser, nodes, transitions):
         xml_str += arc.to_file()
 
     
-    xml_str += "<place displayName=\"true\" id=\"Clock\" initialMarking=\"1\" invariant=\"&lt;= 0\" name=\"Clock\" nameOffsetX=\"0\" nameOffsetY=\"0\" positionX=\"285\" positionY=\"45\"/>"
+    xml_str += "<place displayName=\"true\" id=\"Clock\" initialMarking=\"1\" invariant=\"&lt;= 0\" name=\"Clock\" nameOffsetX=\"0\" nameOffsetY=\"0\" positionX=\"465\" positionY=\"45\"/>"
     injectpv = Node("P_u_visited", "P_u_visited", "1")
     xml_str += "<place displayName=\"true\" id=\"P_u_visited\" initialMarking=\"0\" invariant=\"&lt; inf\" name=\"P_u_visited\" nameOffsetX=\"0\" nameOffsetY=\"0\" positionX=\"285\" positionY=\"180\"/>"
     xml_str += Outbound_Arc(inject, injectpv).to_file() 

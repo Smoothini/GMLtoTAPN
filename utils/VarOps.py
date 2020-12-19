@@ -1,6 +1,9 @@
 from entities.Node import Node
 from entities.Transition import Transition
 
+### Various operations contained such as scalling a Json file and so on
+
+
 
 def parse_nodes(nodes_raw, marking):
     nodes = []
@@ -27,11 +30,11 @@ def parse_transitions(routing):
 def removeDuplicates(lst):
     return [t for t in (set(tuple(i) for i in lst))]
 
-
+### Scales a Json file containing networking data based on the scale given
+## and also normalizes the names. Used in tapn, xml, q, and ltl generation
 def scale_json(data, scale):
     new_init_route = []
     new_final_route = []
-
     og_init_route = data["Initial_routing"]
     og_final_route = data["Final_routing"]
     places = {}
@@ -47,21 +50,24 @@ def scale_json(data, scale):
     for i in pl:
         places[i] = cnt
         cnt+=1
-
-    for s in range(scale):
-        for i in data["Initial_routing"]:
-            new_init_route.append([places[i[0]] + s * len(pl), places[i[1]] + s * len(pl)])
-        for i in data["Final_routing"]:
-            new_final_route.append([places[i[0]] + s * len(pl), places[i[1]] + s * len(pl)])
+    first = 0
+    last =  data["Initial_routing"][-1][1]
         
-        if s < scale-1:
-            first = data["Initial_routing"][-1][1]
-            last = data["Initial_routing"][0][0]
-            new_init_route.append([places[first] + s * len(pl), places[last] + (s+1) * len(pl)])
+    for s in range (scale):
+        for i in og_init_route:
+            new_init_route.append([places[i[0]] + s * len(pl), places[i[1]] + s * len(pl)])
+        new_init_route[-1][1] = places[first] + (s+1) * len(pl)
+        for i in og_final_route:
+            new_final_route.append([places[i[0]] + s * len(pl), places[i[1]] + s * len(pl)])
+        new_final_route[-1][1] = places[first] + (s+1) * len(pl)
+    new_init_route[-1][1] = places[last] + (scale-1) * len(pl)
+    new_final_route[-1][1] = places[last] + (scale-1) * len(pl)
+    
+    #print("OG init route: ", og_init_route)
+    #print("OG final route: ", og_final_route)
+    #print("Scaled up init route: ", new_init_route)
+    #print("Scaled up final route: ", new_final_route)
 
-            first = data["Final_routing"][-1][1]
-            last = data["Final_routing"][0][0]
-            new_final_route.append([places[first] + s * len(pl), places[last] + (s+1) * len(pl)])
 
     inn = data["Properties"]["Reachability"]["startNode"]
     outt = data["Properties"]["Reachability"]["finalNode"]

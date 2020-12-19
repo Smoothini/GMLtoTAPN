@@ -2,6 +2,7 @@ from utils import VarOps as ops
 import json,os,csv
 import time
 
+## Switch class with 1 input and 2 outputs for dealing with Netsynth more easily
 class Switch:
     def __init__(self, sid, out1 = None, out2 = None):
         self.sid = sid
@@ -54,6 +55,8 @@ class Switch:
 def find_switch(switches, sid):
     return next((x for x in switches if x.sid == sid), None)
 
+
+### This one is used for synthethic nets
 def make_ltl(ntype,count,path="data/json_custom_testcases"):
     start = time.time()
     cnt_backup = count
@@ -119,7 +122,7 @@ def make_ltl(ntype,count,path="data/json_custom_testcases"):
     print(f"LTL for {ntype} network of size {cnt_backup} generated in {time.time()-start} seconds")
 
 
-
+### This one is used for Zoo Topology
 def make_ltl_zoo(fname, scale=1):
     start = time.time()
     with open(f"data/json/{fname}.json") as f:
@@ -134,7 +137,7 @@ def make_ltl_zoo(fname, scale=1):
     sw.append(data["Final_routing"][-1][1])
 
     swnodup = list(dict.fromkeys(sw))
-    print(swnodup)
+    #print(swnodup)
     switches = []
 
     for i in swnodup:
