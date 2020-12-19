@@ -11,16 +11,18 @@ class JsonParser:
         self.full_route = self.data["Initial_routing"].copy()
         self.full_route.extend(self.data["Final_routing"].copy())
         self.properties = self.data["Properties"]
-        self.waypoint = self.properties["Waypoint"]
         self.loopfreedom = self.properties["LoopFreedom"]
         self.reachability = self.properties["Reachability"]
-
+        if not "Waypoint" not in self.properties:
+            self.waypoint = self.properties["Waypoint"]
+        else:
+            self.waypoint = {}
 
         self.routings = self.get_routings(self.data["Final_routing"])
         self.unique_ids = list(set.union(self.get_nodes_from_routing(self.data["Initial_routing"]), self.get_nodes_from_routing(self.data["Final_routing"])))
 
     def read_json(self, network):
-        with open(f"data/json/{network}.json") as f:
+        with open(f"C:/Users/Shahab/Documents/GMLtoTAPN/data/json/{network}.json") as f:
             data = json.load(f)
             return data
     
@@ -39,3 +41,5 @@ class JsonParser:
             for j in i:
                 result.add(j)
         return result
+
+

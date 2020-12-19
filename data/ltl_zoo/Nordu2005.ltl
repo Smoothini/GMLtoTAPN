@@ -10,11 +10,11 @@ switch 1 (in1s,out1s,out1s_2) [] {
  final {
  rule in1s => out1s_2 []
  }
-switch 3 (in3s,out3s) [] {
- rule in3s => out3s []
+switch 3 (in3s,out3s_2) [] {
+
  }
  final {
-     
+ rule in3s => out3s_2 []
  }
 switch 8 (in8s,out8s) [] {
  rule in8s => out8s []
@@ -25,8 +25,8 @@ switch 8 (in8s,out8s) [] {
 link  => in0s []
 link out0s => in1s []
 link out0s_2 => in1s []
-link out1s => in3s []
-link out1s_2 => in8s []
-link out3s => in8s []
+link out1s => in8s []
+link out1s_2 => in3s []
+link out3s_2 => in8s []
 spec
 port=in0s -> (!(port=out8s) U ((port=in1s) & (TRUE U (port=out8s))))

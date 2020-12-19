@@ -1,0 +1,43 @@
+<pnml>
+<net id="ComposedModel" type="P/T net">
+<place id="Controller" name="Controller" invariant="&lt; inf" initialMarking="1" />
+<place id="P16" name="P16" invariant="&lt; inf" initialMarking="0" />
+<place id="P9" name="P9" invariant="&lt; inf" initialMarking="0" />
+<place id="P15" name="P15" invariant="&lt; inf" initialMarking="0" />
+<place id="Clock" name="Clock" invariant="&lt;= 0" initialMarking="1" />
+<place id="P_u_visited" name="P_u_visited" invariant="&lt; inf" initialMarking="0" />
+<place id="P9_initial" name="P9_initial" invariant="&lt; inf" initialMarking="1" />
+<place id="P9_final" name="P9_final" invariant="&lt; inf" initialMarking="0" />
+<place id="P16_visited" name="P16_visited" invariant="&lt; inf" initialMarking="0" />
+<place id="P9_visited" name="P9_visited" invariant="&lt; inf" initialMarking="0" />
+<place id="P15_visited" name="P15_visited" invariant="&lt; inf" initialMarking="0" />
+<transition player="0" id="T15_16" name="T15_16" urgent="false"/>
+<transition player="0" id="T9_16" name="T9_16" urgent="false"/>
+<transition player="0" id="T9_15" name="T9_15" urgent="false"/>
+<transition player="1" id="Inject_packet" name="Inject_packet" urgent="false"/>
+<transition player="0" id="Update_P9" name="Update_P9" urgent="false"/>
+<inputArc inscription="[0,inf)" source="P15" target="T15_16" />
+<inputArc inscription="[0,inf)" source="P9" target="T9_16" />
+<inputArc inscription="[0,inf)" source="P9" target="T9_15" />
+<inputArc inscription="[0,inf)" source="Controller" target="Inject_packet" />
+<inputArc inscription="[0,inf)" source="Controller" target="Update_P9" />
+<inputArc inscription="[0,inf)" source="P9_initial" target="Update_P9" />
+<inputArc inscription="[0,inf)" source="P9_initial" target="T9_16" />
+<inputArc inscription="[0,inf)" source="P9_final" target="T9_15" />
+<outputArc inscription="1" source="T15_16" target="P16" />
+<outputArc inscription="1" source="T9_16" target="P16" />
+<outputArc inscription="1" source="T9_15" target="P15" />
+<outputArc inscription="1" source="Inject_packet" target="P16" />
+<outputArc inscription="1" source="Inject_packet" target="P_u_visited" />
+<outputArc inscription="1" source="Update_P9" target="Controller" />
+<outputArc inscription="1" source="Update_P9" target="P9_final" />
+<outputArc inscription="1" source="T9_16" target="P9_initial" />
+<outputArc inscription="1" source="T9_15" target="P9_final" />
+<outputArc inscription="1" source="T15_16" target="T15_16_visited" />
+<outputArc inscription="1" source="T9_16" target="T9_16_visited" />
+<outputArc inscription="1" source="T9_15" target="T9_15_visited" />
+<inhibitorArc inscription="[0,inf)" source="P9_visited" target="T9_16" weight="2"/>
+<inhibitorArc inscription="[0,inf)" source="P9_visited" target="T9_15" weight="2"/>
+<inhibitorArc inscription="[0,inf)" source="P15_visited" target="T15_16" weight="2"/>
+</net>
+</pnml>

@@ -4,26 +4,14 @@ switch 0 (in0s,out0s,out0s_2) [] {
  final {
  rule in0s => out0s_2 []
  }
-switch 2 (in2s,out2s) [] {
- rule in2s => out2s []
+switch 1 (in1s,out1s) [] {
+ rule in1s => out1s []
  }
  final {
      
  }
-switch 3 (in3s,out3s) [] {
- rule in3s => out3s []
- }
- final {
-     
- }
-switch 6 (in6s,out6s) [] {
- rule in6s => out6s []
- }
- final {
-     
- }
-switch 7 (in7s,out7s) [] {
- rule in7s => out7s []
+switch 11 (in11s,out11s) [] {
+ rule in11s => out11s []
  }
  final {
      
@@ -34,17 +22,29 @@ switch 12 (in12s,out12s,out12s_2) [] {
  final {
  rule in12s => out12s_2 []
  }
-switch 1 (in1s,out1s_2) [] {
+switch 2 (in2s,out2s_2) [] {
 
  }
  final {
- rule in1s => out1s_2 []
+ rule in2s => out2s_2 []
  }
-switch 11 (in11s,out11s_2) [] {
+switch 3 (in3s,out3s_2) [] {
 
  }
  final {
- rule in11s => out11s_2 []
+ rule in3s => out3s_2 []
+ }
+switch 6 (in6s,out6s_2) [] {
+
+ }
+ final {
+ rule in6s => out6s_2 []
+ }
+switch 7 (in7s,out7s_2) [] {
+
+ }
+ final {
+ rule in7s => out7s_2 []
  }
 switch 14 (in14s,out14s) [] {
  rule in14s => out14s []
@@ -53,15 +53,15 @@ switch 14 (in14s,out14s) [] {
  rule in14s => out14s []
  }
 link  => in0s []
-link out0s => in2s []
-link out0s_2 => in1s []
-link out2s => in3s []
-link out3s => in6s []
-link out6s => in7s []
-link out7s => in12s []
+link out0s => in1s []
+link out0s_2 => in2s []
+link out1s => in11s []
+link out11s => in12s []
 link out12s => in14s []
 link out12s_2 => in14s []
-link out1s_2 => in11s []
-link out11s_2 => in12s []
+link out2s_2 => in3s []
+link out3s_2 => in6s []
+link out6s_2 => in7s []
+link out7s_2 => in12s []
 spec
 port=in0s -> (!(port=out14s) U ((port=in12s) & (TRUE U (port=out14s))))

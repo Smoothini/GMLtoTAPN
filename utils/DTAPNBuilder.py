@@ -105,27 +105,28 @@ def build_composed_model(params, path, negative = False):
 
     print(f"DTAPN Query file for {ntype} network of size {count} generated in {time.time()-start} seconds")
 
-def build_query(ntype=None, reach=None, waypoint=None, negative=False):
+def build_query(start=None, end=None, waypoint=None, negative=False):
     if negative:
-        x = reach
+        x = end
         reach = waypoint
         waypoint = x
     query = "control: "
-    r,n0 = magnisep(reach)
-    wp,n1 = magnisep(waypoint)
-    #((!(deadlock) or P10_visited >= 1) and (P9_visited >= 1 or P10 = 0))
-    q = f"AG ((!(deadlock) or P{r}_visitedxxx{n0} >= 1) and (P{wp}_visitedxxx{n1} >= 1 or P{r}xxx{n0} = 0))"
+    if waypoint:
+        wp = waypoint
+        q = f"AG ((!(deadlock) or P{end}_visited >= 1) and (P{wp}_visited >= 1 or P{end} = 0))"
+    else:
+        q = f"AG ((!(deadlock) or P{end}_visited >= 1))"
     query += q
     return query
 
 def magnisep(data):
-    val, magni = data.split("xxx")
+    val, magni = data.split("")
     return val,magni
 
 def build_composed_model_gml(fname, places, transitions, path, negative = False, uber = False, wp=None, pn=None):
     start = time.time()
     path = path
-    with open(f"data/json/{fname}.json") as f:
+    with open(f"C:/Users/Shahab/Documents/GMLtoTAPN/data/json/{fname}.json") as f:
         json_params = json.load(f)
 
     switches = []
@@ -146,13 +147,11 @@ def build_composed_model_gml(fname, places, transitions, path, negative = False,
     for place in places:
         if place.init_route and place.final_route:
             if place.init_route != place.final_route:
-                v0,m0 = magnisep(place.notation)
-                xml += f"<place id=\"{v0}_initialxxx{m0}\" name=\"{v0}_initialxxx{m0}\" invariant=\"&lt; inf\" initialMarking=\"1\" />\n"
-                xml += f"<place id=\"{v0}_finalxxx{m0}\" name=\"{v0}_finalxxx{m0}\" invariant=\"&lt; inf\" initialMarking=\"0\" />\n"
+                xml += f"<place id=\"{place.notation}_initial\" name=\"{place.notation}_initial\" invariant=\"&lt; inf\" initialMarking=\"1\" />\n"
+                xml += f"<place id=\"{place.notation}_final\" name=\"{place.notation}_final\" invariant=\"&lt; inf\" initialMarking=\"0\" />\n"
                 switches.append(place)
     for place in places:
-        v0,m0 = magnisep(place.notation)
-        xml += f"<place id=\"{v0}_visitedxxx{m0}\" name=\"{v0}_visitedxxx{m0}\" invariant=\"&lt; inf\" initialMarking=\"0\" />\n"
+        xml += f"<place id=\"{place.notation}_visited\" name=\"{place.notation}_visited\" invariant=\"&lt; inf\" initialMarking=\"0\" />\n"
 
     ## Transitions part
     for t in transitions:
@@ -168,15 +167,15 @@ def build_composed_model_gml(fname, places, transitions, path, negative = False,
     xml += f"<inputArc inscription=\"[0,inf)\" source=\"{ctrl}\" target=\"{inject}\" />\n"
     for t in switches:
         xml += f"<inputArc inscription=\"[0,inf)\" source=\"{ctrl}\" target=\"Update_{t.notation}\" />\n"
-        v0, m0 = magnisep(t.notation)
-        xml += f"<inputArc inscription=\"[0,inf)\" source=\"{v0}_initialxxx{m0}\" target=\"Update_{t.notation}\" />\n"
+        #v0, m0 = magnisep(t.notation)
+        xml += f"<inputArc inscription=\"[0,inf)\" source=\"{t.notation}_initial\" target=\"Update_{t.notation}\" />\n"
         if uber:
             v0,m0 = magnisep(t.id)
             v1,m1 = magnisep(t.init_route)
             v2,m2 = magnisep(t.final_route)
             v3,m3 = magnisep(t.notation)
-            xml += f"<inputArc inscription=\"[0,inf)\" source=\"{v3}_initialxxx{m0}\" target=\"T{v0}_{v1}xxx{m0}\" />\n"
-            xml += f"<inputArc inscription=\"[0,inf)\" source=\"{v3}_finalxxx{m0}\" target=\"T{v0}_{v2}xxx{m0}\" />\n"
+            xml += f"<inputArc inscription=\"[0,inf)\" source=\"{v3}_initial{m0}\" target=\"T{v0}_{v1}{m0}\" />\n"
+            xml += f"<inputArc inscription=\"[0,inf)\" source=\"{v3}_final{m0}\" target=\"T{v0}_{v2}{m0}\" />\n"
         else:
             xml += f"<inputArc inscription=\"[0,inf)\" source=\"{t.notation}_initial\" target=\"T{t.id}_{t.init_route}\" />\n"
             xml += f"<inputArc inscription=\"[0,inf)\" source=\"{t.notation}_final\" target=\"T{t.id}_{t.final_route}\" />\n"
@@ -187,24 +186,22 @@ def build_composed_model_gml(fname, places, transitions, path, negative = False,
     xml += f"<outputArc inscription=\"1\" source=\"{inject}\" target=\"P{places[0].id}\" />\n"
     xml += f"<outputArc inscription=\"1\" source=\"{inject}\" target=\"P_u_visited\" />\n"
     for t in switches:
-        v0,m0 = magnisep(t.notation)
         xml += f"<outputArc inscription=\"1\" source=\"Update_{t.notation}\" target=\"{ctrl}\" />\n"
-        xml += f"<outputArc inscription=\"1\" source=\"Update_{t.notation}\" target=\"{v0}_finalxxx{m0}\" />\n"
+        xml += f"<outputArc inscription=\"1\" source=\"Update_{t.notation}\" target=\"{t.notation}_final\" />\n"
         if uber:
             v0,m0 = magnisep(t.id)
             v1,m1 = magnisep(t.init_route)
             v2,m2 = magnisep(t.final_route)
             v3,m3 = magnisep(t.notation)
-            xml += f"<outputArc inscription=\"1\" source=\"T{v0}_{v1}xxx{m1}\" target=\"{v3}_initialxxx{m0}\" />\n"
-            xml += f"<outputArc inscription=\"1\" source=\"T{v0}_{v2}xxx{m2}\" target=\"{v3}_finalxxx{m0}\" />\n"
+            xml += f"<outputArc inscription=\"1\" source=\"T{v0}_{v1}{m1}\" target=\"{v3}_initial{m0}\" />\n"
+            xml += f"<outputArc inscription=\"1\" source=\"T{v0}_{v2}{m2}\" target=\"{v3}_final{m0}\" />\n"
         else:
             xml += f"<outputArc inscription=\"1\" source=\"T{t.id}_{t.init_route}\" target=\"{t.notation}_initial\" />\n"
             xml += f"<outputArc inscription=\"1\" source=\"T{t.id}_{t.final_route}\" target=\"{t.notation}_final\" />\n"
     for place in places:
         for t in transitions:
             if t.target == place.id:
-                v0, m0 = magnisep(place.notation)
-                xml += f"<outputArc inscription=\"1\" source=\"{t.notation}\" target=\"{v0}_visitedxxx{m0}\" />\n"
+                xml += f"<outputArc inscription=\"1\" source=\"{t.notation}\" target=\"{t.notation}_visited\" />\n"
 
     ## Inhibitor arcs part
     if uber:
@@ -213,17 +210,17 @@ def build_composed_model_gml(fname, places, transitions, path, negative = False,
         v2,m2 = magnisep(places[0].final_route)
         if places[0].init_route != places[0].final_route:
             print(v0, v1, v2)
-            xml += f"<inhibitorArc inscription=\"[0,inf)\" source=\"P_u_visited\" target=\"T{v0}_{v1}xxx{m0}\" weight=\"2\"/>\n"
-            xml += f"<inhibitorArc inscription=\"[0,inf)\" source=\"P_u_visited\" target=\"T{v0}_{v2}xxx{m0}\" weight=\"2\"/>\n"
+            xml += f"<inhibitorArc inscription=\"[0,inf)\" source=\"P_u_visited\" target=\"T{v0}_{v1}{m0}\" weight=\"2\"/>\n"
+            xml += f"<inhibitorArc inscription=\"[0,inf)\" source=\"P_u_visited\" target=\"T{v0}_{v2}{m0}\" weight=\"2\"/>\n"
         else:
             print(v0, v1, v2)
-            xml += f"<inhibitorArc inscription=\"[0,inf)\" source=\"P_u_visited\" target=\"T{v0}_{v1}xxx{m0}\" weight=\"2\"/>\n"
-    else:    
-        if places[0].init_route != places[0].final_route:
-            xml += f"<inhibitorArc inscription=\"[0,inf)\" source=\"P_u_visited\" target=\"T{places[0].id}_{places[0].init_route}\" weight=\"2\"/>\n"
-            xml += f"<inhibitorArc inscription=\"[0,inf)\" source=\"P_u_visited\" target=\"T{places[0].id}_{places[0].final_route}\" weight=\"2\"/>\n"
-        else:
-            xml += f"<inhibitorArc inscription=\"[0,inf)\" source=\"P_u_visited\" target=\"T{places[0].id}_{places[0].init_route}\" weight=\"2\"/>\n"
+            xml += f"<inhibitorArc inscription=\"[0,inf)\" source=\"P_u_visited\" target=\"T{v0}_{v1}{m0}\" weight=\"2\"/>\n"
+    #else:
+        #if places[0].init_route != places[0].final_route:
+            #xml += f"<inhibitorArc inscription=\"[0,inf)\" source=\"P_u_visited\" target=\"T{places[0].id}_{places[0].init_route}\" weight=\"2\"/>\n"
+            #xml += f"<inhibitorArc inscription=\"[0,inf)\" source=\"P_u_visited\" target=\"T{places[0].id}_{places[0].final_route}\" weight=\"2\"/>\n"
+        #else:
+            #xml += f"<inhibitorArc inscription=\"[0,inf)\" source=\"P_u_visited\" target=\"T{places[0].id}_{places[0].init_route}\" weight=\"2\"/>\n"
     
 
     for place in places:
@@ -235,13 +232,13 @@ def build_composed_model_gml(fname, places, transitions, path, negative = False,
             if place.init_route != None:
                 v1,m1 = magnisep(place.init_route)
                 if place.final_route != place.init_route:
-                    target = f"T{v0}_{v1}xxx{m0}"
-                    xml += f"<inhibitorArc inscription=\"[0,inf)\" source=\"{v3}_visitedxxx{m0}\" target=\"{target}\" weight=\"2\"/>\n"
+                    target = f"T{v0}_{v1}{m0}"
+                    xml += f"<inhibitorArc inscription=\"[0,inf)\" source=\"{v3}_visited{m0}\" target=\"{target}\" weight=\"2\"/>\n"
             if place.final_route != None:
                 v1,m1 = magnisep(place.final_route)
-                target = f"T{v0}_{v1}xxx{m1}"
-                xml += f"<inhibitorArc inscription=\"[0,inf)\" source=\"{v3}_visitedxxx{m0}\" target=\"{target}\" weight=\"2\"/>\n"
-        else:    
+                target = f"T{v0}_{v1}{m1}"
+                xml += f"<inhibitorArc inscription=\"[0,inf)\" source=\"{v3}_visited{m0}\" target=\"{target}\" weight=\"2\"/>\n"
+        else:
             if place.init_route:
                 xml += f"<inhibitorArc inscription=\"[0,inf)\" source=\"{place.notation}_visited\" target=\"T{place.id}_{place.init_route}\" weight=\"2\"/>\n"
             if place.final_route:
@@ -253,7 +250,7 @@ def build_composed_model_gml(fname, places, transitions, path, negative = False,
     f.write(xml)
     f.close
 
-    f = open(f"data/time/ZOO/{fname}_DXML.txt", "w")
+    f = open(f"C:/Users/Shahab/Documents/GMLtoTAPN/data/time/ZOO/{fname}_DXML.txt", "w")
     f.write(str(time.time() - start))
     f.close()
 
@@ -263,16 +260,21 @@ def build_composed_model_gml(fname, places, transitions, path, negative = False,
     if uber == True:
         reach = pn
         waypoint = wp
-    else:
-        reach = json_params["Properties"]["Reachability"]["finalNode"]
+    elif wp:
         waypoint = json_params["Properties"]["Waypoint"]["waypoint"]
+
+    sreach = json_params["Properties"]["Reachability"]["startNode"]
+    freach =json_params["Properties"]["Reachability"]["finalNode"]
     
 
     f = open(f"{path}{fname}.q", "w")
-    f.write(build_query(reach=reach, waypoint=waypoint, negative=negative))
+    if wp:
+        f.write(build_query(reach=reach, waypoint=waypoint, negative=negative))
+    else:
+        f.write(build_query(start=sreach, end=freach, waypoint=None, negative=negative))
     f.close
 
-    f = open(f"data/time/ZOO/{fname}_DQuery.txt", "w")
+    f = open(f"C:/Users/Shahab/Documents/GMLtoTAPN/data/time/ZOO/{fname}_DQuery.txt", "w")
     f.write(str(time.time() - start))
     f.close()
 

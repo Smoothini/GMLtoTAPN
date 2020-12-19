@@ -1,0 +1,1 @@
+control: AG ((!(deadlock) or P132_visitedxxx0 >= 1) and (P100_visitedxxx0 >= 1 or P132xxx0 = 0))

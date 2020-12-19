@@ -7,9 +7,9 @@ def parse_nodes(g, routing, marking):
     nodes_raw = list(g.nodes(data=True))
     controller_node = Node(-1, "Controller", "1")
     nodes.append(controller_node)
-    for i in nodes_raw:
-        if i[0] in routing:
-            n = Node(i[0], "P{}".format(i[0]), marking)
+    for i in range(len(routing)):
+            id = routing[i]
+            n = Node(id, "P{}".format(id), marking)
             nodes.append(n)
     return nodes
 

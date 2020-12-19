@@ -90,8 +90,9 @@ def routing_configuration(network, jsonParser, nodes: list, transitions: list):
 
     arcs = []
     for t in transitions:
-        a = Full_Arc(get_node(t.source, nodes), get_node(t.target, nodes), t)
-        arcs.append(a)
+        if get_node(t.source, nodes) and get_node(t.target, nodes):
+            a = Full_Arc(get_node(t.source, nodes), get_node(t.target, nodes), t)
+            arcs.append(a)
 
     # inject packet
     inject = Transition(-2, nodes[0].id, jsonParser.init_route[0][0], "Inject_packet", "1")

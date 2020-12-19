@@ -17,6 +17,9 @@ csv_results_path = "/home/escanor/GMLtoTAPN/data/csv/"
 # Write all the TAPN, JSON, LTL, DTAPN
 # Missing only ltl for zootopo
 def write_all_custom():
+    JB.build_all()
+    #TB.write_all_to_file(1)
+    #LTL.make_all_zoo()
     #TN.write_batch_to_file(10, 100, 10)
     #TN.write_batch_to_file(100, 1000, 100)
 
@@ -35,7 +38,8 @@ def write_all_custom():
 
     #for i in range(4, 51, 3):
      #   DB.build_composed_model(TN.generate_worst(i), "data/claaudia/worst", negative=True)
-    scale = 50
+    #scale = 50
+
     #TB.write_zoo_to_file("Eenet", 2)
     #TN.make_worst(16)
     #LTL.make_ltl_zoo("Aarnet")
@@ -58,4 +62,6 @@ def write_benchmarks_csv():
 
 
 write_all_custom()
+#JB.jsonbuilder("Eenet")
+#TB.write_to_file("Eenet")
 #write_benchmarks_csv()

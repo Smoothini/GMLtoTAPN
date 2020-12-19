@@ -1,0 +1,147 @@
+<pnml>
+<net id="ComposedModel" type="P/T net">
+<place id="Controller" name="Controller" invariant="&lt; inf" initialMarking="1" />
+<place id="P1xxx0" name="P1xxx0" invariant="&lt; inf" initialMarking="0" />
+<place id="P3xxx0" name="P3xxx0" invariant="&lt; inf" initialMarking="0" />
+<place id="P4xxx0" name="P4xxx0" invariant="&lt; inf" initialMarking="0" />
+<place id="P12xxx0" name="P12xxx0" invariant="&lt; inf" initialMarking="0" />
+<place id="P14xxx0" name="P14xxx0" invariant="&lt; inf" initialMarking="0" />
+<place id="P18xxx0" name="P18xxx0" invariant="&lt; inf" initialMarking="0" />
+<place id="P19xxx0" name="P19xxx0" invariant="&lt; inf" initialMarking="0" />
+<place id="P27xxx0" name="P27xxx0" invariant="&lt; inf" initialMarking="0" />
+<place id="P29xxx0" name="P29xxx0" invariant="&lt; inf" initialMarking="0" />
+<place id="P33xxx0" name="P33xxx0" invariant="&lt; inf" initialMarking="0" />
+<place id="P34xxx0" name="P34xxx0" invariant="&lt; inf" initialMarking="0" />
+<place id="P42xxx0" name="P42xxx0" invariant="&lt; inf" initialMarking="0" />
+<place id="P44xxx0" name="P44xxx0" invariant="&lt; inf" initialMarking="0" />
+<place id="Clock" name="Clock" invariant="&lt;= 0" initialMarking="1" />
+<place id="P_u_visited" name="P_u_visited" invariant="&lt; inf" initialMarking="0" />
+<place id="P1_initialxxx0" name="P1_initialxxx0" invariant="&lt; inf" initialMarking="1" />
+<place id="P1_finalxxx0" name="P1_finalxxx0" invariant="&lt; inf" initialMarking="0" />
+<place id="P14_initialxxx0" name="P14_initialxxx0" invariant="&lt; inf" initialMarking="1" />
+<place id="P14_finalxxx0" name="P14_finalxxx0" invariant="&lt; inf" initialMarking="0" />
+<place id="P29_initialxxx0" name="P29_initialxxx0" invariant="&lt; inf" initialMarking="1" />
+<place id="P29_finalxxx0" name="P29_finalxxx0" invariant="&lt; inf" initialMarking="0" />
+<place id="P1_visitedxxx0" name="P1_visitedxxx0" invariant="&lt; inf" initialMarking="0" />
+<place id="P3_visitedxxx0" name="P3_visitedxxx0" invariant="&lt; inf" initialMarking="0" />
+<place id="P4_visitedxxx0" name="P4_visitedxxx0" invariant="&lt; inf" initialMarking="0" />
+<place id="P12_visitedxxx0" name="P12_visitedxxx0" invariant="&lt; inf" initialMarking="0" />
+<place id="P14_visitedxxx0" name="P14_visitedxxx0" invariant="&lt; inf" initialMarking="0" />
+<place id="P18_visitedxxx0" name="P18_visitedxxx0" invariant="&lt; inf" initialMarking="0" />
+<place id="P19_visitedxxx0" name="P19_visitedxxx0" invariant="&lt; inf" initialMarking="0" />
+<place id="P27_visitedxxx0" name="P27_visitedxxx0" invariant="&lt; inf" initialMarking="0" />
+<place id="P29_visitedxxx0" name="P29_visitedxxx0" invariant="&lt; inf" initialMarking="0" />
+<place id="P33_visitedxxx0" name="P33_visitedxxx0" invariant="&lt; inf" initialMarking="0" />
+<place id="P34_visitedxxx0" name="P34_visitedxxx0" invariant="&lt; inf" initialMarking="0" />
+<place id="P42_visitedxxx0" name="P42_visitedxxx0" invariant="&lt; inf" initialMarking="0" />
+<place id="P44_visitedxxx0" name="P44_visitedxxx0" invariant="&lt; inf" initialMarking="0" />
+<transition player="0" id="T3_14xxx0" name="T3_14xxx0" urgent="false"/>
+<transition player="0" id="T29_33xxx0" name="T29_33xxx0" urgent="false"/>
+<transition player="0" id="T19_27xxx0" name="T19_27xxx0" urgent="false"/>
+<transition player="0" id="T34_42xxx0" name="T34_42xxx0" urgent="false"/>
+<transition player="0" id="T18_29xxx0" name="T18_29xxx0" urgent="false"/>
+<transition player="0" id="T4_12xxx0" name="T4_12xxx0" urgent="false"/>
+<transition player="0" id="T1_4xxx0" name="T1_4xxx0" urgent="false"/>
+<transition player="0" id="T33_44xxx0" name="T33_44xxx0" urgent="false"/>
+<transition player="0" id="T29_34xxx0" name="T29_34xxx0" urgent="false"/>
+<transition player="0" id="T42_44xxx0" name="T42_44xxx0" urgent="false"/>
+<transition player="0" id="T14_19xxx0" name="T14_19xxx0" urgent="false"/>
+<transition player="0" id="T27_29xxx0" name="T27_29xxx0" urgent="false"/>
+<transition player="0" id="T14_18xxx0" name="T14_18xxx0" urgent="false"/>
+<transition player="0" id="T1_3xxx0" name="T1_3xxx0" urgent="false"/>
+<transition player="0" id="T12_14xxx0" name="T12_14xxx0" urgent="false"/>
+<transition player="1" id="Inject_packet" name="Inject_packet" urgent="false"/>
+<transition player="0" id="Update_P1xxx0" name="Update_P1xxx0" urgent="false"/>
+<transition player="0" id="Update_P14xxx0" name="Update_P14xxx0" urgent="false"/>
+<transition player="0" id="Update_P29xxx0" name="Update_P29xxx0" urgent="false"/>
+<inputArc inscription="[0,inf)" source="P3xxx0" target="T3_14xxx0" />
+<inputArc inscription="[0,inf)" source="P29xxx0" target="T29_33xxx0" />
+<inputArc inscription="[0,inf)" source="P19xxx0" target="T19_27xxx0" />
+<inputArc inscription="[0,inf)" source="P34xxx0" target="T34_42xxx0" />
+<inputArc inscription="[0,inf)" source="P18xxx0" target="T18_29xxx0" />
+<inputArc inscription="[0,inf)" source="P4xxx0" target="T4_12xxx0" />
+<inputArc inscription="[0,inf)" source="P1xxx0" target="T1_4xxx0" />
+<inputArc inscription="[0,inf)" source="P33xxx0" target="T33_44xxx0" />
+<inputArc inscription="[0,inf)" source="P29xxx0" target="T29_34xxx0" />
+<inputArc inscription="[0,inf)" source="P42xxx0" target="T42_44xxx0" />
+<inputArc inscription="[0,inf)" source="P14xxx0" target="T14_19xxx0" />
+<inputArc inscription="[0,inf)" source="P27xxx0" target="T27_29xxx0" />
+<inputArc inscription="[0,inf)" source="P14xxx0" target="T14_18xxx0" />
+<inputArc inscription="[0,inf)" source="P1xxx0" target="T1_3xxx0" />
+<inputArc inscription="[0,inf)" source="P12xxx0" target="T12_14xxx0" />
+<inputArc inscription="[0,inf)" source="Controller" target="Inject_packet" />
+<inputArc inscription="[0,inf)" source="Controller" target="Update_P1xxx0" />
+<inputArc inscription="[0,inf)" source="P1_initialxxx0" target="Update_P1xxx0" />
+<inputArc inscription="[0,inf)" source="P1_initialxxx0" target="T1_3xxx0" />
+<inputArc inscription="[0,inf)" source="P1_finalxxx0" target="T1_4xxx0" />
+<inputArc inscription="[0,inf)" source="Controller" target="Update_P14xxx0" />
+<inputArc inscription="[0,inf)" source="P14_initialxxx0" target="Update_P14xxx0" />
+<inputArc inscription="[0,inf)" source="P14_initialxxx0" target="T14_18xxx0" />
+<inputArc inscription="[0,inf)" source="P14_finalxxx0" target="T14_19xxx0" />
+<inputArc inscription="[0,inf)" source="Controller" target="Update_P29xxx0" />
+<inputArc inscription="[0,inf)" source="P29_initialxxx0" target="Update_P29xxx0" />
+<inputArc inscription="[0,inf)" source="P29_initialxxx0" target="T29_33xxx0" />
+<inputArc inscription="[0,inf)" source="P29_finalxxx0" target="T29_34xxx0" />
+<outputArc inscription="1" source="T3_14xxx0" target="P14xxx0" />
+<outputArc inscription="1" source="T29_33xxx0" target="P33xxx0" />
+<outputArc inscription="1" source="T19_27xxx0" target="P27xxx0" />
+<outputArc inscription="1" source="T34_42xxx0" target="P42xxx0" />
+<outputArc inscription="1" source="T18_29xxx0" target="P29xxx0" />
+<outputArc inscription="1" source="T4_12xxx0" target="P12xxx0" />
+<outputArc inscription="1" source="T1_4xxx0" target="P4xxx0" />
+<outputArc inscription="1" source="T33_44xxx0" target="P44xxx0" />
+<outputArc inscription="1" source="T29_34xxx0" target="P34xxx0" />
+<outputArc inscription="1" source="T42_44xxx0" target="P44xxx0" />
+<outputArc inscription="1" source="T14_19xxx0" target="P19xxx0" />
+<outputArc inscription="1" source="T27_29xxx0" target="P29xxx0" />
+<outputArc inscription="1" source="T14_18xxx0" target="P18xxx0" />
+<outputArc inscription="1" source="T1_3xxx0" target="P3xxx0" />
+<outputArc inscription="1" source="T12_14xxx0" target="P14xxx0" />
+<outputArc inscription="1" source="Inject_packet" target="P1xxx0" />
+<outputArc inscription="1" source="Inject_packet" target="P_u_visited" />
+<outputArc inscription="1" source="Update_P1xxx0" target="Controller" />
+<outputArc inscription="1" source="Update_P1xxx0" target="P1_finalxxx0" />
+<outputArc inscription="1" source="T1_3xxx0" target="P1_initialxxx0" />
+<outputArc inscription="1" source="T1_4xxx0" target="P1_finalxxx0" />
+<outputArc inscription="1" source="Update_P14xxx0" target="Controller" />
+<outputArc inscription="1" source="Update_P14xxx0" target="P14_finalxxx0" />
+<outputArc inscription="1" source="T14_18xxx0" target="P14_initialxxx0" />
+<outputArc inscription="1" source="T14_19xxx0" target="P14_finalxxx0" />
+<outputArc inscription="1" source="Update_P29xxx0" target="Controller" />
+<outputArc inscription="1" source="Update_P29xxx0" target="P29_finalxxx0" />
+<outputArc inscription="1" source="T29_33xxx0" target="P29_initialxxx0" />
+<outputArc inscription="1" source="T29_34xxx0" target="P29_finalxxx0" />
+<outputArc inscription="1" source="T1_3xxx0" target="P3_visitedxxx0" />
+<outputArc inscription="1" source="T1_4xxx0" target="P4_visitedxxx0" />
+<outputArc inscription="1" source="T4_12xxx0" target="P12_visitedxxx0" />
+<outputArc inscription="1" source="T3_14xxx0" target="P14_visitedxxx0" />
+<outputArc inscription="1" source="T12_14xxx0" target="P14_visitedxxx0" />
+<outputArc inscription="1" source="T14_18xxx0" target="P18_visitedxxx0" />
+<outputArc inscription="1" source="T14_19xxx0" target="P19_visitedxxx0" />
+<outputArc inscription="1" source="T19_27xxx0" target="P27_visitedxxx0" />
+<outputArc inscription="1" source="T18_29xxx0" target="P29_visitedxxx0" />
+<outputArc inscription="1" source="T27_29xxx0" target="P29_visitedxxx0" />
+<outputArc inscription="1" source="T29_33xxx0" target="P33_visitedxxx0" />
+<outputArc inscription="1" source="T29_34xxx0" target="P34_visitedxxx0" />
+<outputArc inscription="1" source="T34_42xxx0" target="P42_visitedxxx0" />
+<outputArc inscription="1" source="T33_44xxx0" target="P44_visitedxxx0" />
+<outputArc inscription="1" source="T42_44xxx0" target="P44_visitedxxx0" />
+<inhibitorArc inscription="[0,inf)" source="P_u_visited" target="T1_3xxx0" weight="2"/>
+<inhibitorArc inscription="[0,inf)" source="P_u_visited" target="T1_4xxx0" weight="2"/>
+<inhibitorArc inscription="[0,inf)" source="P1_visitedxxx0" target="T1_3xxx0" weight="2"/>
+<inhibitorArc inscription="[0,inf)" source="P1_visitedxxx0" target="T1_4xxx0" weight="2"/>
+<inhibitorArc inscription="[0,inf)" source="P3_visitedxxx0" target="T3_14xxx0" weight="2"/>
+<inhibitorArc inscription="[0,inf)" source="P4_visitedxxx0" target="T4_12xxx0" weight="2"/>
+<inhibitorArc inscription="[0,inf)" source="P12_visitedxxx0" target="T12_14xxx0" weight="2"/>
+<inhibitorArc inscription="[0,inf)" source="P14_visitedxxx0" target="T14_18xxx0" weight="2"/>
+<inhibitorArc inscription="[0,inf)" source="P14_visitedxxx0" target="T14_19xxx0" weight="2"/>
+<inhibitorArc inscription="[0,inf)" source="P18_visitedxxx0" target="T18_29xxx0" weight="2"/>
+<inhibitorArc inscription="[0,inf)" source="P19_visitedxxx0" target="T19_27xxx0" weight="2"/>
+<inhibitorArc inscription="[0,inf)" source="P27_visitedxxx0" target="T27_29xxx0" weight="2"/>
+<inhibitorArc inscription="[0,inf)" source="P29_visitedxxx0" target="T29_33xxx0" weight="2"/>
+<inhibitorArc inscription="[0,inf)" source="P29_visitedxxx0" target="T29_34xxx0" weight="2"/>
+<inhibitorArc inscription="[0,inf)" source="P33_visitedxxx0" target="T33_44xxx0" weight="2"/>
+<inhibitorArc inscription="[0,inf)" source="P34_visitedxxx0" target="T34_42xxx0" weight="2"/>
+<inhibitorArc inscription="[0,inf)" source="P42_visitedxxx0" target="T42_44xxx0" weight="2"/>
+</net>
+</pnml>

@@ -10,11 +10,11 @@ switch 74 (in74s,out74s,out74s_2) [] {
  final {
  rule in74s => out74s_2 []
  }
-switch 75 (in75s,out75s) [] {
- rule in75s => out75s []
+switch 75 (in75s,out75s_2) [] {
+
  }
  final {
-     
+ rule in75s => out75s_2 []
  }
 switch 76 (in76s,out76s) [] {
  rule in76s => out76s []
@@ -25,8 +25,8 @@ switch 76 (in76s,out76s) [] {
 link  => in11s []
 link out11s => in74s []
 link out11s_2 => in74s []
-link out74s => in75s []
-link out74s_2 => in76s []
-link out75s => in76s []
+link out74s => in76s []
+link out74s_2 => in75s []
+link out75s_2 => in76s []
 spec
 port=in11s -> (!(port=out76s) U ((port=in74s) & (TRUE U (port=out76s))))

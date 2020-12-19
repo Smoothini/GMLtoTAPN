@@ -2,6 +2,7 @@ import networkx as nx
 import json, time
 import random
 import os
+import copy
 
 
 class Waypoint:
@@ -43,7 +44,7 @@ def makeDirected(filepath):
 
 # import graph_tool.all as gt
 def jsonbuilder(network):
-    filepath = "data/gml/" + network + ".gml"
+    filepath = "C:/Users/Shahab/Documents/GMLtoTAPN/data/gml/" + network + ".gml"
 
     if not isDirected(filepath):
         makeDirected(filepath)
@@ -53,6 +54,7 @@ def jsonbuilder(network):
     g = nx.DiGraph(g)
 
     routings = findRoutings(g)
+    #routings = scaleNetwork(routings[0], routings[-1], 20, routings)
 
     if routings:
         info = generateJSONInfo(g, routings)
@@ -64,35 +66,102 @@ def jsonbuilder(network):
         print("Failure! No final routing available for {}... Execution time: {} seconds.".format(network,
                                                                                           (str(time.time() - start))[
                                                                                           :5]))
+def scaleNetwork(iRoute, fRoute, scale, routings):
+    backupInit = copy.copy(iRoute)
+    backupFinal = copy.copy(fRoute)
+    initRouting = iRoute[1:]
+    finalRouting = fRoute[1:]
+    iRoute = copy.copy(initRouting)
+    fRoute = copy.copy(finalRouting)
+    id = 0
+    for node in iRoute:
+        if node > id:
+            id = node + 1
+
+    for node in fRoute:
+        if node > id:
+            id = node + 1
+
+    for i in range(1,scale, 1):
+        #for i in range(1,len(iRoute),1):
+        initRouting = appendRouting(initRouting, iRoute, id, i)
+
+    for i in range(1,scale, 1):
+        #for i in range(1,len(fRoute),1):
+        finalRouting = appendRouting(finalRouting, fRoute, id, i)
+
+    initRouting.insert(0,backupInit[0])
+    finalRouting.insert(0,backupFinal[0])
+    routings[0] = initRouting
+    routings[-1] = finalRouting
+    return routings
+
+def appendRouting (startRouting, addRoute, increase, scale):
+    for i in range(len(addRoute)):
+        node = addRoute[i]
+        startRouting.append(node+increase*scale)
+
+    return startRouting
 
 
 def findRoutings(g):
     nodes_raw = list(g.nodes(data=True))
-    length = 0
+    length = 999999
+    routings = []
 
     for source in range(len(nodes_raw)):
-        i = 1
         paths = list(nx.single_source_shortest_path_length(g, source))
+        #paths = sorted(paths, key=int, reverse=True)
         for target in reversed(paths):
             all_paths = list(nx.all_simple_paths(g, source=source, target=target))
-            all_paths = sorted(all_paths, key=len, reverse=True)
+            all_paths = sorted(all_paths, key=len, reverse=False)
+            if len(all_paths) >= 3:
+                threshold = len(all_paths[1])
+                all_paths = trimNetwork(all_paths, threshold)
             if len(all_paths) >= 2:
-                if len(all_paths[0]) + len(all_paths[1]) > length:
-                    routings = all_paths[:2]
-                    length = len(all_paths[0]) + len(all_paths[1])
-        i += 1
-        
-
+                route1, route2 = leastCommonNodes(all_paths)
+                if route1 or route2:
+                    routings.append(route1)
+                    routings.append(route2)
+                    return routings[:2]
     if length:
         print(routings[:2])
         return routings[:2]
     else:
         return False
 
+def trimNetwork(allPath, threshold):
+    i = 0
+    for path in allPath:
+        if len(path) > threshold:
+            return allPath[:i]
+        i = i + 1
+
+    return allPath[:i-1]
+
+
+def leastCommonNodes(allPath):
+    commonNodes = 0
+    lowestCommon = 9999
+    initPath = []
+    finalPath = []
+    for path in allPath:
+        for comparePath in allPath:
+            if not path == comparePath:
+                for node in path:
+                    for compareNode in comparePath:
+                        if node == compareNode:
+                            commonNodes = commonNodes + 1;
+                if commonNodes < lowestCommon:
+                    lowestCommon = commonNodes
+                    initPath = path
+                    finalPath = comparePath
+
+    return initPath, finalPath
 
 def generateJSONFile(info, name):
     myjsondic = json.dumps(info, indent=4)
-    f = open(f"data/json/{name}.json", "w")
+    f = open(f"C:/Users/Shahab/Documents/GMLtoTAPN/data/json/{name}.json", "w")
     f.write(myjsondic)
     f.close()
 
@@ -164,7 +233,7 @@ def jsonGtBuilder(network):
 def build_all():
     not_converted = []
     start = time.time()
-    for f in os.listdir("data/gml/"):
+    for f in os.listdir("C:/Users/Shahab/Documents/GMLtoTAPN/data/gml"):
         try:
             jsonbuilder(f[:-4])
         except:
@@ -218,9 +287,11 @@ def cleanup():
 
 
 # focus on not yet supported
-#build_all()
+build_all()
 # build_not_supported()
 # jsonbuilder("BtEurope")
 # jsonbuilder("Colt")
 # cleanup()
-jsonbuilder("Eenet")
+# jsonbuilder("Aarnet")
+
+

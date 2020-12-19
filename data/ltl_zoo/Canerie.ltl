@@ -28,11 +28,11 @@ switch 29 (in29s,out29s,out29s_2) [] {
  final {
  rule in29s => out29s_2 []
  }
-switch 30 (in30s,out30s) [] {
- rule in30s => out30s []
+switch 30 (in30s,out30s_2) [] {
+
  }
  final {
-     
+ rule in30s => out30s_2 []
  }
 switch 31 (in31s,out31s) [] {
  rule in31s => out31s []
@@ -49,8 +49,8 @@ link out22s => in27s []
 link out22s_2 => in27s []
 link out27s => in29s []
 link out27s_2 => in29s []
-link out29s => in30s []
-link out29s_2 => in31s []
-link out30s => in31s []
+link out29s => in31s []
+link out29s_2 => in30s []
+link out30s_2 => in31s []
 spec
 port=in0s -> (!(port=out31s) U ((port=in3s) & (TRUE U (port=out31s))))
