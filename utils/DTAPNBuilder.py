@@ -1,12 +1,12 @@
 import json, time
 
 ## This one is used for shared, disjoint, worst (synthethic nets)
-def build_composed_model(params, path, negative = False):
+def build_composed_model(params, negative = False):
     start = time.time()
     count, ntype, places, transitions, _, _, acc = params
     count = acc
-    path = path
-    with open(f"data/json_custom_testcases/{ntype}_{count}.json") as f:
+    path = "data/synthethic_dtapn"
+    with open(f"data/synthethic_json/{ntype}_{count}.json") as f:
         json_params = json.load(f)
 
     switches = []
@@ -106,9 +106,9 @@ def build_composed_model(params, path, negative = False):
 
 
 ## This one is used for Zoo Topology nets
-def build_composed_model_zoo(fname, places, transitions, json_params, path):
+def build_composed_model_zoo(fname, places, transitions, json_params):
     start = time.time()
-    path = path
+    path = "data/zoo_dtapn"
 
     switches = []
     ctrl = "Controller"

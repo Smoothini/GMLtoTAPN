@@ -92,7 +92,7 @@ def findRoutings(g):
 
 def generateJSONFile(info, name):
     myjsondic = json.dumps(info, indent=4)
-    f = open(f"data/json/{name}.json", "w")
+    f = open(f"data/zoo_json/{name}.json", "w")
     f.write(myjsondic)
     f.close()
 

@@ -30,7 +30,7 @@ def json_maker(ntype, count, init_route, final_route, n0, nn, wp):
 
     
     myjsondic = json.dumps(mydic, indent=4) # ;;^)
-    f = open(f"data/json_custom_testcases/{ntype}_{count}.json", "w")
+    f = open(f"data/synthethic_json/{ntype}_{count}.json", "w")
     f.write(myjsondic)
     f.close()
 
@@ -373,19 +373,19 @@ def routing(count, ntype, nodes, transitions, arcs):
 
 
 def make_disjoint(count):
-    f = open(f"data/tapn_custom_testcases/Disjoint_{count}.tapn", "w")
+    f = open(f"data/synthethic_tapaal/Disjoint_{count}.tapn", "w")
     f.write(net(generate_disjoint(count)))
     f.close()
     print(f"TAPN for Disjoint network of size {count} generated")
 
 def make_shared(count):
-    f = open(f"data/tapn_custom_testcases/Shared_{count}.tapn", "w")
+    f = open(f"data/synthethic_tapaal/Shared_{count}.tapn", "w")
     f.write(net(generate_shared(count)))
     f.close()
     print(f"TAPN for Shared network of size {count} generated")
 
 def make_worst(count):
-    f = open(f"data/tapn_custom_testcases/Worst_{count}.tapn", "w")
+    f = open(f"data/synthethic_tapaal/Worst_{count}.tapn", "w")
     f.write(net(generate_worst(count)))
     f.close()
     print(f"TAPN for Worst network of size {count} generated")

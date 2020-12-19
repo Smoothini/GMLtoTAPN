@@ -48,5 +48,16 @@ def write_benchmarks_csv():
 
 
 #write_zoo("Eenet", scale=10)
-#TB.write_all_to_file()
-JB.build_all()
+
+######- D O C U M E N T A T I O N -######
+## This will build all the json files
+#JB.build_all()
+## This will build all the xml,q and tapaal files
+#TB.write_all_to_file() 
+## This will build all the ltl files
+#LTL.make_all_zoo()
+### This will chain writing a json, (xml,q,tapaal) and ltl, one after the other
+# By default, scale is already 1, so it can be used also without it.
+#write_zoo("Network", scale=69)
+
+DB.build_composed_model(TN.generate_worst(4) , negative=True)

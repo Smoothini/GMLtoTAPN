@@ -13,13 +13,13 @@ import time, os, copy
 def write_to_file(network, scale=1):
     start = time.time()
     jsonParser = JsonParser(network)
-    f = open(f"data/tapn/{network}.tapn", "w")
+    f = open(f"data/zoo_tapaal/{network}.tapn", "w")
     f.write("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n")
     f.write("<pnml xmlns=\"http://www.informatik.hu-berlin.de/top/pnml/ptNetb\">\n")
 
     jsonParser.scale_data(scale)
     nodes, transitions = BNC.initialize_network(jsonParser)
-    DB.build_composed_model_zoo(network, nodes, transitions, jsonParser.data, "data/dtapn_gml/")    
+    DB.build_composed_model_zoo(network, nodes, transitions, jsonParser.data)    
 
     #f.write(BNC.full_network(g, network))
 

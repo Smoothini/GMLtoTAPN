@@ -57,10 +57,10 @@ def find_switch(switches, sid):
 
 
 ### This one is used for synthethic nets
-def make_ltl(ntype,count,path="data/json_custom_testcases"):
+def make_ltl(ntype,count,path="data/synthethic_json"):
     start = time.time()
     cnt_backup = count
-    with open(f"data/json_custom_testcases/{ntype}_{count}.json") as f:
+    with open(f"data/synthethic_json/{ntype}_{count}.json") as f:
         data = json.load(f)
 
     count = data["Properties"]["Waypoint"]["finalNode"]+1
@@ -111,7 +111,7 @@ def make_ltl(ntype,count,path="data/json_custom_testcases"):
     #port=in0s ->    (!(port=out3s) U ((port=in1s) & (TRUE U (port=out3s)))
 
     #port=in0s ->    (!(port=out3s) U ((port=in1s) & (TRUE U (port=out3s))))
-    f = open(f"data/ltl_custom_testcases/{ntype}_{cnt_backup}.ltl", "w")
+    f = open(f"data/synthethic_ltl/{ntype}_{cnt_backup}.ltl", "w")
     f.write(ltl)
     f.close()
 
@@ -125,7 +125,7 @@ def make_ltl(ntype,count,path="data/json_custom_testcases"):
 ### This one is used for Zoo Topology
 def make_ltl_zoo(fname, scale=1):
     start = time.time()
-    with open(f"data/json/{fname}.json") as f:
+    with open(f"data/zoo_json/{fname}.json") as f:
         data = json.load(f)
     data = ops.scale_json(data,scale)
     sw = []
@@ -185,7 +185,7 @@ def make_ltl_zoo(fname, scale=1):
     #port=in0s ->    (!(port=out3s) U ((port=in1s) & (TRUE U (port=out3s)))
 
     #port=in0s ->    (!(port=out3s) U ((port=in1s) & (TRUE U (port=out3s))))
-    f = open(f"data/ltl_zoo/{fname}.ltl", "w")
+    f = open(f"data/zoo_ltl/{fname}.ltl", "w")
     f.write(ltl)
     f.close()
 
