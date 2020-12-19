@@ -47,7 +47,7 @@ def write_benchmarks_csv():
     CM.make_csv("Worst", netsynth_results_path, csv_results_path, "Netsynth")
 
 
-#write_zoo("Eenet", scale=10)
+write_zoo("Eenet", scale=10)
 
 ######- D O C U M E N T A T I O N -######
 ## This will build all the json files
@@ -59,5 +59,3 @@ def write_benchmarks_csv():
 ### This will chain writing a json, (xml,q,tapaal) and ltl, one after the other
 # By default, scale is already 1, so it can be used also without it.
 #write_zoo("Network", scale=69)
-
-DB.build_composed_model(TN.generate_worst(4) , negative=True)
