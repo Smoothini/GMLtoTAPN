@@ -106,26 +106,6 @@ Final routing: [[23, 29], [29, 50], [50, 65], [65, 70], [70, 71]]</labels>
     </arc>
   </net>
 
-  <net active="true" id="P26_Switch" type="P/T net">
-    <place displayName="true" id="Controller" initialMarking="1" invariant="&lt; inf" name="Controller" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="100"/>
-    <transition angle="0" displayName="true" id="Update_P26" infiniteServer="false" name="Update_P26" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="300" positionY="100" priority="0" urgent="false"/>
-    <arc id="Controller to Update_P26" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="Controller" target="Update_P26" type="timed" weight="1">
-    </arc>
-    <arc id="Update_P26 to Controller" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="Update_P26" target="Controller" type="normal" weight="1">
-    </arc>
-    <place displayName="true" id="P26_initial" initialMarking="1" invariant="&lt; inf" name="P26_initial" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="500" positionY="100"/>
-    <place displayName="true" id="P26_final" initialMarking="0" invariant="&lt; inf" name="P26_final" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="500" positionY="300"/>
-    <arc id="P26_initial to Update_P26" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P26_initial" target="Update_P26" type="timed" weight="1">
-    </arc>
-    <arc id="Update_P26 to P26_final" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="Update_P26" target="P26_final" type="normal" weight="1">
-    </arc>
-    <transition angle="0" displayName="true" id="T26_29" infiniteServer="false" name="T26_29" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="700" positionY="100" priority="0" urgent="false"/>
-    <arc id="P26_initial to T26_29" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P26_initial" target="T26_29" type="timed" weight="1">
-    </arc>
-    <arc id="T26_29 to P26_initial" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="T26_29" target="P26_initial" type="normal" weight="1">
-    </arc>
-  </net>
-
   <net active="true" id="P23_visited" type="P/T net">
     <place displayName="true" id="P23_visited" initialMarking="0" invariant="&lt; inf" name="P23_visited" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="100"/>
     <transition angle="0" displayName="true" id="T23_26" infiniteServer="false" name="T23_26" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="200" positionY="50" priority="0" urgent="false"/>

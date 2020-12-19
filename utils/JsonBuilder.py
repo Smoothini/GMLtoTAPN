@@ -41,7 +41,7 @@ def makeDirected(filepath):
         info.writelines(contents)
 
 
-# import graph_tool.all as gt
+
 def jsonbuilder(network):
     filepath = "data/gml/" + network + ".gml"
 
@@ -136,31 +136,6 @@ def generateJSONInfo(g, routings: list):
     return mydic
 
 
-##in progress, doesn't look very gang gang so far..
-def jsonGtBuilder(network):
-    start = time.time()
-    # g = gt.load_graph(f"data/gml/{network}.gml")
-    n = g.num_vertices()
-
-    lmax = 0
-    s = -1
-    t = -1
-    init_path = []
-
-    for source in range(n):
-        for target in range(n - 1):
-            v, e = gt.shortest_path(g, source, target)
-            if len(v) > lmax:
-                lmax = len(v)
-                s = source
-                t = target
-                init_path = e
-
-    print(f" source: {s}\n target: {t}\n path: {lmax}")
-
-    print(f"grph_tool time: {str(time.time() - start)[:-4]} seconds")
-
-
 def build_all():
     not_converted = []
     start = time.time()
@@ -175,9 +150,6 @@ def build_all():
     f.writelines(not_converted)
     f.close()
     print("Operation done in: {} seconds".format((str(time.time() - start))[:5]))
-
-
-t = 0
 
 
 def build_not_supported():
@@ -215,12 +187,3 @@ def cleanup():
             cnt += 1
     ns.close()
     print(cnt)
-
-
-# focus on not yet supported
-#build_all()
-# build_not_supported()
-# jsonbuilder("BtEurope")
-# jsonbuilder("Colt")
-# cleanup()
-jsonbuilder("Eenet")

@@ -1,6 +1,6 @@
 import json
 from entities.Node import Node
-import utils.LtLBuilder as LTL
+import utils.VarOps as ops
 class JsonParser:
     def __init__(self, network):
         self.network = network
@@ -25,7 +25,17 @@ class JsonParser:
             return data
     
     def scale_data(self, scale):
-        self.data = LTL.scale_json(self.data, scale)
+        self.data = ops.scale_json(self.data, scale)
+        self.init_route = self.data["Initial_routing"]
+        self.final_route = self.data["Final_routing"]
+        self.full_route = self.data["Initial_routing"].copy()
+        self.full_route.extend(self.data["Final_routing"].copy())
+        self.properties = self.data["Properties"]
+        self.waypoint = self.properties["Waypoint"]
+        self.loopfreedom = self.properties["LoopFreedom"]
+        self.reachability = self.properties["Reachability"]
+        self.routings = self.get_routings(self.data["Final_routing"])
+        self.unique_ids = list(set.union(self.get_nodes_from_routing(self.data["Initial_routing"]), self.get_nodes_from_routing(self.data["Final_routing"])))
 
     def get_routings(self, routing):
         tuples = []

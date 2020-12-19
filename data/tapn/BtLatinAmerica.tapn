@@ -90,26 +90,6 @@ Final routing: [[10, 23], [23, 29], [29, 50]]</labels>
     </arc>
   </net>
 
-  <net active="true" id="P41_Switch" type="P/T net">
-    <place displayName="true" id="Controller" initialMarking="1" invariant="&lt; inf" name="Controller" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="100"/>
-    <transition angle="0" displayName="true" id="Update_P41" infiniteServer="false" name="Update_P41" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="300" positionY="100" priority="0" urgent="false"/>
-    <arc id="Controller to Update_P41" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="Controller" target="Update_P41" type="timed" weight="1">
-    </arc>
-    <arc id="Update_P41 to Controller" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="Update_P41" target="Controller" type="normal" weight="1">
-    </arc>
-    <place displayName="true" id="P41_initial" initialMarking="1" invariant="&lt; inf" name="P41_initial" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="500" positionY="100"/>
-    <place displayName="true" id="P41_final" initialMarking="0" invariant="&lt; inf" name="P41_final" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="500" positionY="300"/>
-    <arc id="P41_initial to Update_P41" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P41_initial" target="Update_P41" type="timed" weight="1">
-    </arc>
-    <arc id="Update_P41 to P41_final" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="Update_P41" target="P41_final" type="normal" weight="1">
-    </arc>
-    <transition angle="0" displayName="true" id="T41_50" infiniteServer="false" name="T41_50" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="700" positionY="100" priority="0" urgent="false"/>
-    <arc id="P41_initial to T41_50" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P41_initial" target="T41_50" type="timed" weight="1">
-    </arc>
-    <arc id="T41_50 to P41_initial" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="T41_50" target="P41_initial" type="normal" weight="1">
-    </arc>
-  </net>
-
   <net active="true" id="P10_visited" type="P/T net">
     <place displayName="true" id="P10_visited" initialMarking="0" invariant="&lt; inf" name="P10_visited" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="100"/>
     <transition angle="0" displayName="true" id="T10_23" infiniteServer="false" name="T10_23" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="200" positionY="50" priority="0" urgent="false"/>

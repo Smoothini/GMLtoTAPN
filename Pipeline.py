@@ -9,17 +9,13 @@ netsynth_results_path = "/home/escanor/Apps/netsynth/ltl_results/"
 dtapn_results_path = "/home/escanor/Apps/verifydtapn-strategy_output/build/bin/Results/"
 
 csv_results_path = "/home/escanor/GMLtoTAPN/data/csv/"
-#  Current setup:
-# Switches only for nodes present in the initial and final routing with different existing outgoing routes
-#
+
+def write_zoo(network, scale=1):
+    TB.write_to_file("Eenet", scale=scale)
+    LTL.make_ltl_zoo("Eenet", scale=scale)
 
 
-# Write all the TAPN, JSON, LTL, DTAPN
-# Missing only ltl for zootopo
 def write_all_custom():
-    #TN.write_batch_to_file(10, 100, 10)
-    #TN.write_batch_to_file(100, 1000, 100)
-
     #for i in range(100, 2200, 100):
      #   DB.build_composed_model(TN.generate_disjoint(i), "data/claaudia/disjoint")
 
@@ -36,15 +32,6 @@ def write_all_custom():
     #for i in range(4, 51, 3):
      #   DB.build_composed_model(TN.generate_worst(i), "data/claaudia/worst", negative=True)
     scale = 50
-    #TB.write_zoo_to_file("Eenet", 2)
-    #TN.make_worst(16)
-    #LTL.make_ltl_zoo("Aarnet")
-    #LTL.make_all_zoo()
-    #LTL.make_ltl_zoo_scale("Eenet", 2)
-    #TB.write_all_to_file(scale)
-    #LTL.make_all_zoo_scale(scale)
-    #TB.write_scaled_tapn_to_file("Eenet", 2)
-    #TB.write_zoo_to_file("Eenet",2)
 
 
 
@@ -57,5 +44,4 @@ def write_benchmarks_csv():
     CM.make_csv("Worst", netsynth_results_path, csv_results_path, "Netsynth")
 
 
-write_all_custom()
-#write_benchmarks_csv()
+write_zoo("Eenet", scale=2)

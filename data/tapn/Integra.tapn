@@ -118,26 +118,6 @@ Final routing: [[17, 19], [19, 20], [20, 21], [21, 23], [23, 24], [24, 25], [25,
     </arc>
   </net>
 
-  <net active="true" id="P22_Switch" type="P/T net">
-    <place displayName="true" id="Controller" initialMarking="1" invariant="&lt; inf" name="Controller" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="100"/>
-    <transition angle="0" displayName="true" id="Update_P22" infiniteServer="false" name="Update_P22" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="300" positionY="100" priority="0" urgent="false"/>
-    <arc id="Controller to Update_P22" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="Controller" target="Update_P22" type="timed" weight="1">
-    </arc>
-    <arc id="Update_P22 to Controller" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="Update_P22" target="Controller" type="normal" weight="1">
-    </arc>
-    <place displayName="true" id="P22_initial" initialMarking="1" invariant="&lt; inf" name="P22_initial" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="500" positionY="100"/>
-    <place displayName="true" id="P22_final" initialMarking="0" invariant="&lt; inf" name="P22_final" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="500" positionY="300"/>
-    <arc id="P22_initial to Update_P22" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P22_initial" target="Update_P22" type="timed" weight="1">
-    </arc>
-    <arc id="Update_P22 to P22_final" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="Update_P22" target="P22_final" type="normal" weight="1">
-    </arc>
-    <transition angle="0" displayName="true" id="T22_23" infiniteServer="false" name="T22_23" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="700" positionY="100" priority="0" urgent="false"/>
-    <arc id="P22_initial to T22_23" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P22_initial" target="T22_23" type="timed" weight="1">
-    </arc>
-    <arc id="T22_23 to P22_initial" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="T22_23" target="P22_initial" type="normal" weight="1">
-    </arc>
-  </net>
-
   <net active="true" id="P17_visited" type="P/T net">
     <place displayName="true" id="P17_visited" initialMarking="0" invariant="&lt; inf" name="P17_visited" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="100"/>
     <transition angle="0" displayName="true" id="T17_19" infiniteServer="false" name="T17_19" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="200" positionY="50" priority="0" urgent="false"/>

@@ -104,26 +104,6 @@ Final routing: [[40, 42], [42, 146], [146, 152], [152, 153], [153, 154]]</labels
     </arc>
   </net>
 
-  <net active="true" id="P151_Switch" type="P/T net">
-    <place displayName="true" id="Controller" initialMarking="1" invariant="&lt; inf" name="Controller" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="100"/>
-    <transition angle="0" displayName="true" id="Update_P151" infiniteServer="false" name="Update_P151" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="300" positionY="100" priority="0" urgent="false"/>
-    <arc id="Controller to Update_P151" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="Controller" target="Update_P151" type="timed" weight="1">
-    </arc>
-    <arc id="Update_P151 to Controller" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="Update_P151" target="Controller" type="normal" weight="1">
-    </arc>
-    <place displayName="true" id="P151_initial" initialMarking="1" invariant="&lt; inf" name="P151_initial" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="500" positionY="100"/>
-    <place displayName="true" id="P151_final" initialMarking="0" invariant="&lt; inf" name="P151_final" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="500" positionY="300"/>
-    <arc id="P151_initial to Update_P151" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P151_initial" target="Update_P151" type="timed" weight="1">
-    </arc>
-    <arc id="Update_P151 to P151_final" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="Update_P151" target="P151_final" type="normal" weight="1">
-    </arc>
-    <transition angle="0" displayName="true" id="T151_152" infiniteServer="false" name="T151_152" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="700" positionY="100" priority="0" urgent="false"/>
-    <arc id="P151_initial to T151_152" inscription="[0,inf)" nameOffsetX="0.0" nameOffsetY="0.0" source="P151_initial" target="T151_152" type="timed" weight="1">
-    </arc>
-    <arc id="T151_152 to P151_initial" inscription="1" nameOffsetX="0.0" nameOffsetY="0.0" source="T151_152" target="P151_initial" type="normal" weight="1">
-    </arc>
-  </net>
-
   <net active="true" id="P40_visited" type="P/T net">
     <place displayName="true" id="P40_visited" initialMarking="0" invariant="&lt; inf" name="P40_visited" nameOffsetX="-5.0" nameOffsetY="35.0" positionX="100" positionY="100"/>
     <transition angle="0" displayName="true" id="T40_42" infiniteServer="false" name="T40_42" nameOffsetX="-5.0" nameOffsetY="35.0" player="0" positionX="200" positionY="50" priority="0" urgent="false"/>

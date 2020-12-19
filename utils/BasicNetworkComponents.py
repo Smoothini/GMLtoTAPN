@@ -1,16 +1,12 @@
-from utils.JsonParser import JsonParser
-import utils.GMLParser as GML
+import utils.VarOps as varOps
 
 from entities.Arcs import Full_Arc, Outbound_Arc, Inbound_Arc
 from entities.Node import Node
 from entities.Transition import Transition
 
-def initialize_network(g, jsonParser):
-    nodes_from_routing = jsonParser.unique_ids
-    
-    routing = jsonParser.full_route
-    nodes = GML.parse_nodes(g, nodes_from_routing, "0")
-    transitions = GML.parse_transitions(routing)
+def initialize_network(jsonParser):
+    nodes = varOps.parse_nodes(jsonParser.unique_ids, "0")
+    transitions = varOps.parse_transitions(jsonParser.full_route)
     
     for node in nodes:
         for t in transitions:
@@ -71,10 +67,11 @@ def full_network(g, network):
 
 # Initial and final network routing
 # Also reachability query, missing only to remove transitions on final node
-def routing_configuration(network, jsonParser, nodes: list, transitions: list):
+def routing_configuration(network, jsonParser, nodes, transitions):
     cap = len(nodes) * 10
     xml_str = ""
     controller = Node(-1, "Controller", "1")
+    nodes.insert(0, controller)
     xml_str += controller.shared_to_file()
 
     for transition in transitions:
@@ -120,26 +117,27 @@ def routing_configuration(network, jsonParser, nodes: list, transitions: list):
     q = "AG{}".format(reach_query)
     query = "<query active=\"true\" approximationDenominator=\"2\" capacity=\"10000\" discreteInclusion=\"false\" enableOverApproximation=\"false\" enableUnderApproximation=\"false\" extrapolationOption=\"null\" gcd=\"false\" hashTableSize=\"null\" inclusionPlaces=\"*NONE*\" name=\"{}\" overApproximation=\"true\" pTrie=\"true\" query=\"{}\" reduction=\"true\" reductionOption=\"VerifyTAPNdiscreteVerification\" searchOption=\"DFS\" symmetry=\"true\" timeDarts=\"false\" traceOption=\"NONE\" useStubbornReduction=\"true\"/>\n\n".format("Reach_P{}".format(jsonParser.reachability["finalNode"]), q)
     xml_str += query
+    nodes = nodes[1:]
     return xml_str, reach_query
 
 
 
 # Switches
-def switches(nodes, transitions):
+def switches(nodes, transitions, trivial=False):
     controller = Node(-1, "Controller", "1")
     controller.x = 100
     controller.y = 100
     xml_str = ""
     switch_nodes = []
-    for node in nodes:
-        if node.init_route != node.final_route:
-            switch_nodes.append(node)
-            #if node.init_route and node.final_route:
-             #   print(f"Node {node.id}: Full switch")
-            #elif node.init_route and not node.final_route:
-             #   print(f"Node {node.id}: Half initial switch")
-            #elif not node.init_route and node.final_route:
-             #   print(f"Node {node.id}: Half final switch")
+    if trivial:
+        for node in nodes:
+            if node.init_route != node.final_route:
+                switch_nodes.append(node)
+    else:
+        for node in nodes:
+            if node.init_route and node.final_route:
+                if node.init_route != node.final_route:
+                    switch_nodes.append(node)
 
     for node in switch_nodes:
         update_transition = Transition(f"Update_{node.notation}", controller, None, f"Update_{node.notation}")
@@ -183,7 +181,7 @@ def switches(nodes, transitions):
 
         xml_str += "  </net>\n\n"
 
-    return xml_str, len(switch_nodes)
+    return xml_str
 
 
 # Switches
@@ -195,7 +193,8 @@ def switches_v2(nodes, transitions):
     switch_nodes = []
     for node in nodes:
         if node.init_route and node.final_route:
-            switch_nodes.append(node)
+            if node.init_route != node.final_route:
+                switch_nodes.append(node)
             #if node.init_route and node.final_route:
              #   print(f"Node {node.id}: Full switch")
             #elif node.init_route and not node.final_route:
