@@ -35,5 +35,5 @@ Based on whether we try to solve topology zoo or synthetic networks, the flow is
 
 
 ## Usage
-
-In order to reproduce the experiments from the paper, the only requirement is to be on a linux-based system and to have the **networkx** library installed for python3 in order to read and parse GML files using python. Afterwards, all the required files are present here and the experiments can be started by running `./run_all.sh` from a terminal opened in the root of the folder. 
+Due to the high amount of data in this repository's history, if one wishes to clone the branch instead of downloading the mentioned zip file, it it highly recomended to use the clone command along with the depth tag such as: `git clone --depth 1 https://github.com/Smoothini/GMLtoTAPN.git`.
+In order to reproduce the experiments from the paper, the only requirement is to be on a linux-based operating system and to have the **networkx** library installed for python3 in order to be able to read and parse GML files using python. Afterwards, all the required files are present here and the experiments can be started by running `./run_all.sh` from a terminal opened in the root of the folder. 
