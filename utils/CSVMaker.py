@@ -47,7 +47,7 @@ def rows(ntype):
     
 def make_csv(ntype):
     
-    f = open(f"data/time/{ntype}_overhead_{ntype}.csv", "w")
+    f = open(f"data/time/{ntype}_overhead.csv", "w")
     f.write(rows(ntype))
     f.close()
     print(f"CSV file out of overhead times for building {ntype} networks made!")

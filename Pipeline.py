@@ -43,7 +43,7 @@ def write_all_to_file(scale):
     print(f"Succesfully written {cnt} files.")
 
 
-#write_all_custom()
+write_all_custom()
 write_all_to_file(1)
 
 ######- I N F O -######

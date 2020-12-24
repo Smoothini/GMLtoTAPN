@@ -5,6 +5,8 @@ Welcome to the Update Synthesis Problem experiments repository!
 This repository was used in order to conduct experiments for our paper.
 Our experimental environment was a linux cluster with 128gb RAM, thus the user is warned there is a chance that on a normal home pc **not** all the experiments will manage to run. 
 
+Further information is provided in the utils and engines directory.
+
 ## Contents
 ### Network-generating files:
 - **data**: Contains the original GML files downloaded from topology-zoo.org. It is also the place where the json,xml,q,tapaal and ltl files for both synthethic and topology zoo networks will be kept.
