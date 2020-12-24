@@ -189,35 +189,9 @@ def make_ltl_zoo(fname, scale=1):
     f.write(ltl)
     f.close()
 
-    f = open(f"data/time/LTLZOO/{fname}_LTL.txt", "w")
+    f = open(f"data/time/Zoo/{fname}_LTL.txt", "w")
     f.write(str(time.time() - start))
     f.close()
 
     print(f"LTL for {fname} network generated in {time.time()-start} seconds")
     return (len(data["Initial_routing"]) + len(data["Final_routing"]))
-
-
-def make_all():
-    for i in range(10,110,10):
-        make_ltl("Disjoint", i)
-        make_ltl("Shared", i)
-        make_ltl("Worst", i)
-    for i in range(100,1100,100):
-        make_ltl("Disjoint", i)
-        make_ltl("Shared", i)
-        make_ltl("Worst", i)
-    #for i in range(2000,6000,1000):
-     #   make_ltl("Disjoint", i)
-      #  make_ltl("Shared", i)
-
-def make_all_zoo():
-    with open(f"zoosize.csv", "w", newline='') as file:
-        writer = csv.writer(file)
-        writer.writerow(["Net", "Node count"])
-        for f in os.listdir("data/gml/"):
-            try:
-                lenn = make_ltl_zoo(f[:-4])
-                writer.writerow([f[:-4], lenn])
-            except:
-                print(f"Failure! {f[:-4]} not converted..")
-        file.close()

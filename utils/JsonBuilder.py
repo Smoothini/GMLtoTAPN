@@ -53,6 +53,7 @@ def jsonbuilder(network):
     g = nx.DiGraph(g)
 
     routings = findRoutings(g)
+    #findRoutingsV2(g)
 
     if routings:
         info = generateJSONInfo(g, routings)
@@ -89,6 +90,36 @@ def findRoutings(g):
     else:
         return False
 
+# In progress...
+def diff_factor(in0,in1):
+    n = 0
+    return n
+def findRoutingsV2(g):
+    nodes_raw = list(g.nodes())
+    length = 0
+
+    maxdiff = 0
+    candidate = {}
+    for source in nodes_raw:
+        for target in nodes_raw:
+            if source != target and nx.has_path(g,source,target):
+                allpaths = list(nx.all_simple_paths(g,source,target))
+                if len(allpaths) > 1:
+                    candidate[source,target] = allpaths
+    
+    candidates = list(candidate.values())
+
+    good_candidates = []
+    for c in candidates:
+        wps = []
+        for i in c:
+            wps.append(set(i[1::-1]))
+        if len(set.intersection(*wps)) > 1:
+            good_candidates.append(c)
+    print("Candidates: ", candidates)
+    print("Good candidates: ", good_candidates)    
+
+
 
 def generateJSONFile(info, name):
     myjsondic = json.dumps(info, indent=4)
@@ -104,14 +135,14 @@ def generateJSONInfo(g, routings: list):
     source = init_path[0]
     target = init_path[-1]
 
-    print(f"Nodes in graph: {g.nodes}")
-    print(f"Edges in graph: {g.edges}")
+    #print(f"Nodes in graph: {g.nodes}")
+    #print(f"Edges in graph: {g.edges}")
     # print(f"Max shortest path: {lmax}, between {s} and {t}")
-    print(f"Initial Path: {str(init_path)}")
+    #print(f"Initial Path: {str(init_path)}")
     # all_paths = list(nx.all_simple_paths(g, source=source, target=target))
     # print(f"Amount of paths: {len(all_paths)}")
     # print(f"Biggest path size: {lmax_path}")
-    print(f"Final Path: {str(final_path)}")
+    #print(f"Final Path: {str(final_path)}")
     s1 = set(init_path[1:-1])
     s2 = set(final_path[1:-1])
     wps = list(s1.intersection(s2))
@@ -122,8 +153,8 @@ def generateJSONInfo(g, routings: list):
         init_route.append([init_path[node], init_path[node + 1]])
     for node in range(len(final_path) - 1):
         final_route.append([final_path[node], final_path[node + 1]])
-    print(f"Init routing: {init_route}")
-    print(f"Final routing: {final_route}")
+    #print(f"Init routing: {init_route}")
+    #print(f"Final routing: {final_route}")
 
     mydic["Initial_routing"] = init_route
     mydic["Final_routing"] = final_route

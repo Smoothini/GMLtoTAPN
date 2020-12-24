@@ -182,7 +182,10 @@ def generate_worst (count):
     # verified: waypoint = literally anything
     # non verified: waypoint = something after the reach..
     wp = final_node.id - 1
-    print(f"Prep time Worst size {acc}: {time.time()-start} seconds")
+    
+    f = open(f"data/time/Worst/Worst_{acc}_PREP.txt", "w")
+    f.write(str(time.time() - start))
+    f.close()
     #making the json file
     json_maker("Worst", acc, init_route, final_route, init_node.id, final_node.id, wp)
     #making the ltl file
@@ -258,6 +261,9 @@ def generate_shared(count):
     # verified: waypoint = 1
     # non verified: waypoint = path_count
     wp = 1
+    f = open(f"data/time/Shared/Shared_{acc}_PREP.txt", "w")
+    f.write(str(time.time() - start))
+    f.close()
     print(f"Prep time Shared size {acc}: {time.time()-start} seconds")
     #making the json file
     json_maker("Shared", acc, init_route, final_route, init_node.id, final_node.id, wp)

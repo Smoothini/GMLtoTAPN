@@ -20,7 +20,7 @@ class JsonParser:
         self.unique_ids = list(set.union(self.get_nodes_from_routing(self.data["Initial_routing"]), self.get_nodes_from_routing(self.data["Final_routing"])))
 
     def read_json(self, network):
-        with open(f"data/json/{network}.json") as f:
+        with open(f"data/zoo_json/{network}.json") as f:
             data = json.load(f)
             return data
     

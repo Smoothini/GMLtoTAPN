@@ -108,7 +108,7 @@ def build_composed_model(params, negative = False):
 ## This one is used for Zoo Topology nets
 def build_composed_model_zoo(fname, places, transitions, json_params):
     start = time.time()
-    path = "data/zoo_dtapn"
+    path = "data/zoo_dtapn/"
 
     switches = []
     ctrl = "Controller"
@@ -184,7 +184,7 @@ def build_composed_model_zoo(fname, places, transitions, json_params):
     f.write(xml)
     f.close
 
-    f = open(f"data/time/ZOO/{fname}_DXML.txt", "w")
+    f = open(f"data/time/Zoo/{fname}_DXML.txt", "w")
     f.write(str(time.time() - start))
     f.close()
 
@@ -199,7 +199,7 @@ def build_composed_model_zoo(fname, places, transitions, json_params):
     f.write(build_query(reach=reach, waypoint=waypoint))
     f.close
 
-    f = open(f"data/time/ZOO/{fname}_DQuery.txt", "w")
+    f = open(f"data/time/Zoo/{fname}_DQuery.txt", "w")
     f.write(str(time.time() - start))
     f.close()
 

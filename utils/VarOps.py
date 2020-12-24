@@ -50,9 +50,9 @@ def scale_json(data, scale):
     for i in pl:
         places[i] = cnt
         cnt+=1
-    first = 0
+    first = data["Initial_routing"][0][0]
     last =  data["Initial_routing"][-1][1]
-        
+    #print(places)
     for s in range (scale):
         for i in og_init_route:
             new_init_route.append([places[i[0]] + s * len(pl), places[i[1]] + s * len(pl)])
