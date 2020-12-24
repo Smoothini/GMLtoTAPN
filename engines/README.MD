@@ -12,17 +12,17 @@ where
 - `$tokens` is the number of tokens we desire to use in the verification,
 - `file.txt` is the strategy output after solving the problem,
 - `file.xml` is the network in a format that is supported by DTAPN,
-- `file.q` is the file containing the query we wish to verify
+- `file.q` is the file containing the query we wish to verify.
 
 ## Netsynth
 
 Netsynth is the verifier engine used to solve the problem with the aid of ltl files. By construction, an xml+q "data tuple" will contain the same exact network as its corresponding ltl file.
 
-The command used to run this tool in the bash terminal was
+The command used to run this tool in the bash terminal is
 
 `./netsynth solve file.ltl`
 
-where file.ltl is the ltl representation of the network in cause.
+where `file.ltl` is the ltl representation of the network in cause.
 
 ## Batch processing
 
