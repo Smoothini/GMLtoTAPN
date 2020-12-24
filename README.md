@@ -5,7 +5,7 @@ Welcome to the Update Synthesis Problem experiments repository!
 This repository was used in order to conduct experiments for our paper.
 Our experimental environment was a linux cluster with 128gb RAM, thus the user is warned there is a chance that on a normal home pc **not** all the experiments will manage to run. 
 
-Further information is provided in the utils and engines directory.
+Further information is provided in the README files present in each folder.
 
 ## Contents
 ### Network-generating files:
