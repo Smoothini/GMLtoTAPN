@@ -31,6 +31,8 @@ In order to reproduce the experiments from the paper, the only requirement is to
 - **solve_zoo_dtapn.sh**: bash script that solves topology zoo networks using the dtapn verifier engine.
 - **solve_zoo_netsynth.sh**: bash script that solves topology zoo networks using the netsynth engine.
 - **solve_zoo.sh**: bash script that chains the old data removal and the zoo topology network building and solving pipeline. results are compiled in a CSV file.
+
+
 All .sh files come chmod'ed by default.
 
 
