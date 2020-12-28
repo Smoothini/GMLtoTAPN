@@ -11,7 +11,8 @@ Further information is provided in the README files present in each folder.
 
 ## Usage
 Due to the high amount of past data in this repository's history, if one wishes to clone the branch instead of downloading the mentioned zip file, it it highly recomended to use the clone command along with the depth tag such as: `git clone --depth 1 https://github.com/Smoothini/GMLtoTAPN.git`.
-Due to a github limitation. the `./makedirs.sh` command must be run once, in order to create the necesary folders. Aside form that, in order to reproduce the experiments from the paper, the only other requirement is to be on a linux-based operating system and to have the **networkx** library installed for python3. Afterwards, all the required files are present here and the experiments can be started by running either `./solve_zoo.sh`, either `./solve_synthethic.sh` from a terminal opened in the root of the folder. 
+
+Due to a github limitation, a one time operation must be executed. `./makedirs.sh` must be run once, in order to create some necesary folders. After that, in order to reproduce the experiments from the paper, the only other requirement is to be on a linux-based operating system and to have the **networkx** library installed for python3. Afterwards, all the required files are present here and the experiments can be started by running either `./solve_zoo.sh`, either `./solve_synthethic.sh` from a terminal opened in the root of the folder. 
 
 
 
