@@ -1,1 +1,0 @@
-control: AG ((!(deadlock) or P47 >= 1) and (P48 >= 1 or P47 = 0))

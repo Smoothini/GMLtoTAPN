@@ -1,1 +1,0 @@
-control: AG ((!(deadlock) or P35 >= 1) and (P36 >= 1 or P35 = 0))

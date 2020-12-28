@@ -1,5 +1,5 @@
 import os,csv
-
+## Legacy file
 def rows(ntype):
     content = "Net generation overhead,JSON,DTapn,DTapnQ,LTL,Init+Final\n"
     n = 0

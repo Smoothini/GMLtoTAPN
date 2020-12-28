@@ -1,1 +1,0 @@
-control: AG ((!(deadlock) or P20 >= 1) and (P21 >= 1 or P20 = 0))

@@ -1,1 +1,0 @@
-control: AG ((!(deadlock) or P14 >= 1) and (P15 >= 1 or P14 = 0))

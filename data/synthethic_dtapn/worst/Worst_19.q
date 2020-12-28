@@ -1,1 +1,0 @@
-control: AG ((!(deadlock) or P17 >= 1) and (P18 >= 1 or P17 = 0))

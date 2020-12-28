@@ -1,1 +1,0 @@
-control: AG ((!(deadlock) or P44 >= 1) and (P45 >= 1 or P44 = 0))

@@ -1,1 +1,0 @@
-control: AG ((!(deadlock) or P2 >= 1) and (P3 >= 1 or P2 = 0))

@@ -1,1 +1,0 @@
-control: AG ((!(deadlock) or P38 >= 1) and (P39 >= 1 or P38 = 0))
