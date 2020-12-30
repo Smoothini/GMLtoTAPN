@@ -52,7 +52,7 @@ def jsonbuilder(network):
     g = nx.read_gml(filepath, label='id')
     g = nx.DiGraph(g)
 
-    routings = findRoutings(g)
+    routings = findRoutingsV2(g)
     #findRoutingsV2(g)
 
     if routings:
@@ -85,26 +85,20 @@ def findRoutings(g):
         
 
     if length:
-        print(routings[:2])
+        #print(routings[:2])
         return routings[:2]
     else:
         return False
 
 # In progress...
-def diff_factor(in0,in1):
-    n = 0
-    return n
 def findRoutingsV2(g):
     nodes_raw = list(g.nodes())
-    length = 0
-
-    maxdiff = 0
     candidate = {}
     for source in nodes_raw:
         for target in nodes_raw:
             if source != target and nx.has_path(g,source,target):
                 allpaths = list(nx.all_simple_paths(g,source,target))
-                if len(allpaths) > 1:
+                if len(allpaths) == 2:
                     candidate[source,target] = allpaths
     
     candidates = list(candidate.values())
@@ -113,12 +107,12 @@ def findRoutingsV2(g):
     for c in candidates:
         wps = []
         for i in c:
-            wps.append(set(i[1::-1]))
-        if len(set.intersection(*wps)) > 1:
+            wps.append(set(i[1:-1]))
+        if len(set.intersection(*wps)) < 2:
             good_candidates.append(c)
-    print("Candidates: ", candidates)
-    print("Good candidates: ", good_candidates)    
-
+    #print("Candidates: ", candidates)
+    #print("Good candidates: ", good_candidates[0])    
+    return good_candidates[0]
 
 
 def generateJSONFile(info, name):
@@ -146,7 +140,7 @@ def generateJSONInfo(g, routings: list):
     s1 = set(init_path[1:-1])
     s2 = set(final_path[1:-1])
     wps = list(s1.intersection(s2))
-    print(f"Common waypoints: {wps}")
+    #print(f"Common waypoints: {wps}")
     init_route = []
     final_route = []
     for node in range(len(init_path) - 1):

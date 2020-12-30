@@ -20,7 +20,7 @@ def write_to_file(network, scale=1):
     jsonParser.scale_data(scale)
     nodes, transitions = BNC.initialize_network(jsonParser)
     DB.build_composed_model_zoo(network, nodes, transitions, jsonParser.data)    
-
+    print(jsonParser.full_route)
     #f.write(BNC.full_network(g, network))
 
     ### Routings and switches

@@ -26,7 +26,9 @@ def write_all_to_file(scale):
     print(f"Succesfully written {cnt} files.")
 
 
-write_all_to_file(1)
+write_all_to_file(10)
+#write_zoo("HiberniaNireland")
+
 
 ######- I N F O -######
 ## This will build all the json files
